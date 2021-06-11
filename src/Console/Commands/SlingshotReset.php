@@ -45,7 +45,6 @@ class SlingshotReset extends Command
 
         $areYouSure = $this->confirm('are you sure', 'yes'); //remove yes when done
         if ($areYouSure) {
-
             deleteDirectory(base_path() . '/laradock');
             deleteDirectory(base_path() . '/data');
         }
