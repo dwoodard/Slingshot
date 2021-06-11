@@ -140,6 +140,14 @@ class slingshot extends Command
 
                 break;
 
+            case 'Auth':
+                if ($this->confirm("Laravel UI vue Auth \n\t- Install (php artisan  ui vue --auth)?", 'yes')) {
+                    shell_exec('php artisan  ui vue --auth');
+                    $this->info("------------------------------------------------------------------------\n\n");
+                } else {
+                    $this->warn('Skipping' . PHP_EOL);
+                }
+                break;
 
             default:
                 $this->info("Installing $slingshot");
