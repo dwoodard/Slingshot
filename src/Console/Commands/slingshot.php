@@ -49,7 +49,6 @@ class slingshot extends Command
 
         $slingshot = $this->choice('SLINGSHOT', ['all', ...$installs], 'all');
 
-
         if ($slingshot) {
             if ($slingshot == 'all') {
                 foreach ($installs as $install) {
@@ -60,6 +59,8 @@ class slingshot extends Command
             }
         }
 
+        chdir(base_path());
+        shell_exec('composer dump-autoload');
         return 0;
     }
 
@@ -77,6 +78,8 @@ class slingshot extends Command
                 $this->info("Installing $slingshot");
                 break;
         }
+
+
 
     }
 

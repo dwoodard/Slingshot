@@ -26,5 +26,12 @@ if (!function_exists('deleteDirectory')) {
     }
 }
 
+if (!function_exists('command_exist')) {
+    function command_exist($cmd) {
+        $return = shell_exec(sprintf("which %s", escapeshellarg($cmd)));
+        return !empty($return);
+    }
+}
+
 
 
