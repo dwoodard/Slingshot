@@ -3,6 +3,7 @@
 namespace Dwoodard\Slingshot;
 
 use Illuminate\Support\ServiceProvider;
+require_once __DIR__.'/helpers.php';
 
 class SlingshotServiceProvider extends ServiceProvider
 {
@@ -80,6 +81,7 @@ class SlingshotServiceProvider extends ServiceProvider
         $this->commands([
 
             \Dwoodard\Slingshot\Console\Commands\slingshot::class,
+            \Dwoodard\Slingshot\Console\Commands\slingshotReset::class,
             \Dwoodard\Slingshot\Console\Commands\slingshotProduction::class,
 
 
