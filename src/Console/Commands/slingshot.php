@@ -70,6 +70,7 @@ class slingshot extends Command
 
         chdir(base_path());
         shell_exec("composer dump-autoload");
+        shell_exec("npm run dev");
         return 0;
     }
 
@@ -142,7 +143,8 @@ class slingshot extends Command
 
             case 'Auth':
                 if ($this->confirm("Laravel UI vue Auth \n\t- Install (php artisan  ui vue --auth)?", 'yes')) {
-                    shell_exec('php artisan  ui vue --auth');
+                    $output = shell_exec('php artisan ui vue --auth -n');
+                    $this->info($output );
                     $this->info("------------------------------------------------------------------------\n\n");
                 } else {
                     $this->warn('Skipping' . PHP_EOL);
@@ -150,7 +152,7 @@ class slingshot extends Command
                 break;
 
             default:
-                $this->info("Installing $slingshot");
+                $this->info("Skipping (no case found) for $slingshot");
                 break;
         }
 
