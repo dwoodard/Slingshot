@@ -3,6 +3,7 @@
 namespace Dwoodard\Slingshot\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class slingshot extends Command
 {
@@ -37,6 +38,14 @@ class slingshot extends Command
      */
     public function handle()
     {
+        //check dependencies
+        if ($this->output->isVerbose()) {
+            $this->info('PHP Version: ' . PHP_VERSION);
+            $this->info('Composer: ' . shell_exec('composer -V'));
+            $this->info('npm: ' . shell_exec("npm -v || echo 'run: npm install'"));
+            $this->info('node: ' . shell_exec("node -v || echo 'run: node install'"));
+        }
+
         $installs = [
             'laradock',
             'composer packages',
@@ -60,7 +69,7 @@ class slingshot extends Command
         }
 
         chdir(base_path());
-        shell_exec('composer dump-autoload');
+        shell_exec("composer dump-autoload");
         return 0;
     }
 
@@ -74,11 +83,68 @@ class slingshot extends Command
             case 'laradock':
                 $this->LaradockInstall();
                 break;
+
+            case 'composer packages':
+                $this->info("Composer Packages:");
+
+                if ($this->confirm("https://github.com/Wulfheart/pretty-routes \n\t- Install Pretty Routes?", 'yes')) {
+                    shell_exec('composer -q require --dev wulfheart/pretty_routes');
+                    $this->info("------------------------------------------------------------------------\n\n");
+                } else {
+                    $this->warn('Skipping' . PHP_EOL);
+                }
+
+
+                if ($this->confirm("https://github.com/spatie/laravel-schemaless-attributes \n\t- Install Laravel Schemaless Attributes?", 'yes')) {
+                    shell_exec('composer -q require spatie/laravel-schemaless-attributes');
+                    $this->info("------------------------------------------------------------------------\n\n");
+                } else {
+                    $this->warn('Skipping' . PHP_EOL);
+                }
+
+
+                if ($this->confirm("https://spatie.be/docs/laravel-permission/v4/installation-laravel \n\t- Spatie Laravel Permission?", 'yes')) {
+                    shell_exec('composer -q require spatie/laravel-permission');
+                    $this->info("------------------------------------------------------------------------\n\n");
+                } else {
+                    $this->warn('Skipping' . PHP_EOL);
+                }
+
+
+                if ($this->confirm("https://github.com/VentureCraft/revisionable \n\t- Install Revisionable?", 'yes')) {
+                    shell_exec('composer -q require venturecraft/revisionable');
+                    $this->info("------------------------------------------------------------------------\n\n");
+                } else {
+                    $this->warn('Skipping' . PHP_EOL);
+                }
+
+                if ($this->confirm("https://github.com/silviolleite/laravel-pwa \n\t- Install Laravel Pwa?", 'yes')) {
+                    shell_exec('composer -q require silviolleite/laravelpwa --prefer-dist');
+                    $output = shell_exec('php artisan vendor:publish --provider="LaravelPWA\Providers\LaravelPWAServiceProvider"');
+                    $this->info($output);
+
+
+                    $this->info("------------------------------------------------------------------------\n\n");
+                } else {
+                    $this->warn('Skipping' . PHP_EOL);
+                }
+
+
+                if ($this->confirm("https://inertiajs.com/ \n\t- Install Inertia Js?", 'yes')) {
+                    shell_exec('composer -q require inertiajs/inertia-laravel');
+                    $this->info("------------------------------------------------------------------------\n\n");
+                } else {
+                    $this->warn('Skipping' . PHP_EOL);
+                }
+
+
+                break;
+
+
             default:
                 $this->info("Installing $slingshot");
                 break;
         }
-
 
 
     }

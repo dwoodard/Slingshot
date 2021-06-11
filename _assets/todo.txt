@@ -11,12 +11,12 @@ there could be overlap
 
 - libraries used
     Composer.json:
+        - composer require wulfheart/pretty_routes
         - composer require spatie/laravel-schemaless-attributes (https://github.com/spatie/laravel-schemaless-attributes)
         - composer require spatie/laravel-permission (https://spatie.be/docs/laravel-permission/v4/installation-laravel)
         - composer require venturecraft/revisionable (https://github.com/VentureCraft/revisionable)
         - composer require silviolleite/laravelpwa --prefer-dist (https://github.com/silviolleite/laravel-pwa)
         - composer require inertiajs/inertia-laravel
-        - composer require wulfheart/pretty_routes
 
 
     Package.json
