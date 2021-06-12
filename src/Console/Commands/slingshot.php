@@ -86,81 +86,22 @@ class slingshot extends Command
                 break;
 
             case 'composer packages':
-                $this->info("Composer Packages:");
-
-                if ($this->confirm("https://github.com/Wulfheart/pretty-routes \n\t- Install Pretty Routes?", 'yes')) {
-                    shell_exec('composer -q require --dev wulfheart/pretty_routes');
-                    $this->info("------------------------------------------------------------------------\n\n");
-                } else {
-                    $this->warn('Skipping' . PHP_EOL);
-                }
-
-
-                if ($this->confirm("https://github.com/spatie/laravel-schemaless-attributes \n\t- Install Laravel Schemaless Attributes?", 'yes')) {
-                    shell_exec('composer -q require spatie/laravel-schemaless-attributes');
-                    $this->info("------------------------------------------------------------------------\n\n");
-                } else {
-                    $this->warn('Skipping' . PHP_EOL);
-                }
-
-
-                if ($this->confirm("https://spatie.be/docs/laravel-permission/v4/installation-laravel \n\t- Spatie Laravel Permission?", 'yes')) {
-                    shell_exec('composer -q require spatie/laravel-permission');
-                    $this->info("------------------------------------------------------------------------\n\n");
-                } else {
-                    $this->warn('Skipping' . PHP_EOL);
-                }
-
-
-                if ($this->confirm("https://github.com/VentureCraft/revisionable \n\t- Install Revisionable?", 'yes')) {
-                    shell_exec('composer -q require venturecraft/revisionable');
-                    $output = shell_exec('php artisan vendor:publish --provider="Venturecraft\Revisionable\RevisionableServiceProvider"');
-                    $this->info($output);
-                    $this->info("------------------------------------------------------------------------\n\n");
-                } else {
-                    $this->warn('Skipping' . PHP_EOL);
-                }
-
-                if ($this->confirm("https://github.com/silviolleite/laravel-pwa \n\t- Install Laravel Pwa?", 'yes')) {
-                    shell_exec('composer -q require silviolleite/laravelpwa --prefer-dist');
-                    $output = shell_exec('php artisan vendor:publish --provider="LaravelPWA\Providers\LaravelPWAServiceProvider"');
-                    $this->info($output);
-
-
-                    $this->info("------------------------------------------------------------------------\n\n");
-                } else {
-                    $this->warn('Skipping' . PHP_EOL);
-                }
-
-
-                if ($this->confirm("https://inertiajs.com/ \n\t- Install Inertia Js?", 'yes')) {
-                    shell_exec('composer -q require inertiajs/inertia-laravel');
-                    $this->info('create app.blade.php stub @inertia');
-                    $this->info("------------------------------------------------------------------------\n\n");
-                } else {
-                    $this->warn('Skipping' . PHP_EOL);
-                }
-
-
+                $this->ComposerPackagesInstall();
                 break;
 
             case 'Auth':
-                if ($this->confirm("Laravel UI vue Auth \n\t- Install (php artisan  ui vue --auth)?", 'yes')) {
-                    chdir(base_path());
-                    $output = shell_exec('php artisan ui vue --auth -n');
-                    $this->info($output );
-                    $this->info("------------------------------------------------------------------------\n\n");
-                } else {
-                    $this->warn('Skipping' . PHP_EOL);
-                }
+                $this->AuthInstall();
                 break;
 
             default:
                 $this->info("Skipping (no case found) for $slingshot");
                 break;
         }
+    }
 
-
+    private function dashDivider(): void
+    {
+        $this->info("-------------------------------------------------------------------------------------------\n\n");
     }
 
     private function LaradockInstall(): void
@@ -183,9 +124,7 @@ class slingshot extends Command
         $laradockEnv = file_get_contents(base_path() . '/laradock/.env');
         if (!str_contains($laradockEnv, 'DATA_PATH_HOST=../data')) {
             $laradockEnv = preg_replace("/DATA_PATH_HOST=.*/", "DATA_PATH_HOST=../data", $laradockEnv);
-            $php_version = $this->anticipate('What version of php (8.0 - 7.4 - 7.3)',
-                ['8.0', '7.4', '7.3'], '7.4'
-            );
+            $php_version = $this->anticipate('What version of php (8.0 - 7.4 - 7.3)', ['8.0', '7.4', '7.3'], '7.4');
             $laradockEnv = preg_replace("/PHP_VERSION=.*/", "PHP_VERSION=" . $php_version, $laradockEnv);
             file_put_contents(base_path() . '/laradock/.env', $laradockEnv);
             $this->info('   - laradock .env was updated');
@@ -237,4 +176,77 @@ class slingshot extends Command
             }
         }
     }
+
+    private function ComposerPackagesInstall(): void
+    {
+        $this->info("Composer Packages:");
+
+        if ($this->confirm("https://github.com/Wulfheart/pretty-routes \n\t- Install Pretty Routes?", 'yes')) {
+            shell_exec('composer -q require --dev wulfheart/pretty_routes');
+            $this->dashDivider();
+        } else {
+            $this->warn('Skipping' . PHP_EOL);
+        }
+
+
+        if ($this->confirm("https://github.com/spatie/laravel-schemaless-attributes \n\t- Install Laravel Schemaless Attributes?", 'yes')) {
+            shell_exec('composer -q require spatie/laravel-schemaless-attributes');
+            $this->dashDivider();
+        } else {
+            $this->warn('Skipping' . PHP_EOL);
+        }
+
+
+        if ($this->confirm("https://spatie.be/docs/laravel-permission/v4/installation-laravel \n\t- Spatie Laravel Permission?", 'yes')) {
+            shell_exec('composer -q require spatie/laravel-permission');
+            $this->dashDivider();
+        } else {
+            $this->warn('Skipping' . PHP_EOL);
+        }
+
+
+        if ($this->confirm("https://github.com/VentureCraft/revisionable \n\t- Install Revisionable?", 'yes')) {
+            shell_exec('composer -q require venturecraft/revisionable');
+            $output = shell_exec('php artisan vendor:publish --provider="Venturecraft\Revisionable\RevisionableServiceProvider"');
+            $this->info($output);
+            $this->dashDivider();
+        } else {
+            $this->warn('Skipping' . PHP_EOL);
+        }
+
+        if ($this->confirm("https://github.com/silviolleite/laravel-pwa \n\t- Install Laravel Pwa?", 'yes')) {
+            shell_exec('composer -q require silviolleite/laravelpwa --prefer-dist');
+            $output = shell_exec('php artisan vendor:publish --provider="LaravelPWA\Providers\LaravelPWAServiceProvider"');
+            $this->info($output);
+            $this->dashDivider();
+        } else {
+            $this->warn('Skipping' . PHP_EOL);
+        }
+
+
+        if ($this->confirm("https://inertiajs.com/ \n\t- Install Inertia Js?", 'yes')) {
+            chdir(base_path());
+            shell_exec('composer -q require inertiajs/inertia-laravel');
+
+
+            $this->info('create app.blade.php stub @inertia');
+            $this->dashDivider();
+        } else {
+            $this->warn('Skipping' . PHP_EOL);
+        }
+    }
+
+    private function AuthInstall(): void
+    {
+        if ($this->confirm("Laravel UI vue Auth \n\t- Install (php artisan  ui vue --auth)?", 'yes')) {
+            chdir(base_path());
+            $output = shell_exec('php artisan ui vue --auth -n');
+            $this->info($output);
+            $this->dashDivider();
+        } else {
+            $this->warn('Skipping' . PHP_EOL);
+        }
+    }
+
+
 }
