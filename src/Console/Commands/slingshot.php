@@ -114,6 +114,8 @@ class slingshot extends Command
 
                 if ($this->confirm("https://github.com/VentureCraft/revisionable \n\t- Install Revisionable?", 'yes')) {
                     shell_exec('composer -q require venturecraft/revisionable');
+                    $output = shell_exec('php artisan vendor:publish --provider="Venturecraft\Revisionable\RevisionableServiceProvider"');
+                    $this->info($output);
                     $this->info("------------------------------------------------------------------------\n\n");
                 } else {
                     $this->warn('Skipping' . PHP_EOL);
@@ -133,6 +135,7 @@ class slingshot extends Command
 
                 if ($this->confirm("https://inertiajs.com/ \n\t- Install Inertia Js?", 'yes')) {
                     shell_exec('composer -q require inertiajs/inertia-laravel');
+                    $this->info('create app.blade.php stub @inertia');
                     $this->info("------------------------------------------------------------------------\n\n");
                 } else {
                     $this->warn('Skipping' . PHP_EOL);
@@ -143,6 +146,7 @@ class slingshot extends Command
 
             case 'Auth':
                 if ($this->confirm("Laravel UI vue Auth \n\t- Install (php artisan  ui vue --auth)?", 'yes')) {
+                    chdir(base_path());
                     $output = shell_exec('php artisan ui vue --auth -n');
                     $this->info($output );
                     $this->info("------------------------------------------------------------------------\n\n");
