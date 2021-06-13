@@ -140,23 +140,41 @@ class slingshot extends Command
         $filename = base_path() . '/.env';
         $env = file_get_contents($filename);
         if (!str_contains($env, 'DB_HOST=mysql')) {
-            //Update envs
-            $env = preg_replace("/DB_DATABASE=.*/", "DB_DATABASE=default", $env);
             $env = preg_replace("/DB_HOST=.*/", "DB_HOST=mysql", $env);
-            $env = preg_replace("/REDIS_HOST=.*/", "REDIS_HOST=redis", $env);
-            $env = preg_replace("/DB_USERNAME=.*/", "DB_USERNAME=root", $env);
-            $env = preg_replace("/DB_PASSWORD=.*/", "DB_PASSWORD=root", $env);
-            file_put_contents(base_path() . '/.env', $env);
-            $this->info('   - laravel .env has been saved');
-
-            //Add envs
-            if (!str_contains($env, 'QUEUE_HOST=beanstalkd')) {
-                file_put_contents($filename, 'QUEUE_HOST=beanstalkd' . "\n", FILE_APPEND | LOCK_EX);
-            }
-
-        } else {
-            $this->info('   - laravel .env was already updated');
+            $this->info('   - DB_HOST has been saved');
         }
+
+        if(!str_contains($env, 'DB_DATABASE=default')){
+            $env = preg_replace("/DB_DATABASE=.*/", "DB_DATABASE=default", $env);
+            $this->info('   - DB_DATABASE has been saved');
+
+        }
+
+        if(!str_contains($env, 'REDIS_HOST=redis')){
+            $env = preg_replace("/REDIS_HOST=.*/", "REDIS_HOST=redis", $env);
+            $this->info('   - REDIS_HOST has been saved');
+
+        }
+
+        if(!str_contains($env, 'DB_USERNAME=root')){
+            $env = preg_replace("/DB_USERNAME=.*/", "DB_USERNAME=root", $env);
+            $this->info('   - DB_USERNAME has been saved');
+
+        }
+
+        if(!str_contains($env, 'DB_PASSWORD=root')){
+            $env = preg_replace("/DB_PASSWORD=.*/", "DB_PASSWORD=root", $env);
+            $this->info('   - DB_PASSWORD has been saved');
+
+        }
+
+        file_put_contents(base_path() . '/.env', $env);
+
+        //Add envs
+        if (!str_contains($env, 'QUEUE_HOST=beanstalkd')) {
+            file_put_contents($filename, 'QUEUE_HOST=beanstalkd' . "\n", FILE_APPEND | LOCK_EX);
+        }
+
 
         //Add data directory
         $filename = base_path() . '/data';
