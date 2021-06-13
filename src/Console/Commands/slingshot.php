@@ -71,6 +71,7 @@ class slingshot extends Command
         chdir(base_path());
         shell_exec("composer dump-autoload");
         chdir(base_path());
+        shell_exec("npm i");
         shell_exec("npm run dev");
         return 0;
     }
