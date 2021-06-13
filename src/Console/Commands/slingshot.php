@@ -3,7 +3,6 @@
 namespace Dwoodard\Slingshot\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
 class slingshot extends Command
 {
@@ -48,8 +47,7 @@ class slingshot extends Command
 
         $installs = [
             'laradock',
-            'composer packages',
-            'Package Json files',
+            'Packages composer.json & package.json',
             'deploy',
             'Auth',
             'linter',
@@ -86,8 +84,8 @@ class slingshot extends Command
                 $this->LaradockInstall();
                 break;
 
-            case 'composer packages':
-                $this->ComposerPackagesInstall();
+            case 'Packages composer.json & package.json':
+                $this->PackagesInstall();
                 break;
 
             case 'Auth':
@@ -119,7 +117,7 @@ class slingshot extends Command
             shell_exec("rm -rf laradock/.git");
             $this->info('   - removed laradock/.git');
             chdir(base_path() . '/laradock');
-            copy('.env.example', '.env',);
+            copy('.env.example', '.env');
         } else {
             $this->info('   - laradock was already cloned');
         }
@@ -182,9 +180,39 @@ class slingshot extends Command
         }
     }
 
-    private function ComposerPackagesInstall(): void
+    private function PackagesInstall(): void
     {
-        $this->info("Composer Packages:");
+        $this->info("composer.json & package.json:");
+
+
+        if ($this->confirm("https://inertiajs.com/ \n\t- Install Inertia Js?", 'yes')) {
+            chdir(base_path());
+            shell_exec('composer -q require inertiajs/inertia-laravel');
+            $this->info('installed composer.json inertiajs');
+            shell_exec('npm install @inertiajs/inertia @inertiajs/inertia-vue');
+            $this->info('installed package.json inertiajs-vue');
+
+
+
+            $filepath = resource_path('views') . '/app.blade.php';
+
+
+            if (!file_exists($filepath)) {
+                chdir(__DIR__);
+                copy('../../stubs/app.blade.php', $filepath);
+                chmod($filepath, 0777);
+                $this->info("- $filepath created");
+            } else {
+                $this->info('   - app.blade.php already exist');
+            }
+
+
+
+
+            $this->dashDivider();
+        } else {
+            $this->warn('Skipping' . PHP_EOL);
+        }
 
         if ($this->confirm("https://github.com/Wulfheart/pretty-routes \n\t- Install Pretty Routes?", 'yes')) {
             shell_exec('composer -q require --dev wulfheart/pretty_routes');
@@ -227,16 +255,6 @@ class slingshot extends Command
         } else {
             $this->warn('Skipping' . PHP_EOL);
         }
-
-
-        if ($this->confirm("https://inertiajs.com/ \n\t- Install Inertia Js?", 'yes')) {
-            chdir(base_path());
-            shell_exec('composer -q require inertiajs/inertia-laravel');
-            $this->info('create app.blade.php stub @inertia');
-            $this->dashDivider();
-        } else {
-            $this->warn('Skipping' . PHP_EOL);
-        }
     }
 
     private function AuthInstall(): void
@@ -254,13 +272,13 @@ class slingshot extends Command
     private function DeployInstall(): void
     {
         $this->info(__DIR__);
-        if (!file_exists(base_path() . '/deploy.sh')) {
+        $filepath = base_path() . '/deploy.sh';
+        if (!file_exists($filepath)) {
             chdir(__DIR__);
-            copy('../../stubs/deploy.sh',base_path().'/deploy.sh');
-            chmod(base_path().'/deploy.sh',0777);
+            copy('../../stubs/deploy.sh', $filepath);
+            chmod($filepath, 0777);
 
-        }
-        else {
+        } else {
             $this->info('   - deploy already exist');
         }
     }
