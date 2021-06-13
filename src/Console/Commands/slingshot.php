@@ -141,6 +141,7 @@ class slingshot extends Command
         $env = file_get_contents($filename);
         if (!str_contains($env, 'DB_HOST=mysql')) {
             //Update envs
+            $env = preg_replace("/DB_DATABASE=.*/", "DB_DATABASE=default", $env);
             $env = preg_replace("/DB_HOST=.*/", "DB_HOST=mysql", $env);
             $env = preg_replace("/REDIS_HOST=.*/", "REDIS_HOST=redis", $env);
             $env = preg_replace("/DB_USERNAME=.*/", "DB_USERNAME=root", $env);
