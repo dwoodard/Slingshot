@@ -268,13 +268,12 @@ class slingshot extends Command
 
     private function DeployInstall(): void
     {
-        $this->info(__DIR__);
         $filepath = base_path() . '/deploy.sh';
         if (!file_exists($filepath)) {
             chdir(__DIR__);
             copy('../../stubs/deploy.sh', $filepath);
             chmod($filepath, 0777);
-
+            $this->info("- $filepath created");
         } else {
             $this->info('   - deploy already exist');
         }
