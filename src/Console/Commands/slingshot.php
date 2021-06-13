@@ -232,6 +232,7 @@ class slingshot extends Command
         }
 
         if ($this->confirm("https://github.com/Wulfheart/pretty-routes \n\t- Install Pretty Routes?", 'yes')) {
+            chdir(base_path());
             shell_exec('composer require --dev wulfheart/pretty_routes');
             $this->dashDivider();
         } else {
