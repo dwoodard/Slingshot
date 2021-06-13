@@ -139,6 +139,7 @@ class slingshot extends Command
         //update .env for laravel
         $filename = base_path() . '/.env';
         $env = file_get_contents($filename);
+        $this->info("Checking Laravel .env:");
         if (!str_contains($env, 'DB_HOST=mysql')) {
             $env = preg_replace("/DB_HOST=.*/", "DB_HOST=mysql", $env);
             $this->info('   - DB_HOST has been saved');
