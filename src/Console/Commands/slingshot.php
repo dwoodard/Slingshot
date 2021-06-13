@@ -104,7 +104,7 @@ class slingshot extends Command
 
     private function dashDivider(): void
     {
-        $this->info("-------------------------------------------------------------------------------------------\n\n");
+        $this->info("\n-------------------------------------------------------------------------------------------\n\n");
     }
 
     private function LaradockInstall(): void
@@ -191,23 +191,20 @@ class slingshot extends Command
             $this->info('installed composer.json inertiajs');
             shell_exec('npm install @inertiajs/inertia @inertiajs/inertia-vue');
             $this->info('installed package.json inertiajs-vue');
+            shell_exec('php artisan inertia:middleware');
+            $this->info('installed inertia:middleware - app/Http/Middleware/HandleInertiaRequests.php ');
 
 
 
             $filepath = resource_path('views') . '/app.blade.php';
-
-
             if (!file_exists($filepath)) {
                 chdir(__DIR__);
                 copy('../../stubs/app.blade.php', $filepath);
                 chmod($filepath, 0777);
                 $this->info("- $filepath created");
             } else {
-                $this->info('   - app.blade.php already exist');
+                $this->info("   - already exist - $filepath");
             }
-
-
-
 
             $this->dashDivider();
         } else {
