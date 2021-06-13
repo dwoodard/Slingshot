@@ -92,6 +92,11 @@ else
       mailhog \
       phpmyadmin
     cd ..
+
+
+    echo 'Website: http://localhost'
+    echo 'Phpmyadmin: http://localhost:8081 root:root'
+    echo 'Redis: http://localhost:9987 laradock:laradock'
   fi
 
 fi
