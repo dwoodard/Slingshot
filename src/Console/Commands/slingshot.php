@@ -70,6 +70,7 @@ class slingshot extends Command
 
         chdir(base_path());
         shell_exec("composer dump-autoload");
+        chdir(base_path());
         shell_exec("npm run dev");
         return 0;
     }
@@ -91,6 +92,10 @@ class slingshot extends Command
 
             case 'Auth':
                 $this->AuthInstall();
+                break;
+
+            case 'deploy':
+                $this->DeployInstall();
                 break;
 
             default:
@@ -207,8 +212,8 @@ class slingshot extends Command
 
         if ($this->confirm("https://github.com/VentureCraft/revisionable \n\t- Install Revisionable?", 'yes')) {
             shell_exec('composer -q require venturecraft/revisionable');
-            $output = shell_exec('php artisan vendor:publish --provider="Venturecraft\Revisionable\RevisionableServiceProvider"');
-            $this->info($output);
+            chdir(base_path());
+            $this->info(shell_exec('php artisan vendor:publish --provider="Venturecraft\Revisionable\RevisionableServiceProvider"'));
             $this->dashDivider();
         } else {
             $this->warn('Skipping' . PHP_EOL);
@@ -216,8 +221,8 @@ class slingshot extends Command
 
         if ($this->confirm("https://github.com/silviolleite/laravel-pwa \n\t- Install Laravel Pwa?", 'yes')) {
             shell_exec('composer -q require silviolleite/laravelpwa --prefer-dist');
-            $output = shell_exec('php artisan vendor:publish --provider="LaravelPWA\Providers\LaravelPWAServiceProvider"');
-            $this->info($output);
+            chdir(base_path());
+            $this->info(shell_exec('php artisan vendor:publish --provider="LaravelPWA\Providers\LaravelPWAServiceProvider"'));
             $this->dashDivider();
         } else {
             $this->warn('Skipping' . PHP_EOL);
@@ -227,8 +232,6 @@ class slingshot extends Command
         if ($this->confirm("https://inertiajs.com/ \n\t- Install Inertia Js?", 'yes')) {
             chdir(base_path());
             shell_exec('composer -q require inertiajs/inertia-laravel');
-
-
             $this->info('create app.blade.php stub @inertia');
             $this->dashDivider();
         } else {
@@ -245,6 +248,20 @@ class slingshot extends Command
             $this->dashDivider();
         } else {
             $this->warn('Skipping' . PHP_EOL);
+        }
+    }
+
+    private function DeployInstall(): void
+    {
+        $this->info(__DIR__);
+        if (!file_exists(base_path() . '/deploy.sh')) {
+            chdir(__DIR__);
+            copy('../../stubs/deploy.sh',base_path().'/deploy.sh');
+            chmod(base_path().'/deploy.sh',0777);
+
+        }
+        else {
+            $this->info('   - deploy already exist');
         }
     }
 
