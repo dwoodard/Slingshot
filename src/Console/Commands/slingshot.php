@@ -188,7 +188,7 @@ class slingshot extends Command
 
         if ($this->confirm("https://inertiajs.com/ \n\t- Install Inertia Js?", 'yes')) {
             chdir(base_path());
-            shell_exec('composer -q require inertiajs/inertia-laravel');
+            shell_exec('composer require inertiajs/inertia-laravel');
             $this->info('installed composer.json inertiajs');
             shell_exec('npm install @inertiajs/inertia @inertiajs/inertia-vue');
             $this->info('installed package.json inertiajs-vue');
@@ -213,7 +213,7 @@ class slingshot extends Command
         }
 
         if ($this->confirm("https://github.com/Wulfheart/pretty-routes \n\t- Install Pretty Routes?", 'yes')) {
-            shell_exec('composer -q require --dev wulfheart/pretty_routes');
+            shell_exec('composer require --dev wulfheart/pretty_routes');
             $this->dashDivider();
         } else {
             $this->warn('Skipping' . PHP_EOL);
@@ -221,7 +221,7 @@ class slingshot extends Command
 
 
         if ($this->confirm("https://github.com/spatie/laravel-schemaless-attributes \n\t- Install Laravel Schemaless Attributes?", 'yes')) {
-            shell_exec('composer -q require spatie/laravel-schemaless-attributes');
+            shell_exec('composer require spatie/laravel-schemaless-attributes');
             $this->dashDivider();
         } else {
             $this->warn('Skipping' . PHP_EOL);
@@ -229,7 +229,7 @@ class slingshot extends Command
 
 
         if ($this->confirm("https://spatie.be/docs/laravel-permission/v4/installation-laravel \n\t- Spatie Laravel Permission?", 'yes')) {
-            shell_exec('composer -q require spatie/laravel-permission');
+            shell_exec('composer require spatie/laravel-permission');
             $this->dashDivider();
         } else {
             $this->warn('Skipping' . PHP_EOL);
@@ -237,7 +237,7 @@ class slingshot extends Command
 
 
         if ($this->confirm("https://github.com/VentureCraft/revisionable \n\t- Install Revisionable?", 'yes')) {
-            shell_exec('composer -q require venturecraft/revisionable');
+            shell_exec('composer require venturecraft/revisionable');
             chdir(base_path());
             $this->info(shell_exec('php artisan vendor:publish --provider="Venturecraft\Revisionable\RevisionableServiceProvider"'));
             $this->dashDivider();
@@ -246,7 +246,7 @@ class slingshot extends Command
         }
 
         if ($this->confirm("https://github.com/silviolleite/laravel-pwa \n\t- Install Laravel Pwa?", 'yes')) {
-            shell_exec('composer -q require silviolleite/laravelpwa --prefer-dist');
+            shell_exec('composer require silviolleite/laravelpwa --prefer-dist');
             chdir(base_path());
             $this->info(shell_exec('php artisan vendor:publish --provider="LaravelPWA\Providers\LaravelPWAServiceProvider"'));
             $this->dashDivider();
