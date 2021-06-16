@@ -36,31 +36,26 @@ if (!function_exists('command_exist')) {
 if (!function_exists('recurseCopy')) {
     function recurseCopy($src,$dst, $childFolder='') {
 
+        // open the source directory
         $dir = opendir($src);
-        mkdir($dst);
-        if ($childFolder!='') {
-            mkdir($dst.'/'.$childFolder);
 
-            while(false !== ( $file = readdir($dir)) ) {
-                if (( $file != '.' ) && ( $file != '..' )) {
-                    if ( is_dir($src . '/' . $file) ) {
-                        $this->recurseCopy($src . '/' . $file,$dst.'/'.$childFolder . '/' . $file);
-                    }
-                    else {
-                        copy($src . '/' . $file, $dst.'/'.$childFolder . '/' . $file);
-                    }
+        // Make the destination directory if not exist
+        @mkdir($dst);
+
+        // Loop through the files in source directory
+        foreach (scandir($src) as $file) {
+
+            if (( $file != '.' ) && ( $file != '..' )) {
+                if ( is_dir($src . '/' . $file) )
+                {
+
+                    // Recursively calling custom copy function
+                    // for sub directory
+                    recurseCopy($src . '/' . $file, $dst . '/' . $file);
+
                 }
-            }
-        }else{
-            // return $cc;
-            while(false !== ( $file = readdir($dir)) ) {
-                if (( $file != '.' ) && ( $file != '..' )) {
-                    if ( is_dir($src . '/' . $file) ) {
-                        $this->recurseCopy($src . '/' . $file,$dst . '/' . $file);
-                    }
-                    else {
-                        copy($src . '/' . $file, $dst . '/' . $file);
-                    }
+                else {
+                    copy($src . '/' . $file, $dst . '/' . $file);
                 }
             }
         }
