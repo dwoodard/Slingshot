@@ -215,6 +215,7 @@ class slingshot extends Command
             $this->info('installed inertia:middleware - app/Http/Middleware/HandleInertiaRequests.php ');
 
             $filepath = resource_path('views/layouts/app.blade.php');
+            dd($filepath);
             if (!file_exists($filepath)) {
                 copy('../../stubs/resources/views/layouts/app.blade.php', $filepath);
                 chmod($filepath, 0777);
