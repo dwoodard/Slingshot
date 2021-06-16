@@ -215,6 +215,8 @@ class slingshot extends Command
             shell_exec('php artisan inertia:middleware');
             $this->info('installed inertia:middleware - app/Http/Middleware/HandleInertiaRequests.php ');
 
+
+            //Update Kernel
             $filename = base_path() . '/app/Http/Kernel.php';
             $kernel = file_get_contents($filename);
             $this->info("- Checking Kernel .env:");
@@ -228,6 +230,20 @@ class slingshot extends Command
                 $this->info('   - updated Kernel.php');
             }
             file_put_contents($filename, $kernel);
+
+            //Update webpack.mix.js
+            $filename = base_path() . '/webpack.mix.js';
+            $webpack = file_get_contents($filename);
+            $this->info("- Checking Kernel .env:");
+            if (!str_contains($webpack, 'HandleInertiaRequests')) {
+                $webpack = preg_replace(
+                    "/.js('resources/js/app.js', 'public/js')/",
+                    ".js('resources/js/app.js', 'public/js')\n\t\t.vue()\n",
+                    $webpack);
+
+                $this->info('   - updated webpack.mix.js');
+            }
+            file_put_contents($filename, $webpack);
 
 
 
