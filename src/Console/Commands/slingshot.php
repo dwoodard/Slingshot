@@ -209,10 +209,29 @@ class slingshot extends Command
             chdir(base_path());
             shell_exec('composer require inertiajs/inertia-laravel');
             $this->info('installed composer.json inertiajs');
-            shell_exec('npm install @inertiajs/inertia @inertiajs/inertia-vue');
-            $this->info('installed package.json inertiajs-vue');
+            shell_exec('npm install @inertiajs/inertia @inertiajs/inertia-vue @inertiajs/progress');
+            shell_exec('npm install -D vue-loader vue-template-compiler');
+            $this->info('installed package.json inertia inertia-vue progress');
             shell_exec('php artisan inertia:middleware');
             $this->info('installed inertia:middleware - app/Http/Middleware/HandleInertiaRequests.php ');
+
+            $filename = base_path() . '/app/Http/Kernel.php';
+            $kernel = file_get_contents($filename);
+            $this->info("- Checking Kernel .env:");
+            if (!str_contains($kernel, 'HandleInertiaRequests')) {
+                $kernel = preg_replace(
+                    '/SubstituteBindings::class,/',
+                    "SubstituteBindings::class,\n\t\t\tApp\\Http\\Middleware\\HandleInertiaRequests::class",
+                    $kernel,
+                    1);
+
+                $this->info('   - updated Kernel.php');
+            }
+            file_put_contents($filename, $kernel);
+
+
+
+
 
             recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/resources'), resource_path());
             $this->info("- resource directory copied from slingshot package to project");
