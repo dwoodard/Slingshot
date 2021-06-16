@@ -216,7 +216,6 @@ class slingshot extends Command
 
             $filepath = resource_path('views/layouts/app.blade.php');
             if (!file_exists($filepath)) {
-                chdir(__DIR__);
                 copy('../../stubs/resources/views/layouts/app.blade.php', $filepath);
                 chmod($filepath, 0777);
                 $this->info("- $filepath created");
