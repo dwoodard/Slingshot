@@ -33,8 +33,8 @@ if (!function_exists('command_exist')) {
     }
 }
 
-if (!function_exists('recurseCopy')) {
-    function recurseCopy($src,$dst, $childFolder='') {
+if (!function_exists('recursiveCopy')) {
+    function recursiveCopy($src,$dst, $childFolder='') {
 
         // open the source directory
         $dir = opendir($src);
@@ -51,7 +51,7 @@ if (!function_exists('recurseCopy')) {
 
                     // Recursively calling custom copy function
                     // for sub directory
-                    recurseCopy($src . '/' . $file, $dst . '/' . $file);
+                    recursiveCopy($src . '/' . $file, $dst . '/' . $file);
 
                 }
                 else {

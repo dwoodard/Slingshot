@@ -214,13 +214,8 @@ class slingshot extends Command
             shell_exec('php artisan inertia:middleware');
             $this->info('installed inertia:middleware - app/Http/Middleware/HandleInertiaRequests.php ');
 
-            $filepath = resource_path('views/layouts/app.blade.php');
-            if (!file_exists($filepath)) {
-                recurseCopy(base_path('vendor/dwoodard/slingshot/src/stubs/resources/views'), resource_path('views'));
-                $this->info("- $filepath created");
-            } else {
-                $this->info("   - already exist - $filepath");
-            }
+            recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/resources'), resource_path());
+            $this->info("- resource directory copied from slingshot package to project");
 
             $this->dashDivider();
         } else {
