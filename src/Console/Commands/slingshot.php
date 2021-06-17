@@ -131,7 +131,7 @@ class slingshot extends Command
         $laradockEnv = file_get_contents(base_path() . '/laradock/.env');
         if (!str_contains($laradockEnv, 'DATA_PATH_HOST=../data')) {
             $laradockEnv = preg_replace("/DATA_PATH_HOST=.*/", "DATA_PATH_HOST=../data", $laradockEnv);
-            $php_version = $this->anticipate('What version of php (8.0 - 7.4 - 7.3)', ['8.0', '7.4', '7.3'], '7.4');
+            $php_version = '7.4'; # $this->anticipate('What version of php (8.0 - 7.4 - 7.3)', ['8.0', '7.4', '7.3'], '7.4');
             $laradockEnv = preg_replace("/PHP_VERSION=.*/", "PHP_VERSION=" . $php_version, $laradockEnv);
             file_put_contents(base_path() . '/laradock/.env', $laradockEnv);
             $this->info('   - laradock .env was updated');
