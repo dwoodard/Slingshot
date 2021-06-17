@@ -6,8 +6,6 @@ import PortalVue from 'portal-vue';
 import VueMeta from 'vue-meta';
 import vuetify from '@/plugins/vuetify'
 import Layout from '@/layouts/Layout';
-import { ZiggyVue } from 'ziggy';
-import { Ziggy } from './ziggy';
 
 
 require('./bootstrap');

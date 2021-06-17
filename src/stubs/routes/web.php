@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return inertia('Dashboard');
-});
+})->name('dashboard');
 
 //Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //    return Inertia::render('Dashboard');
