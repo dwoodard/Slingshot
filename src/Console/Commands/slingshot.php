@@ -214,7 +214,8 @@ class slingshot extends Command
             chdir(base_path());
             shell_exec('composer require inertiajs/inertia-laravel');
             $this->info('installed composer.json inertiajs');
-            shell_exec('npm install vue inertiajs/inertia @inertiajs/inertia-vue @inertiajs/progress');
+            shell_exec('npm install vue');
+            shell_exec('npm install inertiajs/inertia @inertiajs/inertia-vue @inertiajs/progress');
             shell_exec('npm install -D vue-loader vue-template-compiler');
             $this->info('installed package.json inertia inertia-vue progress');
             shell_exec('php artisan inertia:middleware');
