@@ -6,13 +6,15 @@ import PortalVue from 'portal-vue';
 import VueMeta from 'vue-meta';
 import vuetify from '@/plugins/vuetify'
 import Layout from '@/layouts/Layout';
+import { ZiggyVue } from 'ziggy';
+import { Ziggy } from './ziggy';
 
 
 require('./bootstrap');
 require('@/plugins/filters');
 
-Vue.mixin({methods: {route}});
 
+Vue.use(ZiggyVue, Ziggy);
 Vue.use(InertiaPlugin);
 Vue.use(PortalVue);
 Vue.use(VueMeta);

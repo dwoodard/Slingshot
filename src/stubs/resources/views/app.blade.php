@@ -8,7 +8,6 @@
   @laravelPWA
 </head>
 <body>
-@routes
 @inertia
 </body>
 </html>
