@@ -12,6 +12,9 @@ import Layout from '@/layouts/Layout';
 require('./bootstrap');
 require('@/plugins/filters');
 
+Vue.mixin({methods: {route}});
+
+Vue.use(InertiaPlugin);
 Vue.use(PortalVue);
 Vue.use(VueMeta);
 Vue.directive('mask', VueMaskDirective);
