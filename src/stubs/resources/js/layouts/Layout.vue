@@ -145,7 +145,7 @@ export default {
 
   methods: {
     logout() {
-      this.$inertia.post(this.route('logout'));
+      this.$inertia.post('logout');
     }
   },
   components: {}
