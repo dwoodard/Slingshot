@@ -237,9 +237,7 @@ class slingshot extends Command
 
         $this->dashDivider();
 
-        $this->info('php artisan inertia:middleware');
-
-        shell_exec('npm i');
+        shell_exec('npm i && npm run dev');
     }
 
     private function AuthInstall(): void
