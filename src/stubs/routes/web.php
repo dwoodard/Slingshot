@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 //Auth::routes();
 Route::get('/', function () {
-    return inertia('Welcome',[
+    return inertia('Welcome/index',[
         'laravelVersion' => \Illuminate\Foundation\Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
