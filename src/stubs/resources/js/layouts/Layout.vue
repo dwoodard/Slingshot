@@ -106,7 +106,8 @@
         </v-list>
       </v-menu>
 
-      <ProfileMenu/>
+<!--      <ProfileMenu/>-->
+      <span>ProfileMenu</span>
 
       <v-app-bar-nav-icon @click="sidebarDrawer = !sidebarDrawer"/>
     </v-app-bar>
@@ -135,6 +136,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -144,8 +146,9 @@ export default {
   },
 
   methods: {
+    route,
     logout() {
-      this.$inertia.post('logout');
+      this.$inertia.post(this.route('logout'));
     }
   },
   components: {}

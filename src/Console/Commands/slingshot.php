@@ -3,6 +3,8 @@
 namespace Dwoodard\Slingshot\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
+use Symfony\Component\Console\Output\NullOutput;
 
 class slingshot extends Command
 {
@@ -18,7 +20,7 @@ class slingshot extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Install the Slingshot components and resources';
 
     /**
      * Create a new command instance.
@@ -77,9 +79,9 @@ class slingshot extends Command
     {
         $this->line(' ');
         switch ($slingshot) {
-            case 'Setup':
+            case 'Setup Inertia':
                 $this->LaradockInstall();
-                $this->PackagesInstall();
+                $this->installInertiaStack();
                 break;
 
 
@@ -100,7 +102,7 @@ class slingshot extends Command
 
     private function dashDivider(): void
     {
-        $this->info("\n-------------------------------------------------------------------------------------------\n\n");
+        $this->info("-------------------------------------------------------------------------------------------\n");
     }
 
     private function LaradockInstall(): void
@@ -196,9 +198,9 @@ class slingshot extends Command
         }
     }
 
-    private function PackagesInstall(): void
+    private function installInertiaStack(): void
     {
-        $this->info("composer.json & package.json:");
+        $this->info("installInertiaStack:");
         chdir(base_path());
 
         recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/app'), app_path());
@@ -240,7 +242,13 @@ class slingshot extends Command
 
         $this->dashDivider();
 
+        shell_exec('php artisan ziggy:generate');
         shell_exec('npm i && npm run dev');
+    }
+
+    private function PackagesInstall(): void
+    {
+        $this->info("composer.json & package.json:");
     }
 
     private function AuthInstall(): void
@@ -258,6 +266,36 @@ class slingshot extends Command
 
 
 
+    /**
+     * Replace a given string within a given file.
+     *
+     * @param  string  $search
+     * @param  string  $replace
+     * @param  string  $path
+     * @return void
+     */
+    protected function replaceInFile($search, $replace, $path)
+    {
+        file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
+    }
 
 
+
+    /**
+     * Install the service provider in the application configuration file.
+     *
+     * @param  string  $after
+     * @param  string  $name
+     * @return void
+     */
+    protected function installServiceProviderAfter($after, $name)
+    {
+        if (! Str::contains($appConfig = file_get_contents(config_path('app.php')), 'App\\Providers\\'.$name.'::class')) {
+            file_put_contents(config_path('app.php'), str_replace(
+                'App\\Providers\\'.$after.'::class,',
+                'App\\Providers\\'.$after.'::class,'.PHP_EOL.'        App\\Providers\\'.$name.'::class,',
+                $appConfig
+            ));
+        }
+    }
 }
