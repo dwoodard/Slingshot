@@ -12,7 +12,6 @@ require('./bootstrap');
 require('@/plugins/filters');
 
 
-Vue.use(ZiggyVue, Ziggy);
 Vue.use(InertiaPlugin);
 Vue.use(PortalVue);
 Vue.use(VueMeta);
