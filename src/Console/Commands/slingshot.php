@@ -234,11 +234,11 @@ class slingshot extends Command
 
 
 
-        $this->info('npm install inertiajs/inertia @inertiajs/inertia-vue @inertiajs/progress');
+        $this->info('npm install @inertiajs/inertia @inertiajs/inertia-vue @inertiajs/progress');
         $this->info('npm install -D vue-loader vue-template-compiler');
         $this->info('php artisan inertia:middleware');
 
-//        shell_exec('npm install inertiajs/inertia @inertiajs/inertia-vue @inertiajs/progress');
+//        shell_exec('npm install @inertiajs/inertia @inertiajs/inertia-vue @inertiajs/progress');
 //        shell_exec('npm install -D vue-loader vue-template-compiler');
 //        shell_exec('php artisan inertia:middleware');
 
