@@ -219,7 +219,7 @@ class slingshot extends Command
             //Update Kernel
             $filename = base_path() . '/app/Http/Kernel.php';
             $kernel = file_get_contents($filename);
-            $this->info("- Checking Kernel .env:");
+            $this->info("- Checking Kernel:");
             if (!str_contains($kernel, 'HandleInertiaRequests')) {
                 $kernel = preg_replace(
                     '/SubstituteBindings::class,/',
@@ -234,11 +234,11 @@ class slingshot extends Command
             //Update webpack.mix.js
             $filename = base_path() . '/webpack.mix.js';
             $webpack = file_get_contents($filename);
-            $this->info("- Checking Kernel .env:");
-            if (!str_contains($webpack, 'HandleInertiaRequests')) {
+            $this->info("- Checking webpack.mix.js");
+            if (!str_contains($webpack, '.vue()')) {
                 $webpack = preg_replace(
-                    "/.js('resources/js/app.js', 'public/js')/",
-                    ".js('resources/js/app.js', 'public/js')\n\t\t.vue()\n",
+                    "~mix.js\('resources/js/app.js', 'public/js'\)~",
+                    "mix.browserSync('https://localhost');\n\nmix.js('resources/js/app.js', 'public/js')\n\t\t.vue()\n\t\t",
                     $webpack);
 
                 $this->info('   - updated webpack.mix.js');
