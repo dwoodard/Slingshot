@@ -223,7 +223,7 @@ class slingshot extends Command
             if (!str_contains($kernel, 'HandleInertiaRequests')) {
                 $kernel = preg_replace(
                     '/SubstituteBindings::class,/',
-                    "SubstituteBindings::class,\n\t\t\tApp\\Http\\Middleware\\HandleInertiaRequests::class",
+                    "SubstituteBindings::class,\n\t\t\t\\App\\Http\\Middleware\\HandleInertiaRequests::class",
                     $kernel,
                     1);
 
