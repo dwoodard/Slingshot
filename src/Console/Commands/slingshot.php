@@ -215,7 +215,8 @@ class slingshot extends Command
 
         $this->dashDivider();
 
-        $this->info('https://github.com/spatie/laravel-schemaless-attributes');
+        $this->info('https://github.com/spatie/laravel-schemaless-attributes#installation');
+        $this->info('   - $table->schemalessAttributes(\'extra_attributes\');');
 
         $this->dashDivider();
 
@@ -224,7 +225,6 @@ class slingshot extends Command
         $this->dashDivider();
 
         $this->info('https://github.com/VentureCraft/revisionable');
-        $this->info(shell_exec('php artisan vendor:publish --provider="Venturecraft\Revisionable\RevisionableServiceProvider"'));
 
         $this->dashDivider();
 
