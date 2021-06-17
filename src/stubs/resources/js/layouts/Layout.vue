@@ -35,8 +35,11 @@
     </v-navigation-drawer>
 
     <v-app-bar app max-height="72px">
-      <inertia-link :href="route('dashboard')">
+      <inertia-link :href="route('welcome')">
         PROJECT
+      </inertia-link>
+      <inertia-link :href="route('dashboard')">
+        dashboard
       </inertia-link>
 
 
