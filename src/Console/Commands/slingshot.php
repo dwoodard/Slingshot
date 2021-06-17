@@ -48,7 +48,7 @@ class slingshot extends Command
         }
 
         $installs = [
-            'Setup',
+            'Setup Inertia Stack',
 //            'laradock',
 //            'Packages composer.json & package.json',
 //            'deploy',
@@ -79,7 +79,7 @@ class slingshot extends Command
     {
         $this->line(' ');
         switch ($slingshot) {
-            case 'Setup Inertia':
+            case 'Setup Inertia Stack':
                 $this->LaradockInstall();
                 $this->installInertiaStack();
                 break;
