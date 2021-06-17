@@ -49,6 +49,7 @@ class slingshot extends Command
             'laradock',
             'Packages composer.json & package.json',
             'deploy',
+            'Webpack Config',
             'Auth',
             'linter',
             'helpers',
@@ -94,6 +95,10 @@ class slingshot extends Command
 
             case 'deploy':
                 $this->DeployInstall();
+                break;
+
+            case 'Webpack Config':
+                $this->WebpackConfigInstall();
                 break;
 
             default:
@@ -323,6 +328,19 @@ class slingshot extends Command
             $this->info("- $filepath created");
         } else {
             $this->info('   - deploy already exist');
+        }
+    }
+
+    private function WebpackConfigInstall(): void
+    {
+        $filepath = base_path() . '/webpack.config.js';
+        if (!file_exists($filepath)) {
+            chdir(__DIR__);
+            copy('../../stubs/webpack.config.js', $filepath);
+            chmod($filepath, 0777);
+            $this->info("- $filepath created");
+        } else {
+            $this->info('   - webpack.config.js already exist');
         }
     }
 
