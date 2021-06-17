@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 //Auth::routes();
 Route::get('/', function () {
-    return inertia('Welcome/index',[
+    return inertia('Welcome',[
         'laravelVersion' => \Illuminate\Foundation\Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return inertia('Dashboard');

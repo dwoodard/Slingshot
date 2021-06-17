@@ -7,8 +7,6 @@
 
       <div v-if="$page.props.user" class="d-block">
         <div class="flex items-center">
-          <v-list-item v-if="userHasRoles(['admin', 'organizer'])" text href="/admin">Admin</v-list-item>
-
           <v-list-item text :href="route('dashboard')" :active="route().current('dashboard')">
             <v-icon class="mr-3">mdi-view-dashboard</v-icon> Dashboard
           </v-list-item>
@@ -35,7 +33,7 @@
     </v-navigation-drawer>
 
     <v-app-bar app max-height="72px">
-      <inertia-link :href="route('welcome')">
+      <inertia-link :href="route('home')">
         PROJECT
       </inertia-link>
       <inertia-link :href="route('dashboard')">
@@ -47,10 +45,6 @@
 
       <div v-if="$page.props.user" class="d-none d-md-block">
         <div class="flex items-center">
-          <v-btn v-if="userHasRoles(['admin', 'organizer'])" text href="/admin">
-            Admin
-          </v-btn>
-
           <inertia-link :href="route('dashboard')">
             <v-btn text>
               Dashboard
