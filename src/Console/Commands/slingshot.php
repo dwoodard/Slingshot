@@ -46,13 +46,14 @@ class slingshot extends Command
         }
 
         $installs = [
-            'laradock',
-            'Packages composer.json & package.json',
-            'deploy',
-            'Webpack Config',
-            'Auth',
-            'linter',
-            'helpers',
+            'Setup',
+//            'laradock',
+//            'Packages composer.json & package.json',
+//            'deploy',
+//            'Webpack Config',
+//            'Auth',
+//            'linter',
+//            'helpers',
         ];
 
         $slingshot = $this->choice('SLINGSHOT', ['all', ...$installs], 'all');
@@ -67,10 +68,10 @@ class slingshot extends Command
             }
         }
 
-        chdir(base_path());
-        shell_exec("composer install");
-        shell_exec("npm i");
-        shell_exec("npm run dev");
+//        chdir(base_path());
+//        shell_exec("composer install");
+//        shell_exec("npm i");
+//        shell_exec("npm run dev");
         return 0;
     }
 
@@ -81,9 +82,12 @@ class slingshot extends Command
     {
         $this->line(' ');
         switch ($slingshot) {
-            case 'laradock':
+            case 'Setup':
                 $this->LaradockInstall();
+                $this->PackagesInstall();
                 break;
+
+
 
             case 'Packages composer.json & package.json':
                 $this->PackagesInstall();
@@ -208,103 +212,44 @@ class slingshot extends Command
     private function PackagesInstall(): void
     {
         $this->info("composer.json & package.json:");
+        chdir(base_path());
 
+        recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/app'), app_path());
+        $this->info("- copied app");
+        recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/root'), base_path());
+        $this->info("- copied / (root)");
+        recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/resources'), resource_path());
+        $this->info("- copied resources");
 
-        if ($this->confirm("https://inertiajs.com/ \n\t- Install Inertia Js?", 'yes')) {
-            chdir(base_path());
-            shell_exec('composer require inertiajs/inertia-laravel');
-            $this->info('installed composer.json inertiajs');
-            shell_exec('npm install vue');
-            shell_exec('npm install inertiajs/inertia @inertiajs/inertia-vue @inertiajs/progress');
-            shell_exec('npm install -D vue-loader vue-template-compiler');
-            $this->info('installed package.json inertia inertia-vue progress');
-            shell_exec('php artisan inertia:middleware');
-            $this->info('installed inertia:middleware - app/Http/Middleware/HandleInertiaRequests.php ');
+        $this->dashDivider();
 
+        $this->info('https://github.com/spatie/laravel-schemaless-attributes');
 
-            //Update Kernel
-            $filename = base_path() . '/app/Http/Kernel.php';
-            $kernel = file_get_contents($filename);
-            $this->info("- Checking Kernel:");
-            if (!str_contains($kernel, 'HandleInertiaRequests')) {
-                $kernel = preg_replace(
-                    '/SubstituteBindings::class,/',
-                    "SubstituteBindings::class,\n\t\t\t\\App\\Http\\Middleware\\HandleInertiaRequests::class",
-                    $kernel,
-                    1);
+        $this->dashDivider();
 
-                $this->info('   - updated Kernel.php');
-            }
-            file_put_contents($filename, $kernel);
+        $this->info('https://spatie.be/docs/laravel-permission/v4/installation-laravel');
 
-            //Update webpack.mix.js
-            $filename = base_path() . '/webpack.mix.js';
-            $webpack = file_get_contents($filename);
-            $this->info("- Checking webpack.mix.js");
-            if (!str_contains($webpack, '.vue()')) {
-                $webpack = preg_replace(
-                    "~mix.js\('resources/js/app.js', 'public/js'\)~",
-                    "mix.browserSync('https://localhost');\n\nmix.js('resources/js/app.js', 'public/js')\n\t\t.vue()\n\t\t",
-                    $webpack);
+        $this->dashDivider();
 
-                $this->info('   - updated webpack.mix.js');
-            }
-            file_put_contents($filename, $webpack);
+        $this->info('https://github.com/VentureCraft/revisionable');
+        $this->info(shell_exec('php artisan vendor:publish --provider="Venturecraft\Revisionable\RevisionableServiceProvider"'));
 
+        $this->dashDivider();
 
+        $this->info('https://spatie.be/docs/laravel-permission/v4/installation-laravel');
 
+        $this->dashDivider();
 
+        $this->info('https://github.com/silviolleite/laravel-pwa');
+        $this->info(shell_exec('php artisan vendor:publish --provider="LaravelPWA\Providers\LaravelPWAServiceProvider"'));
 
-            recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/resources'), resource_path());
-            $this->info("- resource directory copied from slingshot package to project");
+        $this->dashDivider();
 
-            $this->dashDivider();
-        } else {
-            $this->warn('Skipping' . PHP_EOL);
-        }
+        shell_exec('npm install vue');
+        shell_exec('npm install inertiajs/inertia @inertiajs/inertia-vue @inertiajs/progress');
+        shell_exec('npm install -D vue-loader vue-template-compiler');
+        shell_exec('php artisan inertia:middleware');
 
-        if ($this->confirm("https://github.com/Wulfheart/pretty-routes \n\t- Install Pretty Routes?", 'yes')) {
-            chdir(base_path());
-            shell_exec('composer require --dev wulfheart/pretty_routes');
-            $this->dashDivider();
-        } else {
-            $this->warn('Skipping' . PHP_EOL);
-        }
-
-
-        if ($this->confirm("https://github.com/spatie/laravel-schemaless-attributes \n\t- Install Laravel Schemaless Attributes?", 'yes')) {
-            shell_exec('composer require spatie/laravel-schemaless-attributes');
-            $this->dashDivider();
-        } else {
-            $this->warn('Skipping' . PHP_EOL);
-        }
-
-
-        if ($this->confirm("https://spatie.be/docs/laravel-permission/v4/installation-laravel \n\t- Spatie Laravel Permission?", 'yes')) {
-            shell_exec('composer require spatie/laravel-permission');
-            $this->dashDivider();
-        } else {
-            $this->warn('Skipping' . PHP_EOL);
-        }
-
-
-        if ($this->confirm("https://github.com/VentureCraft/revisionable \n\t- Install Revisionable?", 'yes')) {
-            shell_exec('composer require venturecraft/revisionable');
-            chdir(base_path());
-            $this->info(shell_exec('php artisan vendor:publish --provider="Venturecraft\Revisionable\RevisionableServiceProvider"'));
-            $this->dashDivider();
-        } else {
-            $this->warn('Skipping' . PHP_EOL);
-        }
-
-        if ($this->confirm("https://github.com/silviolleite/laravel-pwa \n\t- Install Laravel Pwa?", 'yes')) {
-            shell_exec('composer require silviolleite/laravelpwa --prefer-dist');
-            chdir(base_path());
-            $this->info(shell_exec('php artisan vendor:publish --provider="LaravelPWA\Providers\LaravelPWAServiceProvider"'));
-            $this->dashDivider();
-        } else {
-            $this->warn('Skipping' . PHP_EOL);
-        }
     }
 
     private function AuthInstall(): void
@@ -319,31 +264,9 @@ class slingshot extends Command
         }
     }
 
-    private function DeployInstall(): void
-    {
-        $filepath = base_path() . '/deploy.sh';
-        if (!file_exists($filepath)) {
-            chdir(__DIR__);
-            copy('../../stubs/deploy.sh', $filepath);
-            chmod($filepath, 0777);
-            $this->info("- $filepath created");
-        } else {
-            $this->info('   - deploy already exist');
-        }
-    }
 
-    private function WebpackConfigInstall(): void
-    {
-        $filepath = base_path() . '/webpack.config.js';
-        if (!file_exists($filepath)) {
-            chdir(__DIR__);
-            copy('../../stubs/webpack.config.js', $filepath);
-            chmod($filepath, 0777);
-            $this->info("- $filepath created");
-        } else {
-            $this->info('   - webpack.config.js already exist');
-        }
-    }
+
+
 
 
 }

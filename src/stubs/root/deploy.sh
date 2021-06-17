@@ -10,6 +10,11 @@ fi
 export COMPOSER_ALLOW_SUPERUSER=1
 
 production_path='UPDATE_PRODUCTION_PATH'
+
+if [ $production_path == 'UPDATE_PRODUCTION_PATH' ]; then
+    echo $production_path
+fi
+
 env=$(if [ "$(pwd)" = $production_path ]; then echo 'production'; else echo "local"; fi)
 
 echo " "
