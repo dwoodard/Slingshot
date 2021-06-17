@@ -135,10 +135,6 @@
 </template>
 
 <script>
-import {hasOne} from '@/helper';
-import ProfileMenu from '@/layouts/nav/ProfileMenu';
-import Logo from '@/components/hubhq/logo';
-
 export default {
   data() {
     return {
@@ -148,22 +144,11 @@ export default {
   },
 
   methods: {
-    userHasRoles(roles) {
-      return hasOne(roles, this.$page.props.user.roles);
-    },
-    switchToTeam(team) {
-      this.$inertia.put(this.route('current-team.update'), {
-        team_id: team.id
-      }, {
-        preserveState: true
-      });
-    },
-
     logout() {
       this.$inertia.post(this.route('logout'));
     }
   },
-  components: {Logo, ProfileMenu}
+  components: {}
 };
 </script>
 
