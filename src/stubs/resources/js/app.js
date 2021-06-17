@@ -4,7 +4,7 @@ import { InertiaProgress } from '@inertiajs/progress'
 import { VueMaskDirective } from 'v-mask'
 import PortalVue from 'portal-vue';
 import VueMeta from 'vue-meta';
-import { Ziggy } from '@/ziggy';
+import { Ziggy } from './ziggy';
 import vuetify from '@/plugins/vuetify'
 import Layout from '@/layouts/Layout';
 
