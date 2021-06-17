@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+//Auth::routes();
 Route::get('/', function () {
     return inertia('Welcome/index',[
         'laravelVersion' => \Illuminate\Foundation\Application::VERSION,
@@ -25,6 +25,6 @@ Route::get('/dashboard', function () {
     return view('Dashboard');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+//Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//    return Inertia::render('Dashboard');
+//})->name('dashboard');
