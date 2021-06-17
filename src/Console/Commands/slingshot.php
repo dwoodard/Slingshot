@@ -213,6 +213,9 @@ class slingshot extends Command
         recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/routes'), base_path('routes'));
         $this->info("- copied routes");
 
+        recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/public'), base_path('public'));
+        $this->info("- copied public");
+
         $this->dashDivider();
 
         $this->info('https://github.com/spatie/laravel-schemaless-attributes#installation');
