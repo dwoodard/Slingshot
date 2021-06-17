@@ -67,11 +67,6 @@ class slingshot extends Command
                 $this->installSwitch($slingshot);
             }
         }
-
-//        chdir(base_path());
-//        shell_exec("composer install");
-//        shell_exec("npm i");
-//        shell_exec("npm run dev");
         return 0;
     }
 
@@ -245,7 +240,6 @@ class slingshot extends Command
 
         $this->dashDivider();
 
-        shell_exec('npm install vue');
         shell_exec('npm install inertiajs/inertia @inertiajs/inertia-vue @inertiajs/progress');
         shell_exec('npm install -D vue-loader vue-template-compiler');
         shell_exec('php artisan inertia:middleware');
