@@ -56,7 +56,7 @@ class slingshot extends Command
 //            'helpers',
         ];
 
-        $slingshot = $this->choice('SLINGSHOT', ['all', ...$installs], 'all');
+        $slingshot = 'all' || $this->choice('SLINGSHOT', ['all', ...$installs], 'all');
 
         if ($slingshot) {
             if ($slingshot == 'all') {
