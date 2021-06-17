@@ -203,10 +203,15 @@ class slingshot extends Command
 
         recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/app'), app_path());
         $this->info("- copied app");
+
         recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/root'), base_path());
         $this->info("- copied / (root)");
+
         recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/resources'), resource_path());
         $this->info("- copied resources");
+
+        recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/routes'), base_path('routes'));
+        $this->info("- copied routes");
 
         $this->dashDivider();
 
