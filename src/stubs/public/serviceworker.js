@@ -14,39 +14,44 @@ var filesToCache = [
 ];
 
 // Cache on install
-// self.addEventListener("install", event => {
-//     this.skipWaiting();
-//     event.waitUntil(
-//         caches.open(staticCacheName)
-//             .then(cache => {
-//               return cache ? cache.addAll(filesToCache) : null;
-//             })
-//     )
-// });
+self.addEventListener("install", event => {
+    console.log('install');
+    // this.skipWaiting();
+    // event.waitUntil(
+    //     caches.open(staticCacheName)
+    //         .then(cache => {
+    //           return cache ? cache.addAll(filesToCache) : null;
+    //         })
+    // )
+});
 
 // Clear cache on activate
-// self.addEventListener('activate', event => {
-//     event.waitUntil(
-//         caches.keys().then(cacheNames => {
-//             return Promise.all(
-//                 cacheNames
-//                     .filter(cacheName => (cacheName.startsWith("pwa-")))
-//                     .filter(cacheName => (cacheName !== staticCacheName))
-//                     .map(cacheName => caches.delete(cacheName))
-//             );
-//         })
-//     );
-// });
+self.addEventListener('activate', event => {
+    console.log('activate');
+    
+    // event.waitUntil(
+    //     caches.keys().then(cacheNames => {
+    //         return Promise.all(
+    //             cacheNames
+    //                 .filter(cacheName => (cacheName.startsWith("pwa-")))
+    //                 .filter(cacheName => (cacheName !== staticCacheName))
+    //                 .map(cacheName => caches.delete(cacheName))
+    //         );
+    //     })
+    // );
+});
 
 // Serve from Cache
-// self.addEventListener("fetch", event => {
-//     event.respondWith(
-//         caches.match(event.request)
-//             .then(response => {
-//                 return response || fetch(event.request);
-//             })
-//             .catch(() => {
-//                 return caches.match('offline');
-//             })
-//     )
-// });
+self.addEventListener("fetch", event => {
+    console.log('fetch');
+    
+    // event.respondWith(
+    //     caches.match(event.request)
+    //         .then(response => {
+    //             return response || fetch(event.request);
+    //         })
+    //         .catch(() => {
+    //             return caches.match('offline');
+    //         })
+    // )
+});
