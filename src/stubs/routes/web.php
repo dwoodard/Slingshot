@@ -14,14 +14,11 @@ use App\Http\Controllers\PagesController;
 |
 */
 
-Auth::routes();
+//Auth::routes();
+
 // logout
-Route::get('admin-login', 'LoginController@showLoginForm')->name('admin.login');
-Route::post('admin-login', 'LoginController@login');
-
+Route::match(['get', 'post'],'login', [\App\Http\Controllers\Auth\LoginController::class,'login'])->name('login');
 Route::match(['get', 'post'],'logout', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
-Route::match(['get', 'post'],'login', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
-
 
 Route::get('/', function () {
     return inertia('Welcome/index',[
