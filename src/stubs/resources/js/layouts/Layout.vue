@@ -7,10 +7,6 @@
 
       <div v-if="$page.props.auth.user" class="d-block">
         <div class="d-flex items-center">
-          <v-btn text :href="route('dashboard')" :active="route().current('dashboard')">
-            Dashboard
-          </v-btn>
-
           <v-list-item text :href="route('dashboard')" :active="route().current('dashboard')">
             <v-icon class="mr-3">mdi-view-dashboard</v-icon> Dashboard
           </v-list-item>
