@@ -14,10 +14,9 @@ use App\Http\Controllers\PagesController;
 |
 */
 
-//Auth::routes();
+Auth::routes();
 
 // logout
-Route::match(['get', 'post'],'login', [\App\Http\Controllers\Auth\LoginController::class,'login'])->name('login');
 Route::match(['get', 'post'],'logout', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
 Route::get('/', function () {
