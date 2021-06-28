@@ -5,7 +5,7 @@
 
       <v-divider/>
 
-      <div v-if="$page.props.user" class="d-block">
+      <div v-if="$page.props.auth.user" class="d-block">
         <div class="d-flex items-center">
           <v-btn text :href="route('dashboard')" :active="route().current('dashboard')">
             Dashboard
@@ -26,7 +26,7 @@
 
       <v-divider/>
 
-      <v-list v-if="$page.props.user">
+      <v-list v-if="$page.props.auth.user">
         <v-list-item href="/logout">Logout</v-list-item>
       </v-list>
       <v-list v-else>
@@ -46,7 +46,7 @@
 
       <v-spacer/>
 
-      <div v-if="$page.props.user" class="d-none d-md-block">
+      <div v-if="$page.props.auth.user" class="d-none d-md-block">
         <div class="flex items-center">
           <inertia-link :href="route('dashboard')">
             <v-btn text>
