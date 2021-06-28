@@ -260,6 +260,7 @@ class slingshot extends Command
     {
         chdir(base_path());
         $output = shell_exec('php artisan ui vue --auth');
+        $this->info($output);
         $this->dashDivider();
 
     }
