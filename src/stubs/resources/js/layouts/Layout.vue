@@ -42,19 +42,6 @@
 
       <v-spacer/>
 
-      <div v-if="$page.props.auth.user" class="d-none d-md-block">
-        <div class="flex items-center">
-          <inertia-link :href="route('dashboard')">
-            <v-btn text>
-              Dashboard
-            </v-btn>
-          </inertia-link>
-        </div>
-      </div>
-
-
-      <v-spacer/>
-
 
       <!--      <ProfileMenu/>-->
       <span>ProfileMenu</span>
