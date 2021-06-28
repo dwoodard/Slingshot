@@ -245,6 +245,8 @@ class slingshot extends Command
 
         $this->dashDivider();
 
+        $this->AuthInstall();
+
         shell_exec('php artisan ziggy:generate');
         shell_exec('npm i && npm run dev');
     }
@@ -256,14 +258,10 @@ class slingshot extends Command
 
     private function AuthInstall(): void
     {
-        if ($this->confirm("Laravel UI vue Auth \n\t- Install (php artisan  ui vue --auth)?", 'yes')) {
-            chdir(base_path());
-            $output = shell_exec('php artisan ui vue --auth -n');
-            $this->info($output);
-            $this->dashDivider();
-        } else {
-            $this->warn('Skipping' . PHP_EOL);
-        }
+        chdir(base_path());
+        $output = shell_exec('php artisan ui vue --auth');
+        $this->dashDivider();
+
     }
 
 
