@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-container>
     Dashboard
-  </div>
+  </v-container>
 </template>
 
 <script>
