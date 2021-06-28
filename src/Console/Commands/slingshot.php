@@ -196,8 +196,14 @@ class slingshot extends Command
 
     private function installInertiaStack(): void
     {
-        $this->info("installInertiaStack:");
+
+
+
+        $this->info("install InertiaStack:");
         chdir(base_path());
+
+        $this->info("- AuthInstall:");
+        $this->AuthInstall();
 
         recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/app'), app_path());
         $this->info("- copied app");
@@ -241,8 +247,6 @@ class slingshot extends Command
 
         $this->dashDivider();
 
-//        $this->AuthInstall();
-
         shell_exec('php artisan ziggy:generate');
         shell_exec('npm i && npm run dev');
     }
@@ -255,7 +259,7 @@ class slingshot extends Command
     private function AuthInstall(): void
     {
         chdir(base_path());
-        $output = shell_exec('php artisan ui vue --auth');
+        $output = shell_exec('php artisan ui vue --auth -n');
         $this->info($output);
         $this->dashDivider();
 
