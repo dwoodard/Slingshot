@@ -19,6 +19,6 @@ class PagesController extends Controller
             'foo'=>'bar'
         ];
 
-        return Inertia::render('dashboard', $data);
+        return Inertia::render('Dashboard', $data);
     }
 }

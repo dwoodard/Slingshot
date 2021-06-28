@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  props: ['auth'],
+  props: ['auth']
 
 };
 </script>
