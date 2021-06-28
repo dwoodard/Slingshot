@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+// logout
+Route::match(['get', 'post'],'logout', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
+
 
 Route::get('/', function () {
     return inertia('Welcome/index',[
