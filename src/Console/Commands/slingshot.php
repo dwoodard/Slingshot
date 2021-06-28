@@ -261,7 +261,7 @@ class slingshot extends Command
         chdir(base_path());
         $output = shell_exec('php artisan ui vue --auth -n');
         // remove
-        $home = base_path() . 'resources/views/home.blade.php')
+        $home = base_path() . 'resources/views/home.blade.php';
         if(file_exists($home)) {
             unlink($home);
         }
