@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +26,6 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return inertia('Dashboard');
-})->name('dashboard');
 
-//Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//    return Inertia::render('Dashboard');
-//})->name('dashboard');
+//Pages
+Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');

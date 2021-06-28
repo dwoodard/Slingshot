@@ -18,6 +18,7 @@ class PagesController extends Controller
         $data = [
             'foo'=>'bar'
         ];
+
         return Inertia::render('dashboard', $data);
     }
 }
