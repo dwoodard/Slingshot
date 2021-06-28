@@ -39,8 +39,8 @@
         PROJECT
       </inertia-link>
 
-      <inertia-link :href="route('dashboard')">
-        dashboard
+      <inertia-link :href="route('dashboard')" as="span">
+        <v-btn text> Dashboard</v-btn>
       </inertia-link>
 
 
