@@ -71,7 +71,7 @@
     </v-main>
 
     <v-bottom-navigation v-model="bottomDrawer" app>
-      <inertia-link href="/Home" as="v-btn">
+      <inertia-link href="/dashboard" as="v-btn">
         <template #default>
           <span>Home</span>
           <v-icon>mdi-home</v-icon>
