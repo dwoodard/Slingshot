@@ -90,10 +90,6 @@ class slingshot extends Command
                 $this->PackagesInstall();
                 break;
 
-            case 'Auth':
-                $this->AuthInstall();
-                break;
-
             default:
                 $this->info("Skipping (no case found) for $slingshot");
                 break;
@@ -245,7 +241,7 @@ class slingshot extends Command
 
         $this->dashDivider();
 
-        $this->AuthInstall();
+//        $this->AuthInstall();
 
         shell_exec('php artisan ziggy:generate');
         shell_exec('npm i && npm run dev');
