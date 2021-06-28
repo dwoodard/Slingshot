@@ -15,7 +15,7 @@ const filesToCache = [
 
 // Cache on install
 self.addEventListener('install', (event) => {
-  console.log('install');
+  console.log('install serviceworker.js');
   // this.skipWaiting();
   // event.waitUntil(
   //     caches.open(staticCacheName)
@@ -27,7 +27,7 @@ self.addEventListener('install', (event) => {
 
 // Clear cache on activate
 self.addEventListener('activate', (event) => {
-  console.log('activate');
+  console.log('activate serviceworker.js');
 
   // event.waitUntil(
   //     caches.keys().then(cacheNames => {
@@ -43,7 +43,7 @@ self.addEventListener('activate', (event) => {
 
 // Serve from Cache
 self.addEventListener('fetch', (event) => {
-  console.log('fetch');
+  console.log('fetch serviceworker.js');
 
   // event.respondWith(
   //     caches.match(event.request)
