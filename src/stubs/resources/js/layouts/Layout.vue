@@ -10,8 +10,6 @@
           <v-list-item text :href="route('dashboard')" :active="route().current('dashboard')">
             <v-icon class="mr-3">mdi-view-dashboard</v-icon> Dashboard
           </v-list-item>
-
-
         </div>
       </div>
       <div v-else>
@@ -33,7 +31,6 @@
     </v-navigation-drawer>
 
     <v-app-bar app max-height="72px">
-
       <inertia-link :href="route('home')">
         PROJECT
       </inertia-link>
@@ -52,13 +49,11 @@
               Dashboard
             </v-btn>
           </inertia-link>
-
         </div>
       </div>
 
 
       <v-spacer/>
-
 
 
       <!--      <ProfileMenu/>-->
@@ -73,35 +68,33 @@
 
     <v-bottom-navigation v-model="bottomDrawer" app>
       <inertia-link href="/Home" as="v-btn">
-        <template v-slot:default>
+        <template #default>
           <span>ITEM 1</span>
           <v-icon>mdi-home</v-icon>
         </template>
       </inertia-link>
-
-
     </v-bottom-navigation>
   </v-app>
 </template>
 
 <script>
 
-export default {
-  data() {
-    return {
-      sidebarDrawer: null,
-      bottomDrawer: null
-    };
-  },
+  export default {
+    data() {
+      return {
+        sidebarDrawer: null,
+        bottomDrawer: null
+      };
+    },
 
-  methods: {
-    route,
-    logout() {
-      this.$inertia.post(this.route('logout'));
-    }
-  },
-  components: {}
-};
+    methods: {
+      route,
+      logout() {
+        this.$inertia.post(this.route('logout'));
+      }
+    },
+    components: {}
+  };
 </script>
 
 <style scoped>
