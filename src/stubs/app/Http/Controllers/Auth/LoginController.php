@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class LoginController extends Controller
 {
@@ -54,5 +55,10 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect()->intended('dashboard');
         }
+    }
+
+    public function login()
+    {
+        return Inertia::render('Auth/Login');
     }
 }
