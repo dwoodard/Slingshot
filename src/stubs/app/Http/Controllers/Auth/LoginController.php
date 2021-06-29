@@ -57,8 +57,13 @@ class LoginController extends Controller
         }
     }
 
-    public function login()
+    public function showLoginForm()
     {
         return Inertia::render('Auth/Login');
+    }
+
+    public function login(Request $request)
+    {
+       $this->authenticated($request);
     }
 }
