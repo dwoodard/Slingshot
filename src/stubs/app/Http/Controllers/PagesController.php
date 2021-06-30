@@ -7,6 +7,22 @@ use Inertia\Response;
 
 class PagesController extends Controller
 {
+    public function welcome(): Response
+    {
+        /**
+         * @get('/welcome')
+         * @name('welcome')
+         * @middlewares(web, auth:sanctum)
+         */
+
+        $data = [
+            'laravelVersion' => \Illuminate\Foundation\Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+        ];
+
+        return Inertia::render('Welcome', $data);
+    }
+
     public function dashboard(): Response
     {
         /**
@@ -15,9 +31,7 @@ class PagesController extends Controller
          * @middlewares(web, auth:sanctum)
          */
 
-        $data = [
-            'foo'=>'bar'
-        ];
+        $data = [];
 
         return Inertia::render('Dashboard', $data);
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white overflow-hidden shadow rounded-lg p-2">
+  <v-container>
     <div class="px-4 py-5 sm:p-6">
       <h1>Login</h1>
       <form @submit.prevent="submit">
@@ -39,7 +39,7 @@
         </v-dialog>
       </portal>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

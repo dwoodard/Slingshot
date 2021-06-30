@@ -23,13 +23,10 @@ Route::post('login', [\App\Http\Controllers\Auth\LoginController::class,'login']
 
 Route::match(['get', 'post'],'logout', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
-Route::get('/', function () {
-    return inertia('Welcome/index',[
-        'laravelVersion' => \Illuminate\Foundation\Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('home');
+Route::get('/',  [PagesController::class, 'welcome'])->name('home');
 
 
 //Pages
-Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [PagesController::class, 'dashboard'])
+    ->name('dashboard')
+    ->middleware('auth');
