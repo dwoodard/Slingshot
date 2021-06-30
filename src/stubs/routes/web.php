@@ -30,3 +30,7 @@ Route::get('/',  [PagesController::class, 'welcome'])->name('home');
 Route::get('/dashboard', [PagesController::class, 'dashboard'])
     ->name('dashboard')
     ->middleware('auth');
+
+
+Route::get('/terms-of-service',  [PagesController::class, 'termsOfService'])->name('terms.show');
+Route::get('/privacy-policy',  [PagesController::class, 'privacyPolicy'])->name('policy.show');

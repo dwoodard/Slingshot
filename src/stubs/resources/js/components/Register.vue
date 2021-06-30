@@ -50,19 +50,17 @@
           required
           style="-webkit-appearance: none; margin: 0;"/>
 
-        <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
-          <div class="flex items-center">
-            <v-checkbox v-model="form.terms" required>
-              <template v-slot:label>
-                <div class="ml-2">
-                  I agree to the <a target="_blank" :href="route('terms.show')"
-                                    class="underline text-sm text-gray-600 hover:text-gray-900">Terms of Service</a> and
-                  <a target="_blank" :href="route('policy.show')"
-                     class="underline text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>
-                </div>
-              </template>
-            </v-checkbox>
-          </div>
+        <div class="flex items-center">
+          <v-checkbox v-model="form.terms" required>
+            <template v-slot:label>
+              <div class="ml-2">
+                I agree to the <a target="_blank" :href="route('terms.show')"
+                                  class="underline text-sm text-gray-600 hover:text-gray-900">Terms of Service</a> and
+                <a target="_blank" :href="route('policy.show')"
+                   class="underline text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>
+              </div>
+            </template>
+          </v-checkbox>
         </div>
 
         <div class="flex items-center justify-between mt-4">

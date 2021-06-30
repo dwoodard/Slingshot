@@ -35,4 +35,30 @@ class PagesController extends Controller
 
         return Inertia::render('Dashboard', $data);
     }
+
+    public function termsOfService(): Response
+    {
+        /**
+         * @get('/dashboard')
+         * @name('dashboard')
+         * @middlewares(web, auth:sanctum)
+         */
+
+        $data = [];
+
+        return Inertia::render('TermsOfService', $data);
+    }
+
+    public function privacyPolicy(): Response
+    {
+        /**
+         * @get('/dashboard')
+         * @name('dashboard')
+         * @middlewares(web, auth:sanctum)
+         */
+
+        $data = [];
+
+        return Inertia::render('PrivacyPolicy', $data);
+    }
 }
