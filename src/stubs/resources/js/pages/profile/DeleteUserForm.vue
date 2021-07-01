@@ -56,13 +56,6 @@
 </template>
 
 <script>
-  import JetActionSection from '@/vendor/Jetstream/ActionSection';
-  import JetDialogModal from '@/vendor/Jetstream/DialogModal';
-  import JetDangerButton from '@/vendor/Jetstream/DangerButton';
-  import JetInput from '@/vendor/Jetstream/Input';
-  import JetInputError from '@/vendor/Jetstream/InputError';
-  import JetSecondaryButton from '@/vendor/Jetstream/SecondaryButton';
-
   export default {
 
     data() {
@@ -98,12 +91,7 @@
       }
     },
     components: {
-      JetActionSection,
-      JetDangerButton,
-      JetDialogModal,
-      JetInput,
-      JetInputError,
-      JetSecondaryButton
+
     }
   };
 </script>

@@ -134,7 +134,6 @@
   import JetInput from '@/vendor/Jetstream/Input';
   import JetInputError from '@/vendor/Jetstream/InputError';
   import JetLabel from '@/vendor/Jetstream/Label';
-  import JetActionMessage from '@/vendor/Jetstream/ActionMessage';
   import JetSecondaryButton from '@/vendor/Jetstream/SecondaryButton';
   import UiAvatar from '@/components/UiAvatar';
 
@@ -195,14 +194,7 @@
       }
     },
     components: {
-      UiAvatar,
-      JetActionMessage,
-      JetButton,
-      JetFormSection,
-      JetInput,
-      JetInputError,
-      JetLabel,
-      JetSecondaryButton
+      UiAvatar
     }
   };
 </script>
