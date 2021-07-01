@@ -72,7 +72,7 @@ class PagesController extends Controller
 
         $data = [];
 
-        return Inertia::render('Profile/Show', $data);
+        return Inertia::render('profile/Show', $data);
     }
 
     public function settings(): Response
