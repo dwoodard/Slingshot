@@ -72,6 +72,7 @@
 </template>
 
 <script>
+  import ProfileMenu from '@/layouts/nav/ProfileMenu';
 
   export default {
     data() {
@@ -87,7 +88,9 @@
         this.$inertia.post(this.route('logout'));
       }
     },
-    components: {}
+    components: {
+      ProfileMenu
+    }
   };
 </script>
 
