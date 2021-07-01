@@ -39,13 +39,14 @@
             Logout Other Browser Sessions
           </v-btn>
 
-          <jet-action-message :on="form.recentlySuccessful" class="ml-3">
+
+          <ActionMessage :on="form.recentlySuccessful" class="ml-3">
             Done.
-          </jet-action-message>
+          </ActionMessage>
         </div>
 
         <!-- Logout Other Devices Confirmation Modal -->
-        <jet-dialog-modal :show="confirmingLogout" @close="closeModal">
+        <v-dialog v-model="confirmingLogout" @close="closeModal">
           <template #title>
             Logout Other Browser Sessions
           </template>
@@ -54,25 +55,27 @@
             Please enter your password to confirm you would like to logout of your other browser sessions across all of your devices.
 
             <div class="mt-4">
-              <jet-input ref="password" v-model="form.password" type="password"
-                         class="mt-1 block w-3/4"
-                         placeholder="Password"
-                         @keyup.enter.native="logoutOtherBrowserSessions"/>
-
-              <jet-input-error :message="form.errors.password" class="mt-2"/>
+              <v-text-field
+                  ref="current_password"
+                  v-model="form.password"
+                  :error-messages="form.errors.password"
+                  label="Password"
+                  type="password"
+                  @keyup.enter.native="logoutOtherBrowserSessions"
+                  autocomplete="password"/>
             </div>
           </template>
 
           <template #footer>
-            <jet-secondary-button @click.native="closeModal">
+            <v-btn @click.native="closeModal">
               Nevermind
-            </jet-secondary-button>
+            </v-btn>
 
-            <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click.native="logoutOtherBrowserSessions">
+            <v-btn @click.native="logoutOtherBrowserSessions">
               Logout Other Browser Sessions
-            </jet-button>
+            </v-btn>
           </template>
-        </jet-dialog-modal>
+        </v-dialog>
       </v-card>
     </v-flex>
 
@@ -83,13 +86,8 @@
 </template>
 
 <script>
-  import JetActionMessage from '@/vendor/Jetstream/ActionMessage';
-  import JetActionSection from '@/vendor/Jetstream/ActionSection';
-  import JetButton from '@/vendor/Jetstream/Button';
-  import JetDialogModal from '@/vendor/Jetstream/DialogModal';
-  import JetInput from '@/vendor/Jetstream/Input';
-  import JetInputError from '@/vendor/Jetstream/InputError';
-  import JetSecondaryButton from '@/vendor/Jetstream/SecondaryButton';
+
+ import ActionMessage from '@/components/ActionMessage';
 
   export default {
     props: ['sessions'],
@@ -128,13 +126,7 @@
     },
 
     components: {
-      JetActionMessage,
-      JetActionSection,
-      JetButton,
-      JetDialogModal,
-      JetInput,
-      JetInputError,
-      JetSecondaryButton
+      ActionMessage
     }
   };
 </script>
