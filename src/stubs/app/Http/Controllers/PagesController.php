@@ -62,6 +62,19 @@ class PagesController extends Controller
         return Inertia::render('PrivacyPolicy', $data);
     }
 
+    public function profile(): Response
+    {
+        /**
+         * @get('/dashboard')
+         * @name('dashboard')
+         * @middlewares(web, auth:sanctum)
+         */
+
+        $data = [];
+
+        return Inertia::render('Profile/Show', $data);
+    }
+
     public function settings(): Response
     {
         /**

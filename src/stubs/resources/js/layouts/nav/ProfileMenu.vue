@@ -36,7 +36,6 @@ export default {
       items: [
         {title: 'Profile', link: this.route('profile.show')},
         {title: 'Settings', link: this.route('settings.show')},
-        // {title: 'API Tokens', link: this.route('api-tokens.index')},
         {title: 'Logout', link: this.route('logout')}
       ]
     };
