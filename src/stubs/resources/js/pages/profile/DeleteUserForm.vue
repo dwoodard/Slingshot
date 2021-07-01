@@ -17,13 +17,46 @@
         </div>
 
         <!-- Delete Account Confirmation Modal -->
+        <v-dialog
+            v-model="confirmingUserDeletion"
+            max-width="290"
+        >
+          <v-card>
+            <v-card-title class="text-h5">
+              Delete Account?
+            </v-card-title>
+
+            <v-card-text>
+              Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn
+                  color="green darken-1"
+                  text
+                  @click="dialog = false"
+              >
+                Disagree
+              </v-btn>
+
+              <v-btn
+                  color="green darken-1"
+                  text
+                  @click="dialog = false"
+              >
+                Agree
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
         <jet-dialog-modal :show="confirmingUserDeletion" @close="closeModal">
-          <template #title>
-            Delete Account
-          </template>
+
 
           <template #content>
-            Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
+
 
             <div class="mt-4">
               <jet-input ref="password" v-model="form.password" type="password"
