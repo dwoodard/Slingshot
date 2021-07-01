@@ -10,35 +10,36 @@
         <form @submit.prevent="updatePassword">
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              ref="current_password"
-              v-model="form.current_password"
-              :error-messages="form.errors.current_password"
-              label="Current Password"
-              type="password"
-              autocomplete="current-password"/>
+                ref="current_password"
+                v-model="form.current_password"
+                :error-messages="form.errors.current_password"
+                label="Current Password"
+                type="password"
+                autocomplete="current-password"/>
           </div>
 
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              ref="password"
-              v-model="form.password"
-              :error-messages="form.errors.password"
-              label="New Password"
-              type="password"
-              autocomplete="current-password"/>
+                ref="password"
+                v-model="form.password"
+                :error-messages="form.errors.password"
+                label="New Password"
+                type="password"
+                autocomplete="current-password"/>
           </div>
 
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              v-model="form.password_confirmation"
-              :error-messages="form.errors.password_confirmation"
-              label="Confirm Password"
-              type="password"
-              autocomplete="new-password"/>
+                v-model="form.password_confirmation"
+                :error-messages="form.errors.password_confirmation"
+                label="Confirm Password"
+                type="password"
+                autocomplete="new-password"/>
           </div>
-          <jet-action-message :on="form.recentlySuccessful" class="mr-3">
+          <ActionMessage :on="form.recentlySuccessful" class="mr-3">
             Saved.
-          </jet-action-message>
+          </ActionMessage>
+
           <v-btn type="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
             Save
           </v-btn>
@@ -49,48 +50,43 @@
 </template>
 
 <script>
-  import JetActionMessage from '@/vendor/Jetstream/ActionMessage';
-  import JetButton from '@/vendor/Jetstream/Button';
-  import JetFormSection from '@/vendor/Jetstream/FormSection';
-  import JetInput from '@/vendor/Jetstream/Input';
-  import JetInputError from '@/vendor/Jetstream/InputError';
-  import JetLabel from '@/vendor/Jetstream/Label';
+import ActionMessage from '@/components/ActionMessage';
 
-  export default {
+export default {
 
-    data() {
-      return {
-        form: this.$inertia.form({
-          current_password: '',
-          password: '',
-          password_confirmation: ''
-        })
-      };
-    },
+  data() {
+    return {
+      form: this.$inertia.form({
+        current_password: '',
+        password: '',
+        password_confirmation: ''
+      })
+    };
+  },
 
-    methods: {
-      updatePassword() {
-        this.form.put(route('user-password.update'), {
-          errorBag: 'updatePassword',
-          preserveScroll: true,
-          onSuccess: () => this.form.reset(),
-          onError: (errors) => {
-            this.form.errors = errors;
-            if (this.form.errors.password) {
-              this.form.reset('password', 'password_confirmation');
-              this.$refs.password.focus();
-            }
-
-            if (this.form.errors.current_password) {
-              this.form.reset('current_password');
-              this.$refs.current_password.focus();
-            }
+  methods: {
+    updatePassword() {
+      this.form.put(route('user-password.update'), {
+        errorBag: 'updatePassword',
+        preserveScroll: true,
+        onSuccess: () => this.form.reset(),
+        onError: (errors) => {
+          this.form.errors = errors;
+          if (this.form.errors.password) {
+            this.form.reset('password', 'password_confirmation');
+            this.$refs.password.focus();
           }
-        });
-      }
-    },
-    components: {
-      JetActionMessage
+
+          if (this.form.errors.current_password) {
+            this.form.reset('current_password');
+            this.$refs.current_password.focus();
+          }
+        }
+      });
     }
-  };
+  },
+  components: {
+    ActionMessage
+  }
+};
 </script>

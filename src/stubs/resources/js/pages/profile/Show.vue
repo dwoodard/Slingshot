@@ -4,11 +4,8 @@
       <update-profile-information-form :user="$page.props.user"/>
 
       <update-password-form/>
-<!--      <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">-->
-<!--        <two-factor-authentication-form/>-->
-<!--      </div>-->
 
-<!--      <logout-other-browser-sessions-form :sessions="sessions"/>-->
+      <logout-other-browser-sessions-form :sessions="sessions"/>
 
 <!--      <template v-if="$page.props.jetstream.hasAccountDeletionFeatures">-->
 <!--        <delete-user-form/>-->

@@ -40,84 +40,84 @@
           <!-- Name -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              v-model="form.name"
-              :error-messages="form.errors.name"
-              label="Name"
-              autocomplete="name"/>
+                v-model="form.name"
+                :error-messages="form.errors.name"
+                label="Name"
+                autocomplete="name"/>
           </div>
 
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              v-model="form.username"
-              :error-messages="form.errors.username"
-              label="Username"
-              autocomplete="username"/>
+                v-model="form.username"
+                :error-messages="form.errors.username"
+                label="Username"
+                autocomplete="username"/>
           </div>
 
           <!-- Email -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              v-model="form.email"
-              type="email"
-              :error-messages="form.errors.email"
-              label="Email"
-              autocomplete="email"/>
+                v-model="form.email"
+                type="email"
+                :error-messages="form.errors.email"
+                label="Email"
+                autocomplete="email"/>
           </div>
 
           <!-- Phone -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              v-model="form.phone"
-              type="phone"
-              :error-messages="form.errors.phone"
-              label="phone"
-              autocomplete="phone"/>
+                v-model="form.phone"
+                type="phone"
+                :error-messages="form.errors.phone"
+                label="phone"
+                autocomplete="phone"/>
           </div>
 
           <!-- Address -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              v-model="form.address"
-              type="address"
-              :error-messages="form.errors.address"
-              label="address"
-              autocomplete="address"/>
+                v-model="form.address"
+                type="address"
+                :error-messages="form.errors.address"
+                label="address"
+                autocomplete="address"/>
           </div>
 
           <!-- City -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              v-model="form.city"
-              type="city"
-              :error-messages="form.errors.city"
-              label="city"
-              autocomplete="city"/>
+                v-model="form.city"
+                type="city"
+                :error-messages="form.errors.city"
+                label="city"
+                autocomplete="city"/>
           </div>
 
           <!-- State -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              v-model="form.state"
-              type="state"
-              :error-messages="form.errors.state"
-              label="state"
-              autocomplete="state"/>
+                v-model="form.state"
+                type="state"
+                :error-messages="form.errors.state"
+                label="state"
+                autocomplete="state"/>
           </div>
 
           <!-- Zip -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-              v-model="form.zip"
-              required
-              type="zip"
-              :error-messages="form.errors.zip"
-              label="zip"
-              autocomplete="zip"/>
+                v-model="form.zip"
+                required
+                type="zip"
+                :error-messages="form.errors.zip"
+                label="zip"
+                autocomplete="zip"/>
           </div>
 
-          <jet-action-message :on="form.recentlySuccessful" class="mr-3">
+          <ActionMessage :on="form.recentlySuccessful" class="mr-3">
             Saved.
-          </jet-action-message>
+          </ActionMessage>
 
           <v-btn type="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
             Save
@@ -129,72 +129,68 @@
 </template>
 
 <script>
-  import JetButton from '@/vendor/Jetstream/Button';
-  import JetFormSection from '@/vendor/Jetstream/FormSection';
-  import JetInput from '@/vendor/Jetstream/Input';
-  import JetInputError from '@/vendor/Jetstream/InputError';
-  import JetLabel from '@/vendor/Jetstream/Label';
-  import JetSecondaryButton from '@/vendor/Jetstream/SecondaryButton';
-  import UiAvatar from '@/components/UiAvatar';
+import UiAvatar from '@/components/UiAvatar';
+import ActionMessage from '@/components/ActionMessage';
 
-  export default {
+export default {
 
-    props: ['user'],
+  props: ['user'],
 
-    data() {
-      return {
-        form: this.$inertia.form({
-          _method: 'PUT',
-          username: this.user.username,
-          name: this.user.name,
-          email: this.user.email,
-          phone: this.user.phone,
-          address: this.user.address,
-          city: this.user.city,
-          state: this.user.state,
-          zip: this.user.zip,
-          photo: null
-        }),
+  data() {
+    return {
+      form: this.$inertia.form({
+        _method: 'PUT',
+        username: this.user.username,
+        name: this.user.name,
+        email: this.user.email,
+        phone: this.user.phone,
+        address: this.user.address,
+        city: this.user.city,
+        state: this.user.state,
+        zip: this.user.zip,
+        photo: null
+      }),
 
-        photoPreview: null
-      };
-    },
+      photoPreview: null
+    };
+  },
 
-    methods: {
-      updateProfileInformation() {
-        if (this.$refs.photo) {
-          this.form.photo = this.$refs.photo.files?.[0];
-        }
-
-        this.form.post(route('user-profile-information.update'), {
-          errorBag: 'updateProfileInformation',
-          preserveScroll: true
-        });
-      },
-
-      selectNewPhoto() {
-        this.$refs.photo.click();
-      },
-
-      updatePhotoPreview() {
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-          this.photoPreview = e.target.result;
-        };
-        debugger;
-        reader.readAsDataURL(this.$refs.photo.files[0]);
-      },
-
-      deletePhoto() {
-        this.$inertia.delete(this.route('current-user-photo.destroy'), {
-          preserveScroll: true,
-          onSuccess: () => (this.photoPreview = null)
-        });
+  methods: {
+    updateProfileInformation() {
+      if (this.$refs.photo) {
+        this.form.photo = this.$refs.photo.files?.[0];
       }
+
+      this.form.post(route('user-profile-information.update'), {
+        errorBag: 'updateProfileInformation',
+        preserveScroll: true
+      });
     },
-    components: {
-      UiAvatar
+
+    selectNewPhoto() {
+      this.$refs.photo.click();
+    },
+
+    updatePhotoPreview() {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        this.photoPreview = e.target.result;
+      };
+      debugger;
+      reader.readAsDataURL(this.$refs.photo.files[0]);
+    },
+
+    deletePhoto() {
+      this.$inertia.delete(this.route('current-user-photo.destroy'), {
+        preserveScroll: true,
+        onSuccess: () => (this.photoPreview = null)
+      });
     }
-  };
+  },
+  components: {
+    ActionMessage,
+    UiAvatar
+  }
+};
 </script>
