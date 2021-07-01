@@ -46,8 +46,7 @@
         <v-spacer/>
 
 
-        <!--      <ProfileMenu/>-->
-        <span>ProfileMenu</span>
+        <ProfileMenu/>
 
         <v-app-bar-nav-icon @click="sidebarDrawer = !sidebarDrawer"/>
       </v-app-bar>
