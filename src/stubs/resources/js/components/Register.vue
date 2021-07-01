@@ -6,7 +6,7 @@
         <v-text-field
           v-model="form.username"
           :error-messages="form.errors.username"
-          label="Username / Call sign"
+          label="Username"
           required
           autofocus
           autocomplete="username"/>
