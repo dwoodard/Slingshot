@@ -31,6 +31,14 @@ Route::get('/dashboard', [PagesController::class, 'dashboard'])
     ->name('dashboard')
     ->middleware('auth');
 
+Route::get('/profile', [PagesController::class, 'profile'])
+    ->name('profile.show')
+    ->middleware('auth');
+
+Route::get('/settings', [PagesController::class, 'settings'])
+    ->name('settings.show')
+    ->middleware('auth');
+
 
 Route::get('/terms-of-service',  [PagesController::class, 'termsOfService'])->name('terms.show');
 Route::get('/privacy-policy',  [PagesController::class, 'privacyPolicy'])->name('policy.show');
