@@ -7,7 +7,7 @@
           dark
           v-bind="attrs"
           v-on="on">
-        {{ $page.props.auth.user.name }}
+        {{ usernameFromEmail }}
       </v-btn>
     </template>
     <v-list class="pa-3">
@@ -26,7 +26,11 @@
 <script>
 export default {
   name: 'ProfileMenu',
-
+  computed: {
+    usernameFromEmail(){
+      return this.$page.props.auth.user.email.split('@')[0].toLowerCase();
+    }
+  },
   data() {
     return {
       items: [
