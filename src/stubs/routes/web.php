@@ -39,6 +39,11 @@ Route::put('/user/password', [\App\Http\Controllers\PasswordController::class, '
     ->middleware(['auth'])
     ->name('password.update');
 
+// user/profile-information
+Route::put('/user/profile-information', [\App\Http\Controllers\ProfileInformationController::class, 'update'])
+    ->middleware(['auth'])
+    ->name('user-profile-information.update');
+
 //Pages
 Route::get('/dashboard', [PagesController::class, 'dashboard'])
     ->name('dashboard')

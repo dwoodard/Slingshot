@@ -94,13 +94,13 @@
                 autocomplete="zip"/>
           </div>
 
-          <ActionMessage :on="form.recentlySuccessful" class="mr-3">
-            Saved.
-          </ActionMessage>
-
           <v-btn type="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
             Save
           </v-btn>
+
+          <ActionMessage :on="form.recentlySuccessful" class="mr-3">
+            Saved.
+          </ActionMessage>
         </form>
       </v-card>
     </v-flex>
@@ -123,8 +123,7 @@ export default {
         address: this.$page.props.auth.user.address,
         city: this.$page.props.auth.user.city,
         state: this.$page.props.auth.user.state,
-        zip: this.$page.props.auth.user.zip,
-        photo: null
+        zip: this.$page.props.auth.user.zip
       })
     };
   },

@@ -44,6 +44,7 @@ class HandleInertiaRequests extends Middleware
                     'last_name',
                     'username',
                     'email',
+                    'phone',
                     'address',
                     'city',
                     'state',

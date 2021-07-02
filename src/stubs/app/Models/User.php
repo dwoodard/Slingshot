@@ -15,8 +15,6 @@ class User extends Authenticatable
     use Notifiable;
     use SchemalessAttributesTrait;
 
-
-
     /**
      * The attributes that are mass assignable.
      *
@@ -27,6 +25,7 @@ class User extends Authenticatable
         'last_name',
         'username',
         'email',
+        'phone',
         'password',
         'address',
         'city',
@@ -54,6 +53,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'settings' => SchemalessAttributes::class,
     ];
-
-
 }
