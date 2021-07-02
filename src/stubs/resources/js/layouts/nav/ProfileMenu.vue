@@ -26,11 +26,6 @@
 <script>
 export default {
   name: 'ProfileMenu',
-  computed: {
-    usernameFromEmail(){
-      return this.$page.props.auth.user.email.split('@')[0].toLowerCase();
-    }
-  },
   data() {
     return {
       items: [
@@ -39,6 +34,11 @@ export default {
         {title: 'Logout', link: this.route('logout')}
       ]
     };
+  },
+  computed: {
+    usernameFromEmail() {
+      return this.$page.props.auth.user.email.split('@')[0].toLowerCase();
+    }
   }
 };
 </script>

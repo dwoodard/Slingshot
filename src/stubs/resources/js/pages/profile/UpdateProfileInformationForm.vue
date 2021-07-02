@@ -7,43 +7,22 @@
     <v-flex xs12 sm6>
       <v-card class="pa-3">
         <form @submit.prevent="updateProfileInformation">
-          <!-- Profile Photo -->
-          <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4">
-            <h3>Photo</h3>
-            <!-- Profile Photo File Input -->
-            <v-file-input ref="photo" :error-messages="form.errors.photo" class="d-none" @change="updatePhotoPreview"/>
-
-            <!-- Current Profile Photo -->
-            <div v-show="! photoPreview" class="mt-2 d-inline-block">
-              <UiAvatar class="rounded-full h-20 w-20 object-cover" :name="user.name"/>
-            </div>
-
-            <!-- New Profile Photo Preview -->
-            <div v-show="photoPreview" class="mt-2 d-inline-block">
-              <span class="block rounded-full w-20 h-20"
-                    :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'">
-              </span>
-            </div>
-            <v-btn class="mt-2 mr-2 d-inline-block" type="button" @click.native.prevent="selectNewPhoto">
-              Select A New Photo
-            </v-btn>
-
-
-            <v-btn v-if="user.profile_photo_path" type="button" class="mt-2"
-                   @click.native.prevent="deletePhoto">
-              Remove Photo
-            </v-btn>
-
-            <jet-input-error :message="form.errors.photo" class="mt-2"/>
-          </div>
-
-          <!-- Name -->
+          <!-- First Name -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                v-model="form.name"
-                :error-messages="form.errors.name"
-                label="Name"
-                autocomplete="name"/>
+                v-model="form.first_name"
+                :error-messages="form.errors.first_name"
+                label="First Name"
+                autocomplete="first_name"/>
+          </div>
+
+          <!-- Last Name -->
+          <div class="col-span-6 sm:col-span-4">
+            <v-text-field
+                v-model="form.last_name"
+                :error-messages="form.errors.last_name"
+                label="Last Name"
+                autocomplete="last_name"/>
           </div>
 
           <div class="col-span-6 sm:col-span-4">
@@ -129,68 +108,37 @@
 </template>
 
 <script>
-import UiAvatar from '@/components/UiAvatar';
 import ActionMessage from '@/components/ActionMessage';
 
 export default {
-
-  props: ['user'],
-
   data() {
     return {
       form: this.$inertia.form({
         _method: 'PUT',
-        username: this.user.username,
-        name: this.user.name,
-        email: this.user.email,
-        phone: this.user.phone,
-        address: this.user.address,
-        city: this.user.city,
-        state: this.user.state,
-        zip: this.user.zip,
+        username: this.$page.props.auth.user.username,
+        first_name: this.$page.props.auth.user.first_name,
+        last_name: this.$page.props.auth.user.last_name,
+        email: this.$page.props.auth.user.email,
+        phone: this.$page.props.auth.user.phone,
+        address: this.$page.props.auth.user.address,
+        city: this.$page.props.auth.user.city,
+        state: this.$page.props.auth.user.state,
+        zip: this.$page.props.auth.user.zip,
         photo: null
-      }),
-
-      photoPreview: null
+      })
     };
   },
 
   methods: {
     updateProfileInformation() {
-      if (this.$refs.photo) {
-        this.form.photo = this.$refs.photo.files?.[0];
-      }
-
       this.form.post(route('user-profile-information.update'), {
         errorBag: 'updateProfileInformation',
         preserveScroll: true
       });
-    },
-
-    selectNewPhoto() {
-      this.$refs.photo.click();
-    },
-
-    updatePhotoPreview() {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        this.photoPreview = e.target.result;
-      };
-      debugger;
-      reader.readAsDataURL(this.$refs.photo.files[0]);
-    },
-
-    deletePhoto() {
-      this.$inertia.delete(this.route('current-user-photo.destroy'), {
-        preserveScroll: true,
-        onSuccess: () => (this.photoPreview = null)
-      });
     }
   },
   components: {
-    ActionMessage,
-    UiAvatar
+    ActionMessage
   }
 };
 </script>

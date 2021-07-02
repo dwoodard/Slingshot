@@ -8,7 +8,7 @@
 
         <div v-if="$page.props.auth.user" class="d-block">
           <div class="d-flex items-center">
-            <v-list-item text :href="route('dashboard')" :active="route().current('dashboard')">
+            <v-list-item text :href="route('dashboard')">
               <v-icon class="mr-3">mdi-view-dashboard</v-icon>
               Dashboard
             </v-list-item>

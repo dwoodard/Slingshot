@@ -61,8 +61,8 @@
                   :error-messages="form.errors.password"
                   label="Password"
                   type="password"
-                  @keyup.enter.native="logoutOtherBrowserSessions"
-                  autocomplete="password"/>
+                  autocomplete="password"
+                  @keyup.enter.native="logoutOtherBrowserSessions"/>
             </div>
           </template>
 
@@ -87,46 +87,46 @@
 
 <script>
 
- import ActionMessage from '@/components/ActionMessage';
+import ActionMessage from '@/components/ActionMessage';
 
-  export default {
-    props: ['sessions'],
+export default {
+  props: ['sessions'],
 
-    data() {
-      return {
-        confirmingLogout: false,
+  data() {
+    return {
+      confirmingLogout: false,
 
-        form: this.$inertia.form({
-          password: ''
-        })
-      };
+      form: this.$inertia.form({
+        password: ''
+      })
+    };
+  },
+
+  methods: {
+    confirmLogout() {
+      this.confirmingLogout = true;
+
+      setTimeout(() => this.$refs.password?.focus(), 250);
     },
 
-    methods: {
-      confirmLogout() {
-        this.confirmingLogout = true;
-
-        setTimeout(() => this.$refs.password?.focus(), 250);
-      },
-
-      logoutOtherBrowserSessions() {
-        this.form.delete(route('other-browser-sessions.destroy'), {
-          preserveScroll: true,
-          onSuccess: () => this.closeModal(),
-          onError: () => this.$refs.password.focus(),
-          onFinish: () => this.form.reset()
-        });
-      },
-
-      closeModal() {
-        this.confirmingLogout = false;
-
-        this.form.reset();
-      }
+    logoutOtherBrowserSessions() {
+      this.form.delete(route('other-browser-sessions.destroy'), {
+        preserveScroll: true,
+        onSuccess: () => this.closeModal(),
+        onError: () => this.$refs.password.focus(),
+        onFinish: () => this.form.reset()
+      });
     },
 
-    components: {
-      ActionMessage
+    closeModal() {
+      this.confirmingLogout = false;
+
+      this.form.reset();
     }
-  };
+  },
+
+  components: {
+    ActionMessage
+  }
+};
 </script>

@@ -1,36 +1,32 @@
 <template>
   <div class="pa-3">
     <v-container>
-      <update-profile-information-form :user="$page.props.user"/>
+      <UpdateProfileInformationForm :user="$page.props.auth.user"/>
 
-      <update-password-form/>
+      <UpdatePasswordForm/>
 
-      <logout-other-browser-sessions-form :sessions="sessions"/>
+      <LogoutOtherBrowserSessionsForm :sessions="sessions"/>
 
-<!--      <template v-if="$page.props.jetstream.hasAccountDeletionFeatures">-->
-<!--        <delete-user-form/>-->
-<!--      </template>-->
+      <DeleteUserForm/>
     </v-container>
   </div>
 </template>
 
 <script>
-  import DeleteUserForm from './DeleteUserForm';
-  import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm';
-  import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm';
-  import UpdatePasswordForm from './UpdatePasswordForm';
-  import UpdateProfileInformationForm from './UpdateProfileInformationForm';
-  import Layout from '@/layouts/Layout';
+import Layout from '@/layouts/Layout';
+import DeleteUserForm from './DeleteUserForm';
+import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm';
+import UpdatePasswordForm from './UpdatePasswordForm';
+import UpdateProfileInformationForm from './UpdateProfileInformationForm';
 
-  export default {
-    layout: Layout,
-    props: ['sessions'],
-    components: {
-      DeleteUserForm,
-      LogoutOtherBrowserSessionsForm,
-      TwoFactorAuthenticationForm,
-      UpdatePasswordForm,
-      UpdateProfileInformationForm
-    }
-  };
+export default {
+  layout: Layout,
+  props: ['sessions'],
+  components: {
+    DeleteUserForm,
+    LogoutOtherBrowserSessionsForm,
+    UpdatePasswordForm,
+    UpdateProfileInformationForm
+  }
+};
 </script>

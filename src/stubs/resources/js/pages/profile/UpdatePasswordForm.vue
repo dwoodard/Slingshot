@@ -66,7 +66,7 @@ export default {
 
   methods: {
     updatePassword() {
-      this.form.put(route('user-password.update'), {
+      this.form.put(route('password.update'), {
         errorBag: 'updatePassword',
         preserveScroll: true,
         onSuccess: () => this.form.reset(),
