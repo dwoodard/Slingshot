@@ -1,8 +1,8 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap class="mt-10">
     <v-flex xs12 sm6>
       <h3>Delete Account</h3>
-      <h6>Permanently delete your account.</h6>
+      <h5>Permanently delete your account.</h5>
     </v-flex>
     <v-flex xs12 sm6>
       <v-card class="pa-3">
@@ -79,7 +79,7 @@ export default {
     confirmUserDeletion() {
       this.confirmingUserDeletion = true;
 
-      // setTimeout(() => this.$refs.password.focus(), 250);
+      setTimeout(() => this.$refs.password.focus(), 250);
     },
 
     deleteUser() {

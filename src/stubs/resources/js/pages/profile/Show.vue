@@ -5,7 +5,6 @@
 
       <UpdatePasswordForm/>
 
-
       <DeleteUserForm/>
     </v-container>
   </div>
@@ -19,7 +18,6 @@ import UpdateProfileInformationForm from './UpdateProfileInformationForm';
 
 export default {
   layout: Layout,
-  props: ['sessions'],
   components: {
     DeleteUserForm,
     UpdatePasswordForm,

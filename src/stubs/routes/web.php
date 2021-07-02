@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,13 @@ Route::post('login', [\App\Http\Controllers\Auth\LoginController::class,'login']
 Route::match(['get', 'post'],'logout', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
 Route::get('/',  [PagesController::class, 'welcome'])->name('home');
+
+//User
+Route::delete('/user', function (){
+    Auth::user()->delete();
+    Auth::logout();
+    return Inertia::location(url('/'));
+})->name('current-user.destroy');
 
 
 //Pages
