@@ -5,7 +5,6 @@
 
       <UpdatePasswordForm/>
 
-      <LogoutOtherBrowserSessionsForm :sessions="sessions"/>
 
       <DeleteUserForm/>
     </v-container>
@@ -15,7 +14,6 @@
 <script>
 import Layout from '@/layouts/Layout';
 import DeleteUserForm from './DeleteUserForm';
-import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import UpdateProfileInformationForm from './UpdateProfileInformationForm';
 
@@ -24,7 +22,6 @@ export default {
   props: ['sessions'],
   components: {
     DeleteUserForm,
-    LogoutOtherBrowserSessionsForm,
     UpdatePasswordForm,
     UpdateProfileInformationForm
   }
