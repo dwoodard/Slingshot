@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class ProfileInformationController extends Controller
      * Update the user's profile information.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Inertia\Response
      */
     public function update(Request $request)
     {
@@ -38,6 +39,7 @@ class ProfileInformationController extends Controller
 
         User::where('email', '=', $request->email)->update($request->all());
 
-        return Redirect::route('profile.show');
-    }
+        return Inertia::render('profile/Show', [
+            'create_url' => Url::route('profile.show')
+        ]);    }
 }
