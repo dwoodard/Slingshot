@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Inertia\Inertia;
 
 
 class ProfileInformationController extends Controller
@@ -19,7 +17,7 @@ class ProfileInformationController extends Controller
      * Update the user's profile information.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Inertia\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request)
     {
@@ -39,7 +37,8 @@ class ProfileInformationController extends Controller
 
         User::where('email', '=', $request->email)->update($request->all());
 
-        return Inertia::render('profile/Show', [
-            'create_url' => Url::route('profile.show')
-        ]);    }
+        return Redirect::route('profile.show');
+//        return response('', 409)->header('X-Inertia-Location', URL::route('profile.show'));
+//        return Inertia::render('profile/Show', ['create_url' => url('user/profile')]);
+    }
 }
