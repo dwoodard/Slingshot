@@ -20,29 +20,34 @@
 
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                ref="password"
                 v-model="form.password"
                 :error-messages="form.errors.password"
-                label="New Password"
-                type="password"
-                autocomplete="current-password"/>
+                label="password"
+                required
+                autocomplete="password"
+                :append-icon="hidepassword ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="hidepassword ? 'password' : 'text'"
+                @click:append="() => (hidepassword = !hidepassword)"/>
           </div>
 
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
                 v-model="form.password_confirmation"
                 :error-messages="form.errors.password_confirmation"
+                :append-icon="(form.password === form.password_confirmation) ? 'mdi-check-circle' : 'mdi-alert-circle-outline'"
                 label="Confirm Password"
-                type="password"
+                :type="hidepassword ? 'password' : 'text'"
+                required
                 autocomplete="new-password"/>
           </div>
-          <ActionMessage :on="form.recentlySuccessful" class="mr-3">
-            Saved.
-          </ActionMessage>
 
           <v-btn type="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
             Save
           </v-btn>
+
+          <ActionMessage :on="form.recentlySuccessful" class="mr-3">
+            Saved.
+          </ActionMessage>
         </form>
       </v-card>
     </v-flex>
@@ -56,6 +61,7 @@ export default {
 
   data() {
     return {
+      hidepassword: true,
       form: this.$inertia.form({
         current_password: '',
         password: '',
@@ -74,7 +80,6 @@ export default {
           this.form.errors = errors;
           if (this.form.errors.password) {
             this.form.reset('password', 'password_confirmation');
-            this.$refs.password.focus();
           }
 
           if (this.form.errors.current_password) {

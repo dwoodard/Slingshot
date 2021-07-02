@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use Inertia\Inertia;
@@ -33,6 +34,10 @@ Route::delete('/user', function (){
     return Inertia::location(url('/'));
 })->name('current-user.destroy');
 
+//Password
+Route::put('/user/password', [\App\Http\Controllers\PasswordController::class, 'update'])
+    ->middleware(['auth'])
+    ->name('password.update');
 
 //Pages
 Route::get('/dashboard', [PagesController::class, 'dashboard'])
