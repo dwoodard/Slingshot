@@ -6,14 +6,18 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 use Spatie\SchemalessAttributes\SchemalessAttributes;
 use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
     use SchemalessAttributesTrait;
+    use RevisionableTrait;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

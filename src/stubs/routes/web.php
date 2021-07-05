@@ -18,6 +18,8 @@ use Inertia\Inertia;
 
 Auth::routes();
 
+Route::prefix('/admin')->group(__DIR__.'/admin.php');
+
 
 // login/logout
 Route::get( 'login', [\App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');

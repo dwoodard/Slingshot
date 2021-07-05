@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    Dashboard
+    Admin Dashboard
   </v-container>
 </template>
 

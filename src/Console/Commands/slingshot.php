@@ -205,11 +205,14 @@ class slingshot extends Command
         $this->info("- AuthInstall:");
         $this->AuthInstall();
 
+        recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/root'), base_path());
+        $this->info("- copied / (root)");
+
         recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/app'), app_path());
         $this->info("- copied app");
 
-        recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/root'), base_path());
-        $this->info("- copied / (root)");
+        recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/config'), base_path());
+        $this->info("- copied / config");
 
         recursiveCopy(base_path('vendor/dwoodard/slingshot/src/stubs/resources'), resource_path());
         $this->info("- copied resources");
