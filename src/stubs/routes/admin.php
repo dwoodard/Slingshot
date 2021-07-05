@@ -13,9 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group('admin',function(){
-    Route::get('/', function () {
-        return Inertia('admin/dashboard');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::prefix('admin')->group(function () {
+
+        Route::get('/', function () {
+            return Redirect::route('admin.dashboard');
+        });
+
+        Route::get('/dashboard', function () {
+            return Inertia('admin/dashboard');
+        })->name('admin.dashboard');
+
     });
 });
 
