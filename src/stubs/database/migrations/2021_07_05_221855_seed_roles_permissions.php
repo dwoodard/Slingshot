@@ -23,6 +23,6 @@ class SeedRolesPermissions extends Migration
      */
     public function down()
     {
-        DB::table('roles')->truncate();
+        \Illuminate\Support\Facades\DB::table('roles')->truncate();
     }
 }

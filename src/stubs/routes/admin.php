@@ -5,13 +5,12 @@ use Illuminate\Support\Facades\Route;
 
 
 //
-Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => ['web','admin']], function(){
+Route::group(['as'=>'admin.','middleware' => ['web','role:admin']], function(){
 
-    Route::get('/', [''])->name('index');
+    Route::get('/', [\App\Http\Controllers\AdminController::class, 'index'])->name('index');
 
-    Route::get('/dashboard', function () {
-        return Inertia('admin/dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
+
 });
 
 
