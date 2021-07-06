@@ -3,6 +3,7 @@
 namespace Dwoodard\Slingshot\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 
 
 class SlingshotUser extends Command
