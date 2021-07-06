@@ -45,7 +45,7 @@ class SlingshotUser extends Command
 
         $username = $this->anticipate('UserName', ['dwoodard']);
         $email = $this->anticipate('Email', ['dustin.woodard@gmail.com']);
-        $password = $this->anticipate('Password', ['asdfasdf']);
+        $password = $this->choice('Password', ['asdfasdf'], 0);
 
 
         $user = new \App\Models\User();
