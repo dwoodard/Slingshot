@@ -69,7 +69,7 @@ there could be overlap
      - ssh into droplet box
      - run certbot
         - web.php
-        http://hubhq.org/.well-known/acme-challenge/xXbr0bykoVPTzFrToc3vBwmyZnM0DF_X-uJOThshMLE
+        http://example.com/.well-known/acme-challenge/xXbr0bykoVPTzFrToc3vBwmyZnM0DF_X-uJOThshMLE
         Route::get('.well-known/acme-challenge/xXbr0bykoVPTzFrToc3vBwmyZnM0DF_X-uJOThshMLE', function (){
             return 'xXbr0bykoVPTzFrToc3vBwmyZnM0DF_X-uJOThshMLE.EDJw5uFEvPpqOAMjtYv8w9Ipe6DcRK6vFMCttKGGYBY';
         });
