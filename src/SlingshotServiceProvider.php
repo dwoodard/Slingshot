@@ -81,6 +81,7 @@ class SlingshotServiceProvider extends ServiceProvider
         $this->commands([
 
             \Dwoodard\Slingshot\Console\Commands\slingshot::class,
+            \Dwoodard\Slingshot\Console\Commands\slingshotUser::class,
             \Dwoodard\Slingshot\Console\Commands\slingshotReset::class,
             \Dwoodard\Slingshot\Console\Commands\slingshotProduction::class,
 
