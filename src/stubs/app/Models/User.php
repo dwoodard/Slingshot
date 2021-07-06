@@ -19,6 +19,8 @@ class User extends Authenticatable
     use RevisionableTrait;
     use HasRoles;
 
+    protected $primaryKey = 'id';
+
     /**
      * The attributes that are mass assignable.
      *

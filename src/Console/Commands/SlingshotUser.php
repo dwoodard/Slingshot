@@ -2,6 +2,7 @@
 
 namespace Dwoodard\Slingshot\Console\Commands;
 
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
@@ -41,7 +42,6 @@ class SlingshotUser extends Command
     {
         $this->info("Slingshot User");
 
-        //Remove Laradock setup
         $this->info("- Create User");
 
         $username = $this->anticipate('UserName', ['dwoodard']);
@@ -49,18 +49,17 @@ class SlingshotUser extends Command
         $password = $this->choice('Password', ['asdfasdf'], 0);
 
 
-        $user = new \App\Models\User();
-        $user->username = $username;
-        $user->password = Hash::make($password);
-        $user->email = $email;
-        $user->save();
+        $user = User::updateOrCreate([
+            'email' => $email,
+        ], [
+            'username' => $username,
+            'password' => Hash::make($password),
+        ]);
 
 
-        if ($this->confirm('Make'. $email. 'an admin?')) {
+        if ($this->confirm('Make ' . $email . 'an admin?')) {
             $user->assignRole('admin');
         }
-
-
 
 
         return 0;
