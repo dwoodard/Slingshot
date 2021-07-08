@@ -8,18 +8,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\SchemalessAttributes\SchemalessAttributes;
-use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
-    use SchemalessAttributesTrait;
     use RevisionableTrait;
     use HasRoles;
 
-    protected $primaryKey = 'id';
+    protected $schemalessAttributes = [
+        'settings',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -57,6 +57,17 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'settings' => SchemalessAttributes::class,
+        'settings' => 'array'
     ];
+
+    public function getSettings(): SchemalessAttributes
+    {
+        return SchemalessAttributes::createForModel($this, 'settings');
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->roles()->get()->contains('name', '=','admin');
+    }
+
 }

@@ -2,17 +2,22 @@
   <div>
     <v-app>
       <v-navigation-drawer v-model="sidebarDrawer" app right temporary class="pa-3">
+        <!-- SIDEBAR -->
         <div>PROJECT</div>
 
         <v-divider/>
 
-        <div v-if="$page.props.auth.user" class="d-block">
-          <div class="d-flex items-center">
-            <v-list-item text :href="route('dashboard')">
+        <div v-if="hasAuthUser" class="d-block">
+          <inertia-link v-if="isAdmin" :href="route('admin.index')" as="span">
+            <v-btn block text> Admin</v-btn>
+          </inertia-link>
+
+          <inertia-link text :href="route('dashboard')">
+            <v-btn block text left class="text-right">
               <v-icon class="mr-3">mdi-view-dashboard</v-icon>
               Dashboard
-            </v-list-item>
-          </div>
+            </v-btn>
+          </inertia-link>
         </div>
         <div v-else>
           <v-list>
@@ -25,7 +30,7 @@
 
         <v-divider/>
 
-        <v-list v-if="$page.props.auth.user">
+        <v-list v-if="hasAuthUser">
           <v-list-item href="/logout">Logout</v-list-item>
         </v-list>
         <v-list v-else>
@@ -36,6 +41,10 @@
       <v-app-bar app max-height="72px">
         <inertia-link :href="route('home')">
           PROJECT
+        </inertia-link>
+
+        <inertia-link v-if="isAdmin" :href="route('admin.index')" as="span">
+          <v-btn text> Admin</v-btn>
         </inertia-link>
 
         <inertia-link :href="route('dashboard')" as="span">
@@ -79,6 +88,14 @@
         sidebarDrawer: null,
         bottomDrawer: null
       };
+    },
+    computed: {
+      hasAuthUser() {
+        return this.$page.props?.auth.user;
+      },
+      isAdmin() {
+        return this.$page.props?.auth.user?.data?.isAdmin;
+      }
     },
 
     methods: {

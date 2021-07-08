@@ -37,7 +37,12 @@ export default {
   },
   computed: {
     usernameFromEmail() {
-      return this.$page.props.auth.user.email.split('@')[0].toLowerCase();
+      return !this.$page.props?.auth?.user
+          ? null
+          : this.$page.props?.auth?.user?.data?.email.split('@')[0].toLowerCase();
+
+
+      // return this.$page.props?.auth?.user?.data?.email.split('@')[0].toLowerCase();
     }
   }
 };
