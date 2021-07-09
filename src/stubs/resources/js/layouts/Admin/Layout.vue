@@ -26,14 +26,14 @@
   import MainNav from '@/layouts/nav/MainNav';
   import AdminNav from '@/layouts/Admin/nav/AdminNav';
 
-export default {
-  data () {
-    return {};
-  },
-  components: {
-    AdminNav,
-    MainNav,
-    ProfileMenu
-  }
-};
+  export default {
+    data() {
+      return {};
+    },
+    components: {
+      AdminNav,
+      MainNav,
+      ProfileMenu
+    }
+  };
 </script>
