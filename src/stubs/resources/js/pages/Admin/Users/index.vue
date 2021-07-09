@@ -16,6 +16,7 @@
           class="mx-4"/>
       </template>
     </v-data-table>
+    <!--    <pre>{{ selectedUsers }}</pre>-->
   </v-container>
 </template>
 

@@ -34,9 +34,18 @@ class AdminController extends \Inertia\Controller
     public function pages(Request $request):Response
     {
         $data = [
-            'pages' => UserResource::collection(User::paginate(15))
+            'pages' => []
         ];
 
         return Inertia::render('Admin/Pages', $data);
+    }
+
+    public function posts(Request $request):Response
+    {
+        $data = [
+            'posts' => []
+        ];
+
+        return Inertia::render('Admin/Posts', $data);
     }
 }

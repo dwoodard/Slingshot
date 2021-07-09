@@ -1,16 +1,18 @@
 <template>
   <div class="d-flex row">
-    <inertia-link :href="route('home')" as="span">
-      <v-app-bar-title class="primary--text pointer">
+    <v-tabs background-color="transparent">
+      <inertia-link :href="route('home')" as="v-tab">
         PROJECT
-      </v-app-bar-title>
-    </inertia-link>
-    <inertia-link v-if="isAdmin" :href="route('admin.index')" as="span">
-      <v-btn text>Admin</v-btn>
-    </inertia-link>
-    <inertia-link :href="route('dashboard')" as="span">
-      <v-btn text> Dashboard</v-btn>
-    </inertia-link>
+      </inertia-link>
+
+      <inertia-link v-if="isAdmin" :href="route('admin.index')" as="v-tab">
+        Admin
+      </inertia-link>
+
+      <inertia-link :href="route('dashboard')" as="v-tab">
+        Dashboard
+      </inertia-link>
+    </v-tabs>
   </div>
 </template>
 <script>
