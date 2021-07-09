@@ -4,21 +4,21 @@
       <h1>Login</h1>
       <form @submit.prevent="submit">
         <v-text-field
-            v-model="form.email"
-            :error-messages="form.errors.email"
-            label="Username/Email"
-            required
-            autofocus
-            autocomplete=""/>
+          v-model="form.email"
+          :error-messages="form.errors.email"
+          label="Username/Email"
+          required
+          autofocus
+          autocomplete=""/>
         <v-text-field
-            v-model="form.password"
-            :error-messages="form.errors.password"
-            label="Password"
-            required
-            autocomplete="current-password"
-            :append-icon="hidePassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="hidePassword ? 'password' : 'text'"
-            @click:append="() => (hidePassword = !hidePassword)"/>
+          v-model="form.password"
+          :error-messages="form.errors.password"
+          label="Password"
+          required
+          autocomplete="current-password"
+          :append-icon="hidePassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="hidePassword ? 'password' : 'text'"
+          @click:append="() => (hidePassword = !hidePassword)"/>
         <v-btn color="secondary" type="submit" block>
           Login
         </v-btn>
@@ -34,7 +34,7 @@
 
       <portal to="modals">
         <v-dialog
-            v-model="showRegister">
+          v-model="showRegister">
           <Register/>
         </v-dialog>
       </portal>
@@ -43,29 +43,29 @@
 </template>
 
 <script>
-import Register from '@/components/Register';
+  import Register from '@/components/Register';
 
-export default {
-  props: {},
-  data() {
-    return {
-      showRegister: false,
-      hidePassword: true,
-      form: this.$inertia.form({
-        email: '',
-        password: ''
-      })
-    };
-  },
-  methods: {
-    showModal() {
-      this.showRegister = true;
+  export default {
+    props: {},
+    data() {
+      return {
+        showRegister: false,
+        hidePassword: true,
+        form: this.$inertia.form({
+          email: '',
+          password: ''
+        })
+      };
     },
-    closeModal() {
-      this.showRegister = false;
-    },
-    submit() {
-      this.form
+    methods: {
+      showModal() {
+        this.showRegister = true;
+      },
+      closeModal() {
+        this.showRegister = false;
+      },
+      submit() {
+        this.form
           .transform((data) => ({
             ...data,
             remember: this.form.remember ? 'on' : ''
@@ -75,12 +75,12 @@ export default {
               this.form.reset('password');
             }
           });
+      }
+    },
+    components: {
+      Register
     }
-  },
-  components: {
-    Register
-  }
-};
+  };
 </script>
 
 <style scoped>

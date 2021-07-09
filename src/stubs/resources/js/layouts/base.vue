@@ -1,8 +1,8 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
-        v-model="sidebarDrawer"
-        app>
+      v-model="sidebarDrawer"
+      app>
       <!--  -->
     </v-navigation-drawer>
 
@@ -19,14 +19,14 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      sidebarDrawer: null,
-      bottomDrawer: null
-    };
-  },
-};
+  export default {
+    data() {
+      return {
+        sidebarDrawer: null,
+        bottomDrawer: null
+      };
+    }
+  };
 </script>
 
 <style scoped>

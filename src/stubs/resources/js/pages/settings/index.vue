@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-      Settings
-    </div>
-  </div>
-
+  <v-container fluid>
+    <v-card>
+      <v-card-title>Settings</v-card-title>
+    </v-card>
+  </v-container>
 </template>
 
 <script>

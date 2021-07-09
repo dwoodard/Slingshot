@@ -5,7 +5,11 @@
 </template>
 
 <script>
-export default {};
+  import Layout from '@/layouts/Admin/Layout';
+
+  export default {
+    layout: Layout
+  };
 </script>
 
 <style scoped>

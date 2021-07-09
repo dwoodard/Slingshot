@@ -85,6 +85,6 @@ class PagesController extends Controller
 
         $data = [];
 
-        return Inertia::render('Settings', $data);
+        return Inertia::render('settings', $data);
     }
 }
