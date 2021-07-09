@@ -48,4 +48,13 @@ class AdminController extends \Inertia\Controller
 
         return Inertia::render('Admin/Posts', $data);
     }
+
+    public function settings(Request $request):Response
+    {
+        $data = [
+            'settings' => []
+        ];
+
+        return Inertia::render('Admin/Settings', $data);
+    }
 }

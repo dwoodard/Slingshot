@@ -78,6 +78,11 @@
             // items: [
             //   {title: 'Comments'}
             // ]
+          },
+          {
+            title: 'Settings',
+            link: '/admin/settings',
+            icon: 'mdi-card-bulleted-settings-outline'
           }
 
 
