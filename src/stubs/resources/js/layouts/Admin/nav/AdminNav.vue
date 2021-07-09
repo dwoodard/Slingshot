@@ -45,56 +45,55 @@
   </v-navigation-drawer>
 </template>
 <script>
-  export default {
-    name: 'AdminNav',
-
-    data() {
-      return {
-        sidebarDrawer: true,
-        toggleMini: false,
-        items: [
-          {
-            title: 'Dashboard',
-            // active: true,
-            link: '/admin/dashboard',
-            icon: 'mdi-view-dashboard'
-          },
-          {
-            title: 'Users',
-            header: 'Users',
-            link: '/admin/users',
-            icon: 'mdi-account'
-          },
-          {
-            title: 'Pages',
-            link: '/admin/pages',
-            icon: 'mdi-file-document-multiple-outline'
-          },
-
-
-          {
-            title: 'Posts',
-            icon: 'mdi-post-outline',
-            link: '/admin/posts'
-            // items: [
-            //   {title: 'Comments'}
-            // ]
-          }
-
-
-        ]
-      };
-    },
-    computed: {
-      mini: {
-        get() {
-          return this.toggleMini || (this.$vuetify.breakpoint.smAndDown);
+export default {
+  name: 'AdminNav',
+  data() {
+    return {
+      sidebarDrawer: true,
+      toggleMini: false,
+      items: [
+        {
+          title: 'Dashboard',
+          // active: true,
+          link: '/admin/dashboard',
+          icon: 'mdi-view-dashboard'
         },
-        set(value) {
-          return value;
+        {
+          title: 'Users',
+          header: 'Users',
+          link: '/admin/users',
+          icon: 'mdi-account'
+        },
+        {
+          title: 'Pages',
+          link: '/admin/pages',
+          icon: 'mdi-file-document-multiple-outline'
+        },
+
+
+        {
+          title: 'Posts',
+          icon: 'mdi-post-outline',
+          link: '/admin/posts'
+          // items: [
+          //   {title: 'Comments'}
+          // ]
         }
 
+
+      ]
+    };
+  },
+  computed: {
+    mini: {
+      get() {
+        return this.toggleMini || (this.$vuetify.breakpoint.smAndDown);
+      },
+      set(value) {
+        return value;
       }
+
     }
-  };
+  }
+};
 </script>

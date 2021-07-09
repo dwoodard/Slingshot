@@ -23,58 +23,17 @@
 
 <script>
   import ProfileMenu from '@/layouts/nav/ProfileMenu';
-  import MainNav from '../nav/MainNav';
-  import AdminNav from './AdminNav';
+  import MainNav from '@/layouts/nav/MainNav';
+  import AdminNav from '@/layouts/Admin/nav/AdminNav';
 
-  export default {
-    data() {
-      return {
-        sidebarDrawer: true,
-        toggleMini: false,
-        items: [
-          {
-            title: 'Dashboard',
-            // active: true,
-            link: '/admin/dashboard',
-            icon: 'mdi-view-dashboard'
-          },
-          {
-            title: 'Users',
-            header: 'Users',
-            link: '/admin/users',
-            icon: 'mdi-account'
-          },
-          {
-            title: 'Pages',
-            link: '/admin/pages',
-            icon: 'mdi-file-document-multiple-outline'
-          },
-
-
-          {
-            title: 'Posts',
-            icon: 'mdi-post-outline',
-            link: '/admin/posts'
-            // items: [
-            //   {title: 'Comments'}
-            // ]
-          }
-
-
-        ]
-      };
-    },
-
-
-    methods: {
-      logout() {
-        this.$inertia.post(this.route('logout'));
-      }
-    },
-    components: {
-      AdminNav,
-      MainNav,
-      ProfileMenu
-    }
-  };
+export default {
+  data () {
+    return {};
+  },
+  components: {
+    AdminNav,
+    MainNav,
+    ProfileMenu
+  }
+};
 </script>
