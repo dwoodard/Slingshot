@@ -1,5 +1,5 @@
 <template>
-  <v-container v-html="page.content"/>
+  <v-container fluid v-html="page.content"/>
 </template>
 
 <script>

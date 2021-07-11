@@ -2,7 +2,8 @@
   <v-navigation-drawer v-model="sidebarDrawer" :mini-variant.sync="mini" app dark permanent stateless clipped>
     <v-list dense flat outlined>
       <v-list-item class="pointer" @click="toggleMini = !toggleMini">
-        <v-icon>mdi-menu-open</v-icon>
+        <v-icon v-if="!mini">mdi-menu-open</v-icon>
+        <v-icon v-else>mdi-menu-open mdi-rotate-180</v-icon>
       </v-list-item>
 
 
@@ -92,7 +93,7 @@
     computed: {
       mini: {
         get() {
-          return this.toggleMini && (this.$vuetify.breakpoint.smAndDown);
+          return (this.toggleMini || this.$vuetify.breakpoint.smAndDown) && this.toggleMini;
         },
         set(value) {
           return value;
