@@ -15,6 +15,7 @@ class AdminController extends \Inertia\Controller
     {
         return Redirect::route('admin.dashboard');
     }
+
     public function dashboard(Request $request):Response
     {
         $data = [];

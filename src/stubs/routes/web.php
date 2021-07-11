@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\PasswordController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PagesController;
+use App\Http\Controllers\PageController;
 use Inertia\Inertia;
 
 /*
@@ -27,8 +27,6 @@ Route::post('login', [\App\Http\Controllers\Auth\LoginController::class,'login']
 
 Route::match(['get', 'post'],'logout', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
-Route::get('/',  [PagesController::class, 'welcome'])->name('home');
-
 //User
 Route::delete('/user', function (){
     Auth::user()->delete();
@@ -47,18 +45,22 @@ Route::put('/user/profile-information', [\App\Http\Controllers\ProfileInformatio
     ->name('user-profile-information.update');
 
 //Pages
-Route::get('/dashboard', [PagesController::class, 'dashboard'])
+Route::get('/',  [PageController::class, 'welcome'])->name('home');
+
+Route::get('/dashboard', [PageController::class, 'dashboard'])
     ->name('dashboard')
     ->middleware('auth');
 
-Route::get('/profile', [PagesController::class, 'profile'])
+Route::get('/profile', [PageController::class, 'profile'])
     ->name('profile.show')
     ->middleware('auth');
 
-Route::get('/settings', [PagesController::class, 'settings'])
+Route::get('/settings', [PageController::class, 'settings'])
     ->name('settings.show')
     ->middleware('auth');
 
 
-Route::get('/terms-of-service',  [PagesController::class, 'termsOfService'])->name('terms.show');
-Route::get('/privacy-policy',  [PagesController::class, 'privacyPolicy'])->name('policy.show');
+Route::get('/terms-of-service',  [PageController::class, 'termsOfService'])->name('terms.show');
+Route::get('/privacy-policy',  [PageController::class, 'privacyPolicy'])->name('policy.show');
+
+Route::get('/{slug}',  [PageController::class, 'page'])->name('page');

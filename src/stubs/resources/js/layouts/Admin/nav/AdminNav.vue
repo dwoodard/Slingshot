@@ -92,7 +92,7 @@
     computed: {
       mini: {
         get() {
-          return this.toggleMini || (this.$vuetify.breakpoint.smAndDown);
+          return this.toggleMini && (this.$vuetify.breakpoint.smAndDown);
         },
         set(value) {
           return value;
