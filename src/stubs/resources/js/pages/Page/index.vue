@@ -1,12 +1,10 @@
 <template>
-  <v-container>
-    {{slug}}
-  </v-container>
+  <v-container v-html="page.content"/>
 </template>
 
 <script>
   export default {
-props:['slug']
+    props: ['page']
   };
 </script>
 

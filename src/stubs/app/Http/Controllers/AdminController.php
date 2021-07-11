@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
+use App\Models\Page;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -35,7 +36,7 @@ class AdminController extends \Inertia\Controller
     public function pages(Request $request):Response
     {
         $data = [
-            'pages' => []
+            'pages' => Page::all()
         ];
 
         return Inertia::render('Admin/Pages', $data);
