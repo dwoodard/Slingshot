@@ -52,7 +52,7 @@
 
         <div class="flex items-center">
           <v-checkbox v-model="form.terms" required>
-            <template v-slot:label>
+            <template #label>
               <div class="ml-2">
                 I agree to the <a target="_blank" :href="route('terms.show')"
                                   class="underline text-sm text-gray-600 hover:text-gray-900">Terms of Service</a> and

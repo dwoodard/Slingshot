@@ -41,6 +41,24 @@ class AdminController extends \Inertia\Controller
 
         return Inertia::render('Admin/Pages', $data);
     }
+    public function pagesEdit(Request $request, $slug):Response
+    {
+        $data = [
+            'page' => Page::where('slug', '=', $slug)->first()
+        ];
+
+        return Inertia::render('Admin/Pages/edit', $data);
+    }
+    public function pagesSave(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $page = Page::updateOrCreate($request->all());
+        $data = [
+            'page' => $page
+        ];
+
+        return Redirect::route('admin/page', ['slug', $page->slug]);
+//        return Inertia::render('Admin/Pages/edit', $data);
+    }
 
     public function posts(Request $request):Response
     {

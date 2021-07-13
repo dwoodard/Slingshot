@@ -45,22 +45,42 @@ Route::put('/user/profile-information', [\App\Http\Controllers\ProfileInformatio
     ->name('user-profile-information.update');
 
 //Pages
-Route::get('/',  [PageController::class, 'welcome'])->name('home');
 
-Route::get('/dashboard', [PageController::class, 'dashboard'])
-    ->name('dashboard')
-    ->middleware('auth');
+//Welcome
+Route::get('/',  function(){
+    return Inertia::render('Welcome', [
+        'laravelVersion' => \Illuminate\Foundation\Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 
-Route::get('/profile', [PageController::class, 'profile'])
-    ->name('profile.show')
-    ->middleware('auth');
+})
+->name('home');
 
-Route::get('/settings', [PageController::class, 'settings'])
-    ->name('settings.show')
-    ->middleware('auth');
+Route::get('/dashboard',  function (){
+    return Inertia::render('Dashboard', []);
+})
+->name('dashboard')
+->middleware('auth');
+
+Route::get('/profile', function (){
+    return Inertia::render('profile/Show', []);
+})
+->name('profile.show')
+->middleware('auth');
+
+Route::get('/settings', function (){
+    return Inertia::render('settings', []);
+})
+->name('settings.show')
+->middleware('auth');
 
 
-Route::get('/terms-of-service',  [PageController::class, 'termsOfService'])->name('terms.show');
-Route::get('/privacy-policy',  [PageController::class, 'privacyPolicy'])->name('policy.show');
+Route::get('/terms-of-service',  function (){
+    return Inertia::render('TermsOfService', []);
+})->name('terms.show');
+
+Route::get('/privacy-policy',  function (){
+    return Inertia::render('PrivacyPolicy', []);
+})->name('policy.show');
 
 Route::get('/{slug}',  [PageController::class, 'page'])->name('page');

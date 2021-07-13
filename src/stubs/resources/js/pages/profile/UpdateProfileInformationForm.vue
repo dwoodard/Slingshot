@@ -10,88 +10,88 @@
           <!-- First Name -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                v-model="form.first_name"
-                :error-messages="form.errors.first_name"
-                label="First Name"
-                autocomplete="first_name"/>
+              v-model="form.first_name"
+              :error-messages="form.errors.first_name"
+              label="First Name"
+              autocomplete="first_name"/>
           </div>
 
           <!-- Last Name -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                v-model="form.last_name"
-                :error-messages="form.errors.last_name"
-                label="Last Name"
-                autocomplete="last_name"/>
+              v-model="form.last_name"
+              :error-messages="form.errors.last_name"
+              label="Last Name"
+              autocomplete="last_name"/>
           </div>
 
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                v-model="form.username"
-                :error-messages="form.errors.username"
-                label="Username"
-                autocomplete="username"/>
+              v-model="form.username"
+              :error-messages="form.errors.username"
+              label="Username"
+              autocomplete="username"/>
           </div>
 
           <!-- Email -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                v-model="form.email"
-                type="email"
-                :error-messages="form.errors.email"
-                label="Email"
-                autocomplete="email"/>
+              v-model="form.email"
+              type="email"
+              :error-messages="form.errors.email"
+              label="Email"
+              autocomplete="email"/>
           </div>
 
           <!-- Phone -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                v-model="form.phone"
-                type="phone"
-                :error-messages="form.errors.phone"
-                label="phone"
-                autocomplete="phone"/>
+              v-model="form.phone"
+              type="phone"
+              :error-messages="form.errors.phone"
+              label="phone"
+              autocomplete="phone"/>
           </div>
 
           <!-- Address -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                v-model="form.address"
-                type="address"
-                :error-messages="form.errors.address"
-                label="address"
-                autocomplete="address"/>
+              v-model="form.address"
+              type="address"
+              :error-messages="form.errors.address"
+              label="address"
+              autocomplete="address"/>
           </div>
 
           <!-- City -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                v-model="form.city"
-                type="city"
-                :error-messages="form.errors.city"
-                label="city"
-                autocomplete="city"/>
+              v-model="form.city"
+              type="city"
+              :error-messages="form.errors.city"
+              label="city"
+              autocomplete="city"/>
           </div>
 
           <!-- State -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                v-model="form.state"
-                type="state"
-                :error-messages="form.errors.state"
-                label="state"
-                autocomplete="state"/>
+              v-model="form.state"
+              type="state"
+              :error-messages="form.errors.state"
+              label="state"
+              autocomplete="state"/>
           </div>
 
           <!-- Zip -->
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
-                v-model="form.zip"
-                required
-                type="zip"
-                :error-messages="form.errors.zip"
-                label="zip"
-                autocomplete="zip"/>
+              v-model="form.zip"
+              required
+              type="zip"
+              :error-messages="form.errors.zip"
+              label="zip"
+              autocomplete="zip"/>
           </div>
 
           <v-btn type="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
@@ -108,36 +108,36 @@
 </template>
 
 <script>
-import ActionMessage from '@/components/ActionMessage';
+  import ActionMessage from '@/components/ActionMessage';
 
-export default {
-  data() {
-    return {
-      form: this.$inertia.form({
-        _method: 'PUT',
-        username: this.$page.props.auth.user.username,
-        first_name: this.$page.props.auth.user.first_name,
-        last_name: this.$page.props.auth.user.last_name,
-        email: this.$page.props.auth.user.email,
-        phone: this.$page.props.auth.user.phone,
-        address: this.$page.props.auth.user.address,
-        city: this.$page.props.auth.user.city,
-        state: this.$page.props.auth.user.state,
-        zip: this.$page.props.auth.user.zip
-      })
-    };
-  },
+  export default {
+    data() {
+      return {
+        form: this.$inertia.form({
+          _method: 'PUT',
+          username: this.$page.props.auth.user.data.username,
+          first_name: this.$page.props.auth.user.data.first_name,
+          last_name: this.$page.props.auth.user.data.last_name,
+          email: this.$page.props.auth.user.data.email,
+          phone: this.$page.props.auth.user.data.phone,
+          address: this.$page.props.auth.user.data.address,
+          city: this.$page.props.auth.user.data.city,
+          state: this.$page.props.auth.user.data.state,
+          zip: this.$page.props.auth.user.data.zip
+        })
+      };
+    },
 
-  methods: {
-    updateProfileInformation() {
-      this.form.post(route('user-profile-information.update'), {
-        errorBag: 'updateProfileInformation',
-        preserveScroll: true
-      });
+    methods: {
+      updateProfileInformation() {
+        this.form.post(route('user-profile-information.update'), {
+          errorBag: 'updateProfileInformation',
+          preserveScroll: true
+        });
+      }
+    },
+    components: {
+      ActionMessage
     }
-  },
-  components: {
-    ActionMessage
-  }
-};
+  };
 </script>
