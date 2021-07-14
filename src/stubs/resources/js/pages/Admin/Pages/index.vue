@@ -84,42 +84,32 @@
             value: 'is_active'
           },
           {
-            text: 'sort_order',
-            align: 'start',
-            sortable: true,
-            value: 'sort_order'
-          },
-          {
             text: 'Actions',
             value: 'actions',
             sortable: false
           }
-
-
         ]
       };
     },
     methods: {
-      previewItem(item) {
-        this.editedIndex = this.desserts.indexOf(item);
-        this.editedItem = Object.assign({}, item);
-        this.dialog = true;
-      },
 
-      editItem(item) {
-        this.editedIndex = this.desserts.indexOf(item);
-        this.editedItem = Object.assign({}, item);
-        this.dialog = true;
-      },
 
       deleteItem(item) {
-        this.editedIndex = this.desserts.indexOf(item);
+        this.editedIndex = this.pages.indexOf(item);
         this.editedItem = Object.assign({}, item);
-        this.dialogDelete = true;
+
+        this.deleteItemConfirm();
+
+        this.$inertia.delete(route('admin.page.delete'), {
+          onSuccess: (data) => {
+            this.dialogDelete = true;
+          },
+          onFinish: () => {}
+        });
       },
 
       deleteItemConfirm() {
-        this.desserts.splice(this.editedIndex, 1);
+        this.pages.splice(this.editedIndex, 1);
         this.closeDelete();
       },
 

@@ -60,6 +60,17 @@ class AdminController extends \Inertia\Controller
         ];
         return Redirect::back()->with($data);
     }
+    public function pagesDelete(Request $request): \Illuminate\Http\RedirectResponse
+    {
+
+        $page = Page::where('slug', $request->slug)
+            ->delete($request->all());
+
+        $data = [
+            'page' => $page
+        ];
+        return Redirect::back()->with($data);
+    }
 
     public function posts(Request $request):Response
     {
