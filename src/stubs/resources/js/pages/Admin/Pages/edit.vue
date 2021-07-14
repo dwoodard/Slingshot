@@ -19,7 +19,7 @@
 
 <script>
   import Layout from '@/layouts/Admin/Layout';
-  import ActionMessage from '../../../components/ActionMessage';
+  import ActionMessage from '@/components/ActionMessage';
 
   export default {
     props: ['page'],
@@ -30,7 +30,7 @@
     },
     methods: {
       submit() {
-        this.form.post(this.route('admin.page.save'), {
+        this.form.put(this.route('admin.page.save'), {
           onSuccess: (data) => {
             // console.log(data);
           },

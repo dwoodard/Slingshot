@@ -49,12 +49,23 @@ class AdminController extends \Inertia\Controller
 
         return Inertia::render('Admin/Pages/edit', $data);
     }
-    public function pagesSave(Request $request): \Illuminate\Http\RedirectResponse
+
+    public function pagesCreate(Request $request)
     {
 
-        $page = Page::where('slug', $request->slug)
-            ->update($request->all());
-
+        $data = [
+            'page' => Page::create(
+                $request->validate([
+                    'title' => ['required'],
+                    'slug' => ['required']
+                ])
+            )
+        ];
+        return Redirect::back()->with($data);
+    }
+    public function pagesSave(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $page = Page::where('slug', $request->slug)->update($request->all());
         $data = [
             'page' => $page
         ];
@@ -62,9 +73,7 @@ class AdminController extends \Inertia\Controller
     }
     public function pagesDelete(Request $request): \Illuminate\Http\RedirectResponse
     {
-
         $page = Page::where('slug', $request->slug)->delete();
-
         $data = [
             'page' => $page
         ];

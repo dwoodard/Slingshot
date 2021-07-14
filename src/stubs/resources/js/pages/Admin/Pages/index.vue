@@ -1,5 +1,22 @@
 <template>
   <v-container fluid>
+    <v-app-bar>
+      <v-toolbar-title>Pages</v-toolbar-title>
+      <v-spacer/>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-icon v-bind="attrs"
+                  v-on="on"
+                  @click.stop="showCreatePage=true">
+            mdi-text-box-plus
+          </v-icon>
+        </template>
+        <span>Add Page</span>
+      </v-tooltip>
+
+      <ShowCreatePage v-model="showCreatePage"/>
+    </v-app-bar>
+
     <v-data-table
       v-model="selectedPages"
       :search="searchPages"
@@ -30,8 +47,7 @@
 
       <template #item.actions="{ item }">
         <a target="_blank" :href="`/${item.slug}`" class="text-decoration-none">
-          <v-icon small
-                  class="mr-2">
+          <v-icon small class="mr-2">
             mdi-file-find-outline
           </v-icon>
         </a>
@@ -42,7 +58,7 @@
         </inertia-link>
         <v-icon
           small
-          @click="deleteItem(item)">
+          @click="deleteItem()">
           mdi-delete
         </v-icon>
 
@@ -69,7 +85,7 @@
 
               <v-btn
                 color="red darken-1 white--text"
-                @click="deleteItem(item);">
+                @click="deleteItemConfirm(item);">
                 Delete
               </v-btn>
             </v-card-actions>
@@ -82,6 +98,7 @@
 
 <script>
   import Admin from '@/layouts/Admin/Layout';
+  import ShowCreatePage from '@/pages/Admin/Pages/create';
 
   export default {
     layout: Admin,
@@ -91,6 +108,7 @@
         selectedPages: [],
         searchPages: '',
         showDeleteConfirm: false,
+        showCreatePage: false,
         headers: [
           {
             text: 'Title',
@@ -119,11 +137,11 @@
       };
     },
     methods: {
-      deleteItem(item) {
+      deleteItem() {
         this.showDeleteConfirm = true;
       },
 
-      deleteItemConfirm() {
+      deleteItemConfirm(item) {
         this.$inertia.delete(route('admin.page.delete', item), {
           onSuccess: (data) => {
             this.editedIndex = this.pages.indexOf(item);
@@ -136,6 +154,9 @@
       }
 
 
+    },
+    components: {
+      ShowCreatePage
     }
 
   };
