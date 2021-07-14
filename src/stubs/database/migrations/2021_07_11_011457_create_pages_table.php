@@ -16,7 +16,7 @@ class CreatePagesTable extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug')->index();
+            $table->string('slug')->index()->unique();
             $table->text('content');
             $table->json('middleware')->nullable();
             $table->mediumInteger('sort_order')->unsigned()->default(0);
