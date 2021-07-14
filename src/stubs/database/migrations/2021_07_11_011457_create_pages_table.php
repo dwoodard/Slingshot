@@ -17,7 +17,7 @@ class CreatePagesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->index()->unique();
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->json('middleware')->nullable();
             $table->mediumInteger('sort_order')->unsigned()->default(0);
             $table->boolean('is_active')->default(true);

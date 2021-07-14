@@ -10,8 +10,14 @@ class PageController extends Controller
 {
     public function page($slug)
     {
+        $page = Page::where('slug','=', $slug)->first();
+
+        if (!$page){
+            abort(404);
+        }
+
         $data = [
-            'page' => Page::where('slug','=', $slug)->first()
+            'page' => $page
         ];
         return Inertia::render('Page', $data);
     }

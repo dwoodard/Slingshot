@@ -63,8 +63,7 @@ class AdminController extends \Inertia\Controller
     public function pagesDelete(Request $request): \Illuminate\Http\RedirectResponse
     {
 
-        $page = Page::where('slug', $request->slug)
-            ->delete($request->all());
+        $page = Page::where('slug', $request->slug)->delete();
 
         $data = [
             'page' => $page

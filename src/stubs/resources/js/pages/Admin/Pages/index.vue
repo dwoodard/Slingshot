@@ -11,11 +11,7 @@
       class="elevation-1">
       <template #item.title="props">
         <v-edit-dialog
-          :return-value.sync="props.item.title"
-          @save="save"
-          @cancel="cancel"
-          @open="open"
-          @close="close">
+          :return-value.sync="props.item.title">
           {{ props.item.title }}
           <template #input>
             <v-text-field
@@ -49,6 +45,36 @@
           @click="deleteItem(item)">
           mdi-delete
         </v-icon>
+
+        <v-dialog
+          v-model="showDeleteConfirm"
+          max-width="290">
+          <v-card>
+            <v-card-title class="text-h5">
+              Delete Page?
+            </v-card-title>
+
+            <v-card-text>
+              Are you sure you and to delete this page?
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer/>
+
+              <v-btn
+                text
+                @click="showDeleteConfirm = false">
+                Disagree
+              </v-btn>
+
+              <v-btn
+                color="red darken-1 white--text"
+                @click="deleteItem(item);">
+                Delete
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </template>
     </v-data-table>
   </v-container>
@@ -64,6 +90,7 @@
       return {
         selectedPages: [],
         searchPages: '',
+        showDeleteConfirm: false,
         headers: [
           {
             text: 'Title',
@@ -92,46 +119,23 @@
       };
     },
     methods: {
-
-
       deleteItem(item) {
-        this.editedIndex = this.pages.indexOf(item);
-        this.editedItem = Object.assign({}, item);
-
-        this.deleteItemConfirm();
-
-        this.$inertia.delete(route('admin.page.delete'), {
-          onSuccess: (data) => {
-            this.dialogDelete = true;
-          },
-          onFinish: () => {}
-        });
+        this.showDeleteConfirm = true;
       },
 
       deleteItemConfirm() {
-        this.pages.splice(this.editedIndex, 1);
-        this.closeDelete();
-      },
+        this.$inertia.delete(route('admin.page.delete', item), {
+          onSuccess: (data) => {
+            this.editedIndex = this.pages.indexOf(item);
+            this.pages.splice(this.editedIndex, 1);
+            this.showDeleteConfirm = false;
+          },
 
-
-      save() {
-        this.snack = true;
-        this.snackColor = 'success';
-        this.snackText = 'Data saved';
-      },
-      cancel() {
-        this.snack = true;
-        this.snackColor = 'error';
-        this.snackText = 'Canceled';
-      },
-      open() {
-        this.snack = true;
-        this.snackColor = 'info';
-        this.snackText = 'Dialog opened';
-      },
-      close() {
-        console.log('Dialog closed');
+          onFinish: () => {}
+        });
       }
+
+
     }
 
   };
