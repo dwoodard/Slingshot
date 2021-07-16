@@ -6,6 +6,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Page;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -32,6 +33,45 @@ class AdminController extends \Inertia\Controller
 
         return Inertia::render('Admin/Users', $data);
     }
+    public function usersEdit(Request $request, User $user):Response
+    {
+        $data = [
+            'user' => $user
+        ];
+
+        return Inertia::render('Admin/Users/edit', $data);
+    }
+    public function userCreate(Request $request): \Illuminate\Http\RedirectResponse
+    {
+
+        $request->validate([
+            'email' => 'required|email',
+            'username' => 'required|min:3',
+            'password' => 'required|min:8'
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+
+        return Redirect::back();
+    }
+    public function usersSave(Request $request,User $user): \Illuminate\Http\RedirectResponse
+    {
+        $user = $user->update($request->all());
+        $data = [
+            'page' => $user
+        ];
+        return Redirect::back()->with($data);
+    }
+    public function usersDelete(Request $request, User $user): \Illuminate\Http\RedirectResponse
+    {
+        $user->where('email', $request->email)->delete();
+        return Redirect::back();
+    }
 
     public function pages(Request $request):Response
     {
@@ -49,7 +89,6 @@ class AdminController extends \Inertia\Controller
 
         return Inertia::render('Admin/Pages/edit', $data);
     }
-
     public function pagesCreate(Request $request)
     {
 

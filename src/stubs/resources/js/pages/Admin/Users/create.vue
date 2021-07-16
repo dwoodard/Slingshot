@@ -4,14 +4,20 @@
       <form @submit.prevent="submit">
         <v-card-text>
           <v-text-field
-            v-model="form.title"
-            :error-messages="form.errors.title"
-            label="Title"
+            v-model="form.email"
+            :error-messages="form.errors.email"
+            label="Email"
             required/>
           <v-text-field
-            v-model="form.slug"
-            :error-messages="form.errors.slug"
-            label="Slug"
+            v-model="form.username"
+            :error-messages="form.errors.username"
+            label="Username"
+            required/>
+
+          <v-text-field
+            v-model="form.password"
+            :error-messages="form.errors.password"
+            label="Password"
             required/>
         </v-card-text>
 
@@ -26,7 +32,6 @@
 </template>
 
 <script>
-  import {toKebabCase} from '@/helper';
 
   export default {
     props: {
@@ -35,8 +40,9 @@
     data() {
       return {
         form: this.$inertia.form({
-          title: '',
-          slug: ''
+          username: '',
+          email: '',
+          password: ''
         })
       };
     },
@@ -48,15 +54,12 @@
         set(value) {
           this.$emit('input', value);
         }
-      },
-      title() {
-        return this.form.title;
       }
+
     },
     methods: {
-      toKebabCase,
       submit() {
-        this.form.post(route('admin.page.create'), {
+        this.form.post(route('admin.users.create'), {
           onSuccess: (data) => {
             this.form.reset();
             this.show = false;
@@ -64,12 +67,7 @@
           onFinish: () => {}
         });
       }
-    },
-    watch: {
-      title() {
-        this.form.slug = toKebabCase(this.form.title)
-          .replace('.', '');
-      }
     }
+
   };
 </script>

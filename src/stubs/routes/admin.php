@@ -14,6 +14,10 @@ Route::group(['as'=>'admin.','middleware' => ['web','role:admin']], function(){
 
     //users
     Route::get('/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('users');
+    Route::get('/users/{id}', [\App\Http\Controllers\AdminController::class, 'usersEdit'])->name('users.edit');
+    Route::post('/users', [\App\Http\Controllers\AdminController::class, 'usersCreate'])->name('users.create');
+    Route::put('/users', [\App\Http\Controllers\AdminController::class, 'usersSave'])->name('users.save');
+    Route::delete('/users', [\App\Http\Controllers\AdminController::class, 'usersDelete'])->name('users.delete');
 
     //pages
     Route::get('/pages', [\App\Http\Controllers\AdminController::class, 'pages'])->name('pages');
