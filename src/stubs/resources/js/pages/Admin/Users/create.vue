@@ -5,6 +5,7 @@
         <v-card-text>
           <v-text-field
             v-model="form.email"
+            counter
             :error-messages="form.errors.email"
             label="Email"
             required/>
@@ -16,6 +17,7 @@
 
           <v-text-field
             v-model="form.password"
+            counter
             :error-messages="form.errors.password"
             label="Password"
             required/>

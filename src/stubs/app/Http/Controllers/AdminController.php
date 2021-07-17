@@ -33,29 +33,28 @@ class AdminController extends \Inertia\Controller
 
         return Inertia::render('Admin/Users', $data);
     }
-    public function usersEdit(Request $request, User $user):Response
+    public function usersEdit(User $user):Response
     {
         $data = [
-            'user' => $user
+            'user' => UserResource::make($user)
         ];
 
         return Inertia::render('Admin/Users/edit', $data);
     }
-    public function userCreate(Request $request): \Illuminate\Http\RedirectResponse
+    public function usersCreate(Request $request): \Illuminate\Http\RedirectResponse
     {
 
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|unique:users|email',
             'username' => 'required|min:3',
             'password' => 'required|min:8'
         ]);
 
         User::create([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
 
         return Redirect::back();
     }
