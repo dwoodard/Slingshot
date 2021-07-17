@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -58,13 +59,18 @@ class AdminController extends \Inertia\Controller
 
         return Redirect::back();
     }
-    public function usersSave(Request $request,User $user): \Illuminate\Http\RedirectResponse
+    public function usersSave(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $user = $user->update($request->all());
-        $data = [
-            'page' => $user
-        ];
-        return Redirect::back()->with($data);
+
+        $request->validate([
+            'first_name' => 'required',
+            'email' => ['required','email', Rule::unique('users')->ignore($request->id)],
+            'username' => 'required|min:3',
+        ]);
+
+        User::find($request->id)->update( $request->all());
+
+        return Redirect::back();
     }
     public function usersDelete(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {

@@ -9,53 +9,63 @@
       <v-toolbar-title>{{ form.email }}</v-toolbar-title>
     </v-app-bar>
 
-
-    <v-card class="pa-3">
-      <v-text-field
-        v-model="form.first_name"
-        :error-messages="form.errors.first_name"
-        label="First name"
-        required/>
-      <v-text-field
-        v-model="form.last_name"
-        :error-messages="form.errors.last_name"
-        label="Last name"
-        required/>
-      <v-text-field
-        v-model="form.username"
-        :error-messages="form.errors.username"
-        label="Username"
-        required/>
-      <v-text-field
-        v-model="form.email"
-        :error-messages="form.errors.email"
-        label="Email"
-        required/>
-      <v-text-field
-        v-model="form.phone"
-        :error-messages="form.errors.phone"
-        label="Phone"
-        required/>
-      <v-text-field
-        v-model="form.address"
-        :error-messages="form.errors.address"
-        label="Address"
-        required/>
-      <v-text-field
-        v-model="form.city"
-        :error-messages="form.errors.city"
-        label="City"
-        required/>
-      <v-text-field
-        v-model="form.state"
-        :error-messages="form.errors.state"
-        label="State"
-        required/>
-      <v-text-field
-        v-model="form.zip"
-        :error-messages="form.errors.zip"
-        label="Zip"
-        required/>
+    <v-card class="pa-4">
+      <v-card-text>
+        <v-text-field
+          v-model="form.first_name"
+          dense
+          :error-messages="form.errors.first_name"
+          label="First name"
+          required/>
+        <v-text-field
+          v-model="form.last_name"
+          dense
+          :error-messages="form.errors.last_name"
+          label="Last name"
+          required/>
+        <v-text-field
+          v-model="form.username"
+          dense
+          :error-messages="form.errors.username"
+          label="Username"
+          required/>
+        <v-text-field
+          v-model="form.email"
+          dense
+          :error-messages="form.errors.email"
+          label="Email"
+          required/>
+        <v-text-field
+          v-model="form.phone"
+          dense
+          :error-messages="form.errors.phone"
+          label="Phone"
+          required/>
+        <v-text-field
+          v-model="form.address"
+          dense
+          :error-messages="form.errors.address"
+          label="Address"
+          required/>
+        <v-text-field
+          v-model="form.city"
+          dense
+          :error-messages="form.errors.city"
+          label="City"
+          required/>
+        <v-text-field
+          v-model="form.state"
+          dense
+          :error-messages="form.errors.state"
+          label="State"
+          required/>
+        <v-text-field
+          v-model="form.zip"
+          dense
+          :error-messages="form.errors.zip"
+          label="Zip"
+          required/>
+      </v-card-text>
 
 
       <v-card-actions>
@@ -85,8 +95,7 @@
         this.form.put(this.route('admin.users.save'), {
           onSuccess: (data) => {
             // console.log(data);
-          },
-          onFinish: () => this.form.reset()
+          }
         });
       }
     },
