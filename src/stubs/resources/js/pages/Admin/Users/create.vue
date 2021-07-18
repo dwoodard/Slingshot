@@ -14,13 +14,15 @@
             :error-messages="form.errors.username"
             label="Username"
             required/>
-
           <v-text-field
             v-model="form.password"
-            counter
             :error-messages="form.errors.password"
-            label="Password"
-            required/>
+            label="password"
+            counter
+            required
+            :append-icon="hidepassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="hidepassword ? 'password' : 'text'"
+            @click:append="() => (hidepassword = !hidepassword)"/>
         </v-card-text>
 
         <v-card-actions>
@@ -41,6 +43,7 @@
     },
     data() {
       return {
+        hidepassword: true,
         form: this.$inertia.form({
           username: '',
           email: '',

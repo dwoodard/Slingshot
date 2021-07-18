@@ -107,6 +107,12 @@
             sortable: true,
             value: 'username'
           },
+          {
+            text: 'roles',
+            align: 'start',
+            sortable: true,
+            value: 'roles'
+          },
 
           {
             text: 'Actions',

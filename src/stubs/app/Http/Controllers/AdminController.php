@@ -63,7 +63,6 @@ class AdminController extends \Inertia\Controller
     {
 
         $request->validate([
-            'first_name' => 'required',
             'email' => ['required','email', Rule::unique('users')->ignore($request->id)],
             'username' => 'required|min:3',
         ]);
