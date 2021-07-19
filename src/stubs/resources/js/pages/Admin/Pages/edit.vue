@@ -1,34 +1,49 @@
 <template>
   <v-container fluid>
-    <inertia-link href="/admin/pages" as="button">
-      <v-icon>mdi-menu-left</v-icon>
-    </inertia-link>
-    <span>{{ page.title }}</span>
-    <v-card>
-      <v-textarea v-model="form.content" class="pa-3"/>
-      <v-card-actions>
-        <v-btn @click="submit">Save</v-btn>
+    <v-app-bar>
+      <inertia-link href="/admin/pages" as="button">
+        <v-icon>mdi-menu-left</v-icon>
+      </inertia-link>
+      <v-toolbar-title>
+        {{ page.title }} (<a target="_blank" :href="`/${page.slug}`">{{ page.slug }}</a>)
+      </v-toolbar-title>
+    </v-app-bar>
+    <!--    <pre>{{ page }}</pre>-->
+    <GrapesEditor @save="onSave">
+      <div v-html="page.content"></div>
+    </GrapesEditor>
 
-        <ActionMessage :on="form.recentlySuccessful" class="ml-3">
-          Saved.
-        </ActionMessage>
-      </v-card-actions>
-    </v-card>
-  </v-container>
+
+</v-container>
 </template>
 
 <script>
   import Layout from '@/layouts/Admin/Layout';
   import ActionMessage from '@/components/ActionMessage';
+  import GrapesEditor from '@/components/GrapesEditor';
 
   export default {
     props: ['page'],
     data() {
       return {
-        form: this.$inertia.form({...this.page})
+        form: this.$inertia.form({
+          id: this.page.id,
+          title: this.page.title,
+          slug: this.page.slug,
+          content: this.page.content,
+          middleware: this.page.middleware,
+          sort_order: this.page.sort_order,
+          is_active: this.page.is_active,
+          is_published: this.page.is_published
+        })
       };
     },
     methods: {
+      onSave(content){
+        this.form.content = content
+
+        this.submit()
+      },
       submit() {
         this.form.put(this.route('admin.page.save'), {
           onSuccess: (data) => {
@@ -38,12 +53,11 @@
         });
       }
     },
-    components: {ActionMessage},
+    components: {
+      GrapesEditor,
+      ActionMessage
+    },
     layout: Layout
 
   };
 </script>
-
-<style scoped>
-
-</style>
