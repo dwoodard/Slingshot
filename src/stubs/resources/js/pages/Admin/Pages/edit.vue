@@ -13,7 +13,14 @@
       <div v-html="page.content"></div>
     </GrapesEditor>
 
-
+    <v-snackbar v-model="savedSnackBar">
+      Page Saved
+      <template v-slot:action="{ attrs }">
+        <v-btn text v-bind="attrs" @click="savedSnackBar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
 </v-container>
 </template>
 
@@ -26,6 +33,7 @@
     props: ['page'],
     data() {
       return {
+        savedSnackBar: false,
         form: this.$inertia.form({
           id: this.page.id,
           title: this.page.title,
@@ -41,8 +49,8 @@
     methods: {
       onSave(content){
         this.form.content = content
-
         this.submit()
+        this.savedSnackBar = true
       },
       submit() {
         this.form.put(this.route('admin.page.save'), {
