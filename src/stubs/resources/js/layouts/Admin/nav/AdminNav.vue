@@ -69,17 +69,8 @@
             title: 'Pages',
             link: '/admin/pages',
             icon: 'mdi-file-document-multiple-outline'
-          },
+          }, 
 
-
-          {
-            title: 'Posts',
-            icon: 'mdi-post-outline',
-            link: '/admin/posts'
-            // items: [
-            //   {title: 'Comments'}
-            // ]
-          },
           {
             title: 'Settings',
             link: '/admin/settings',
