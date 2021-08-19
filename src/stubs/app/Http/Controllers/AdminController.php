@@ -106,9 +106,13 @@ class AdminController extends \Inertia\Controller
         ];
         return Redirect::back()->with($data);
     }
-    public function pagesSave(Request $request): \Illuminate\Http\RedirectResponse
+    public function pagesSave($slug, Request $request): \Illuminate\Http\RedirectResponse
     {
-        $page = Page::where('slug', $request->slug)->update($request->all());
+        unset($request['_token']);
+
+        $page = Page::where('slug', $slug)->update([
+            'source' => json_encode($request->all())
+        ]);
         $data = [
             'page' => $page
         ];

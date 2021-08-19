@@ -9,19 +9,17 @@
       </v-toolbar-title>
     </v-app-bar>
     <!--    <pre>{{ page }}</pre>-->
-    <GrapesEditor @save="onSave">
-      <div v-html="page.content"></div>
-    </GrapesEditor>
+    <GrapesEditor :source="page.source" @save="onSave"/>
 
     <v-snackbar v-model="savedSnackBar">
       Page Saved
-      <template v-slot:action="{ attrs }">
+      <template #action="{ attrs }">
         <v-btn text v-bind="attrs" @click="savedSnackBar = false">
           Close
         </v-btn>
       </template>
     </v-snackbar>
-</v-container>
+  </v-container>
 </template>
 
 <script>
@@ -47,15 +45,15 @@
       };
     },
     methods: {
-      onSave(content){
-        this.form.content = content
-        this.submit()
-        this.savedSnackBar = true
+      onSave(content) {
+        this.form.content = content;
+        this.submit();
+        this.savedSnackBar = true;
       },
       submit() {
         this.form.put(this.route('admin.page.save'), {
           onSuccess: (data) => {
-            // console.log(data);
+            console.log(`submit${data}`);
           },
           onFinish: () => this.form.reset('password', 'password_confirmation')
         });

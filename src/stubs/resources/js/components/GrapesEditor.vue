@@ -16,37 +16,48 @@
 
   export default {
     name: 'GrapesEditor',
+    props: ['source'],
     data() {
       return {
         editor: null
       };
     },
+    computed: {
+      components() {
+        const source = JSON.parse(this.source);
+        return source.components ? JSON.parse(source.components) : '';
+      },
+      styles() {
+        const source = JSON.parse(this.source);
+        return source.styles ? JSON.parse(source.styles) : '';
+      }
+    },
     methods: {
       save() {
-        let html =  this.editor.getHtml()
-        let css = this.editor.getCss()
-        let js = this.editor.getJs()
-        let content =  `${html} <style>${css}</style>`
-
-        this.$emit('save', content)
+        this.$emit('save', this.editor);
       }
     },
     mounted() {
-
       this.editor = grapes.init({
         container: '#gjs',
-        fromElement: true,
+        fromElement: false,
 
         storageManager: {
-          id: 'gjs-', // Prefix identifier that will be used inside storing and loading
+          id: '', // Prefix identifier that will be used inside storing and loading
           type: 'remote',
-          autosave: false,
+          autosave: true,
           autoload: true, // Autoload stored data on init
+
           stepsBeforeSave: 1, // If autosave enabled, indicates how many changes are necessary before store method is triggered
           storeComponents: true, // Enable/Disable storing of components in JSON format
           storeStyles: true, // Enable/Disable storing of rules in JSON format
           storeHtml: true, // Enable/Disable storing of components as HTML string
-          storeCss: true // Enable/Disable storing of rules as CSS string
+          storeCss: true, // Enable/Disable storing of rules as CSS string
+          params: {
+            _token: this.$page.props.token
+          }
+
+
         },
 
         plugins: [
@@ -54,16 +65,18 @@
           pluginCustomCode,
           pluginBlocks,
           pluginExport
-        ],
+        ]
 
-
-        canvas: {
-          // styles: ['https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css']
-        }
 
       });
 
+      this.editor.setComponents(this.components);
+      this.editor.setStyle(this.styles);
 
+      this.editor.on('storage:start:store', (objectToStore) => {
+        console.log('storage:start:store');
+        console.log(objectToStore);
+      });
       this.editor.Panels.addButton('options', {
         id: 'gjs-save-btn',
         className: 'fa fa-save',
