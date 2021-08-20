@@ -1,6 +1,6 @@
 {
     "name": "dwoodard/slingshot",
-    "description": ":package_description",
+    "description": "Slingshot is a library that will set up a new Laravel with In a very opinionated setup of Laradock, Vue, Inertia, Vuetify, with common composer packages",
     "license": "proprietary",
     "authors": [
         {
