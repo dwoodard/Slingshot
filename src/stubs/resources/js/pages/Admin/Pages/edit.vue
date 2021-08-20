@@ -45,19 +45,11 @@
       };
     },
     methods: {
-      onSave(content) {
-        this.form.content = content;
-        this.submit();
+      onSave(data) {
+        console.log(data);
         this.savedSnackBar = true;
       },
-      submit() {
-        this.form.put(this.route('admin.page.save'), {
-          onSuccess: (data) => {
-            console.log(`submit${data}`);
-          },
-          onFinish: () => this.form.reset('password', 'password_confirmation')
-        });
-      }
+
     },
     components: {
       GrapesEditor,

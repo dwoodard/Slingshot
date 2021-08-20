@@ -33,8 +33,8 @@
       }
     },
     methods: {
-      save() {
-        this.$emit('save', this.editor);
+      save(data) {
+        this.$emit('save', data);
       }
     },
     mounted() {
@@ -136,9 +136,9 @@
       this.editor.setStyle(this.styles);
 
       this.editor.on('storage:start:store', (objectToStore) => {
-        console.log('storage:start:store');
-        console.log(objectToStore);
+        this.save(objectToStore);
       });
+
       this.editor.Panels.addButton('options', {
         id: 'gjs-save-btn',
         className: 'fa fa-save',
