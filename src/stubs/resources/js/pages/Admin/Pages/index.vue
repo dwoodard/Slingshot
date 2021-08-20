@@ -144,7 +144,9 @@
       },
 
       deleteItemConfirm(item) {
-        this.$inertia.delete(route('admin.page.delete', this.selectedPage), {
+        this.$inertia.delete(route('admin.page.delete', {
+          slug: this.selectedPage.slug
+        }), {
           onSuccess: (data) => {
             // this.editedIndex = this.pages.indexOf(item);
             // this.pages.splice(this.editedIndex, 1);
