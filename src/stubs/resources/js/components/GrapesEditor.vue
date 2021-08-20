@@ -42,6 +42,42 @@
         container: '#gjs',
         fromElement: false,
 
+        commands:{
+          defaults: [
+            {
+              id: "undo",
+              run: function (editor, sender) {
+                sender.set("active", false);
+                editor.UndoManager.undo(1);
+              }
+            },
+            {
+              id: "redo",
+              run: function (editor, sender) {
+                sender.set("active", false);
+                editor.UndoManager.redo(1);
+              }
+            },
+            {
+              id: "clean-all",
+              run: function (editor, sender) {
+                sender.set("active", false);
+                if (confirm("Are you sure to clean the canvas?")) {
+                  var comps = editor.DomComponents.clear();
+                }
+              }
+            },
+            {
+              id: "save",
+              run: function (editor, senderBtn) {
+                sender.set("active", false);
+                saveHtmlToList(editor);
+              },
+              stop: function (editor, senderBtn) {}
+            }
+          ]
+        },
+
         storageManager: {
           id: '', // Prefix identifier that will be used inside storing and loading
           type: 'remote',
@@ -69,6 +105,32 @@
 
 
       });
+
+      var pnm = this.editor.Panels;
+      pnm.addButton("options", [
+        {
+          id: "undo",
+          className: "fa fa-undo icon-undo",
+          command: function command(editor, sender) {
+            sender.set("active", 0);
+            editor.UndoManager.undo(1);
+          },
+          attributes: {
+            title: "Undo (CTRL/CMD + Z)"
+          }
+        },
+        {
+          id: "redo",
+          className: "fa fa-repeat icon-redo",
+          command: function command(editor, sender) {
+            sender.set("active", 0);
+            editor.UndoManager.redo(1);
+          },
+          attributes: {
+            title: "Redo (CTRL/CMD + Y)"
+          }
+        }
+      ]);
 
       this.editor.setComponents(this.components);
       this.editor.setStyle(this.styles);
