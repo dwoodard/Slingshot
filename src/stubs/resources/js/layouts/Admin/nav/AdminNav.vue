@@ -61,7 +61,6 @@
           },
           {
             title: 'Users',
-            header: 'Users',
             link: '/admin/users',
             icon: 'mdi-account'
           },

@@ -1,7 +1,6 @@
 <template>
   <div>
-    <section v-html="JSON.parse($page.props.page.source).html">
-    </section>
+    <section v-html="JSON.parse($page.props.page.source).html"></section>
   </div>
 </template>
 

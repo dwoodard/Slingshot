@@ -33,7 +33,7 @@
       </template>
 
       <template #item.actions="{ item }">
-        <inertia-link :href="`/admin/users/${item.id}`" as="button">
+        <inertia-link :href="`/admin/users/${item.id}/edit`" as="button">
           <v-icon small class="mr-2">
             mdi-pencil
           </v-icon>
@@ -129,7 +129,7 @@
       },
 
       deleteItemConfirm() {
-        this.$inertia.delete(route('admin.users.delete', this.selectedUser), {
+        this.$inertia.delete(route('admin.users.destroy', {user: this.selectedUser}), {
           onSuccess: (data) => {
             this.showDeleteConfirm = false;
           }

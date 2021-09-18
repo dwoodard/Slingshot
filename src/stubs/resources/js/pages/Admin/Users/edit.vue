@@ -92,7 +92,7 @@
     },
     methods: {
       submit() {
-        this.form.put(this.route('admin.users.save'), {
+        this.form.put(this.route('admin.users.update', this.form), {
           onSuccess: (data) => {
             // console.log(data);
           }

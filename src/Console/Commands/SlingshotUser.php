@@ -57,7 +57,7 @@ class SlingshotUser extends Command
         ]);
 
 
-        if ($this->confirm('Make ' . $email . 'an admin?')) {
+        if ($this->confirm('Make ' . $email . ' an admin?')) {
             $user->assignRole('admin');
         }
 

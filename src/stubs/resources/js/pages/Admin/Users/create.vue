@@ -64,7 +64,7 @@
     },
     methods: {
       submit() {
-        this.form.post(route('admin.users.create'), {
+        this.form.get(route('admin.users.create'), {
           onSuccess: (data) => {
             this.form.reset();
             this.show = false;
