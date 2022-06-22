@@ -15,8 +15,8 @@
         if (this.nodeScriptIs(node) === true) {
           node.parentNode.replaceChild(this.nodeScriptClone(node), node);
         } else {
-          let i = -1; const
-            children = node.childNodes;
+          let i = -1;
+          const children = node.childNodes;
           while (++i < children.length) {
             this.nodeScriptReplace(children[i]);
           }

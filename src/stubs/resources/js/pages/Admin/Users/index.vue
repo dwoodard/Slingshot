@@ -28,6 +28,7 @@
       <template #top>
         <v-text-field
           v-model="searchUsers"
+          clearable
           label="Search"
           class="mx-4"/>
       </template>

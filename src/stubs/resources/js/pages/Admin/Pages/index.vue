@@ -42,6 +42,7 @@
         <v-text-field
           v-model="searchPages"
           label="Search"
+          clearable
           class="mx-4"/>
       </template>
 
