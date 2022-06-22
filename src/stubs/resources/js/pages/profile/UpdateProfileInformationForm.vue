@@ -87,7 +87,6 @@
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
               v-model="form.zip"
-              required
               type="zip"
               :error-messages="form.errors.zip"
               label="zip"

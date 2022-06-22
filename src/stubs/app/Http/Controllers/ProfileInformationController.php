@@ -32,7 +32,7 @@ class ProfileInformationController extends Controller
             'address' => ['nullable'],
             'city' => ['nullable'],
             'state' => ['nullable'],
-            'zip' => ['required', 'max:5']
+            'zip' => ['max:5']
         ])->validateWithBag('updateProfileInformation');
 
         User::where('email', '=', $request->email)->update($request->all());
