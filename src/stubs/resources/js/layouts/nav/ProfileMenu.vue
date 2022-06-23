@@ -7,7 +7,7 @@
         dark
         v-bind="attrs"
         v-on="on">
-        {{ usernameFromEmail }}
+        {{ displayName('username') }}
       </v-btn>
     </template>
     <v-list class="pa-3">
@@ -35,14 +35,12 @@
         ]
       };
     },
-    computed: {
-      usernameFromEmail() {
-        return !this.$page.props?.auth?.user
-          ? null
-          : this.$page.props?.auth?.user?.data?.email.split('@')[0].toLowerCase();
-
-
-      // return this.$page.props?.auth?.user?.data?.email.split('@')[0].toLowerCase();
+    methods: {
+      displayName(field) {
+        if (this.$page.props.auth.user.data[field]) {
+          return this.$page.props.auth.user.data[field];
+        }
+        return this.$page.props?.auth?.user?.data?.email.split('@')[0].toLowerCase();
       }
     }
   };
