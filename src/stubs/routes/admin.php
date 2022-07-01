@@ -1,15 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
-
-//
 Route::group(['as'=>'admin.','middleware' => ['web','role:admin']], function(){
 
-        Route::get('/', function (){return Redirect::route('admin.dashboard');})->name('index');
+    Route::get('/', function (){return Redirect::route('admin.dashboard');})->name('index');
 
     //dashboard
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');

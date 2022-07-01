@@ -13,7 +13,9 @@ class SeedRolesPermissions extends Migration
      */
     public function up()
     {
+
         \Spatie\Permission\Models\Role::create(['name' => 'admin']);
+        \Spatie\Permission\Models\Role::create(['name' => 'user']);
     }
 
     /**
