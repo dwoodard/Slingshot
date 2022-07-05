@@ -25,24 +25,6 @@ class UserController extends Controller
         return Inertia::render('Admin/Users/index', $data);
     }
 
-    public function create(Request $request): \Illuminate\Http\RedirectResponse
-    {
-        $request->validate([
-            'email' => 'required|unique:users|email',
-            'username' => 'required|min:3',
-            'password' => 'required|min:8'
-        ]);
-
-        User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        return Redirect::back();
-    }
-
-
     public function edit(User $user):Response
     {
         $data = [
@@ -57,9 +39,17 @@ class UserController extends Controller
         $request->validate([
             'email' => ['required','email', Rule::unique('users')->ignore($request->id)],
             'username' => 'required|min:3',
+            'password' => 'required|min:8',
+            'role' => 'required|exists:roles,name'
         ]);
 
-        User::find($request->id)->update( $request->all());
+        $user = User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+
+        $user->assignRole($request->role);
 
         return Redirect::back();
     }
@@ -69,7 +59,7 @@ class UserController extends Controller
         $request->validate([
             'username' => ['required', 'min:3', Rule::unique('users')->ignore($user->id)],
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
-            'password' => ['nullable']
+            'password' => 'nullable|min:8'
         ]);
 
         $user->update($request->only(OnlyColumns($user)));

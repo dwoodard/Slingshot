@@ -17,13 +17,22 @@
           <v-text-field
             v-model="form.password"
             :error-messages="form.errors.password"
-            label="password"
+            label="Password"
             counter
             required
             :append-icon="hidepassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="hidepassword ? 'password' : 'text'"
             @click:append="() => (hidepassword = !hidepassword)"/>
+
+          <v-select
+            v-model="form.role"
+            :error-messages="form.errors.password"
+            :items="roles"
+            label="Role"
+            item-text="name"
+            item-value="name"/>
         </v-card-text>
+
 
         <v-card-actions>
           <v-btn color="primary" text @click.stop="show=false">Close</v-btn>
@@ -44,10 +53,12 @@
     data() {
       return {
         hidepassword: true,
+        roles: [{name: 'admin'}, {name: 'user'}],
         form: this.$inertia.form({
           username: '',
           email: '',
-          password: ''
+          password: '',
+          role: 'user'
         })
       };
     },
@@ -64,7 +75,7 @@
     },
     methods: {
       submit() {
-        this.form.get(route('admin.users.create'), {
+        this.form.post(route('admin.users.store'), {
           onSuccess: (data) => {
             this.form.reset();
             this.show = false;
