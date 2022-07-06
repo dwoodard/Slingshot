@@ -83,10 +83,7 @@ class slingshot extends Command
                 $this->LaradockInstall();
                 $this->installInertiaStack();
                 $this->updateComposerFile();
-
                 break;
-
-
 
             case 'Packages composer.json & package.json':
                 $this->PackagesInstall();
@@ -253,21 +250,22 @@ class slingshot extends Command
         shell_exec('npm i && npm run dev');
     }
 
-
     private function updateComposerFile():void
     {
         //read in composer.json
-        $composerFile = json_decode(file_get_contents(base_path('composer.json')), true);
         $this->info("- Checking composer.json:");
-
-        //update composer.json
-        $autoload = $composerFile['autoload'];
-        $autoload['files'][] = 'app/Helpers.php';
+        $composerString = file_get_contents(base_path('composer.json'));
+        $composer = json_decode($composerString, true);
+        $composer['autoload']['files'][] = "app/Helpers.php";
 
         //save composer.json
-        file_put_contents(base_path('composer.json'), json_encode($composerFile, JSON_PRETTY_PRINT));
+        file_put_contents(base_path('composer.json'), json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES ));
         $this->info('   - composer.json has been saved');
+
+        $this->info('composer dump: ' . shell_exec("composer dump-autoload'"));
+
     }
+
     private function PackagesInstall(): void
     {
         $this->info("composer.json & package.json:");
@@ -288,9 +286,6 @@ class slingshot extends Command
 
     }
 
-
-
-
     /**
      * Replace a given string within a given file.
      *
@@ -303,8 +298,6 @@ class slingshot extends Command
     {
         file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
     }
-
-
 
     /**
      * Install the service provider in the application configuration file.
