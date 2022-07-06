@@ -4,12 +4,12 @@
       <h1>Login</h1>
       <form @submit.prevent="submit">
         <v-text-field
-          v-model="form.email"
-          :error-messages="form.errors.email"
+          v-model="form.login"
+          :error-messages="loginError()"
           label="Username/Email"
           required
           autofocus
-          autocomplete=""/>
+          autocomplete="off"/>
         <v-text-field
           v-model="form.password"
           :error-messages="form.errors.password"
@@ -52,12 +52,21 @@
         showRegister: false,
         hidePassword: true,
         form: this.$inertia.form({
-          email: '',
+          login: '',
           password: ''
         })
       };
     },
     methods: {
+      loginError() {
+        if (this.$page.props.errors.username) {
+          return this.form.errors.username;
+        }
+        if (this.$page.props.errors.email) {
+          return this.form.errors.email;
+        }
+        return null;
+      },
       showModal() {
         this.showRegister = true;
       },

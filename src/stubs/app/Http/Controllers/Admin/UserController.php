@@ -59,10 +59,14 @@ class UserController extends Controller
         $request->validate([
             'username' => ['required', 'min:3', Rule::unique('users')->ignore($user->id)],
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
-            'password' => 'nullable|min:8'
+            'password' => 'nullable|min:8',
+            'roles' => 'required|exists:roles,name'
         ]);
 
         $user->update($request->only(OnlyColumns($user)));
+
+        $user->syncRoles($request->roles);
+
 
         return Redirect::back();
     }

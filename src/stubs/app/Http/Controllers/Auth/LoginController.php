@@ -50,7 +50,7 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('login', 'password');
 
         if (Auth::attempt($credentials)) {
             return redirect()->intended('dashboard');
@@ -60,6 +60,33 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return Inertia::render('Auth/Login');
+    }
+
+    protected function loginField()
+    {
+        $login = request()->input('login');
+        $loginField = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        return $loginField;
+
+
+    }
+    
+    public function username()
+    {
+        return $this->loginField();
+    }
+
+    private function validateLogin(Request $request)
+    {
+        request()->merge([
+            $this->loginField() => $request->login
+        ]);
+
+        return $request->validate([
+            $this->loginField() => 'required|string',
+
+            'password' => 'required|string',
+        ]);
     }
 
     public function login(Request $request)
