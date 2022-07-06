@@ -262,7 +262,7 @@ class slingshot extends Command
         file_put_contents(base_path('composer.json'), json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES ));
         $this->info('   - composer.json has been saved');
 
-        $this->info('composer dump: ' . shell_exec("composer dump-autoload'"));
+        $this->info('composer dump: ' . shell_exec("composer dump-autoload"));
 
     }
 
