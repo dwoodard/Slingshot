@@ -82,6 +82,8 @@ class slingshot extends Command
             case 'Setup Inertia Stack':
                 $this->LaradockInstall();
                 $this->installInertiaStack();
+                $this->updateComposerFile();
+
                 break;
 
 
@@ -196,9 +198,6 @@ class slingshot extends Command
 
     private function installInertiaStack(): void
     {
-
-
-
         $this->info("install InertiaStack:");
         chdir(base_path());
 
@@ -254,6 +253,21 @@ class slingshot extends Command
         shell_exec('npm i && npm run dev');
     }
 
+
+    private function updateComposerFile():void
+    {
+        //read in composer.json
+        $composerFile = json_decode(file_get_contents(base_path('composer.json')), true);
+        $this->info("- Checking composer.json:");
+
+        //update composer.json
+        $autoload = $composerFile['autoload'];
+        $autoload['files'][] = 'app/Helpers.php';
+
+        //save composer.json
+        file_put_contents(base_path('composer.json'), json_encode($composerFile, JSON_PRETTY_PRINT));
+        $this->info('   - composer.json has been saved');
+    }
     private function PackagesInstall(): void
     {
         $this->info("composer.json & package.json:");
