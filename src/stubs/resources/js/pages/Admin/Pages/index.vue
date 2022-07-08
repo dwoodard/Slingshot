@@ -124,10 +124,10 @@
             value: 'slug'
           },
           {
-            text: 'Is Active',
+            text: 'Is Published',
             align: 'start',
             sortable: true,
-            value: 'is_active'
+            value: 'is_published'
           },
           {
             text: 'Actions',

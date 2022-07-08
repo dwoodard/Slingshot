@@ -11,6 +11,7 @@
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
               v-model="form.first_name"
+              counter
               :error-messages="form.errors.first_name"
               label="First Name"
               autocomplete="first_name"/>
@@ -20,6 +21,7 @@
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
               v-model="form.last_name"
+              counter
               :error-messages="form.errors.last_name"
               label="Last Name"
               autocomplete="last_name"/>
@@ -28,6 +30,7 @@
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
               v-model="form.username"
+              counter
               :error-messages="form.errors.username"
               label="Username"
               autocomplete="username"/>
@@ -37,6 +40,7 @@
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
               v-model="form.email"
+              counter
               type="email"
               :error-messages="form.errors.email"
               label="Email"
@@ -47,6 +51,8 @@
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
               v-model="form.phone"
+              v-mask="'##########'"
+              counter
               type="phone"
               :error-messages="form.errors.phone"
               label="phone"
@@ -87,6 +93,7 @@
           <div class="col-span-6 sm:col-span-4">
             <v-text-field
               v-model="form.zip"
+              v-mask="'#####'"
               type="zip"
               :error-messages="form.errors.zip"
               label="zip"

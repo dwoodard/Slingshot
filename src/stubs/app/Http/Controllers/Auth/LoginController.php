@@ -53,7 +53,7 @@ class LoginController extends Controller
         $credentials = $request->only('login', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
+            return redirect()->intended('home');
         }
     }
 
@@ -70,7 +70,7 @@ class LoginController extends Controller
 
 
     }
-    
+
     public function username()
     {
         return $this->loginField();

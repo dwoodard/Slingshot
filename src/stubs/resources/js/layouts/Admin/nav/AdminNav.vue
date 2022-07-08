@@ -54,12 +54,6 @@
         toggleMini: false,
         items: [
           {
-            title: 'Dashboard',
-            // active: true,
-            link: '/admin/dashboard',
-            icon: 'mdi-view-dashboard'
-          },
-          {
             title: 'Users',
             link: '/admin/users',
             icon: 'mdi-account'
@@ -68,8 +62,12 @@
             title: 'Pages',
             link: '/admin/pages',
             icon: 'mdi-file-document-multiple-outline'
-          }, 
-
+          },
+          {
+            title: 'Menus',
+            link: '/admin/menus',
+            icon: 'mdi-menu'
+          },
           {
             title: 'Settings',
             link: '/admin/settings',

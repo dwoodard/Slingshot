@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -19,7 +20,7 @@ class AdminController extends \Inertia\Controller
     {
         $data = [];
 
-        return Inertia::render('Admin/Dashboard', $data);
+        return Inertia::render('Admin/Pages', $data);
     }
 
     public function pages(Request $request):Response
@@ -70,6 +71,16 @@ class AdminController extends \Inertia\Controller
             'page' => $page
         ];
         return Redirect::back()->with($data);
+    }
+
+    //menu
+    public function menus(Request $request):Response
+    {
+        $data = [
+            'menus' => \App\Models\Menu::all()
+        ];
+
+        return Inertia::render('Admin/Menus', $data);
     }
 
     public function posts(Request $request):Response

@@ -46,21 +46,16 @@ Route::put('/user/profile-information', [\App\Http\Controllers\ProfileInformatio
 
 //Pages
 
-//Welcome
+//Home
 Route::get('/',  function(){
-    return Inertia::render('Welcome', [
+    return Inertia::render('Home', [
         'laravelVersion' => \Illuminate\Foundation\Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-
 })
 ->name('home');
 
-Route::get('/dashboard',  function (){
-    return Inertia::render('Dashboard', []);
-})
-->name('dashboard')
-->middleware('auth');
+
 
 Route::get('/profile', function (){
     return Inertia::render('profile/Show', []);

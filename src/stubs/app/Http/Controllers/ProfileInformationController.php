@@ -24,15 +24,15 @@ class ProfileInformationController extends Controller
         $request->request->remove('_method');
 
         Validator::make($request->all(), [
-            'first_name' => ['nullable', 'string', 'max:255'],
-            'last_name' => ['nullable', 'string', 'max:255'],
+            'first_name' => ['nullable', 'string'],
+            'last_name' => ['nullable', 'string'],
             'username' => ['required','string', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
-            'phone' => ['nullable'],
+            'phone' => ['nullable', 'string'],
             'address' => ['nullable'],
             'city' => ['nullable'],
             'state' => ['nullable'],
-            'zip' => ['max:5']
+            'zip' => ['nullable', 'regex:/^\d{5}(?:[-\s]\d{4})?$/'],
         ])->validateWithBag('updateProfileInformation');
 
         User::where('email', '=', $request->email)->update($request->all());

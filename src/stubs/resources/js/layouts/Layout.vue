@@ -14,10 +14,10 @@
           <inertia-link v-if="isAdmin" :href="route('admin.index')" as="span">
             <v-btn block text> Admin</v-btn>
           </inertia-link>
-          <inertia-link text :href="route('dashboard')">
+          <inertia-link text :href="route('home')">
             <v-btn block text left class="text-right">
-              <v-icon class="mr-3">mdi-view-dashboard</v-icon>
-              Dashboard
+              <v-icon class="mr-3">mdi-home</v-icon>
+              Home
             </v-btn>
           </inertia-link>
         </div>
@@ -36,7 +36,7 @@
       </v-main>
 
       <v-bottom-navigation v-model="bottomDrawer" app>
-        <inertia-link href="/dashboard" as="v-btn">
+        <inertia-link href="/home" as="v-btn">
           <template #default>
             <span>Home</span>
             <v-icon>mdi-home</v-icon>
