@@ -4,8 +4,12 @@
       <inertia-link href="/admin/pages" as="button">
         <v-icon>mdi-menu-left</v-icon>
       </inertia-link>
+
       <v-toolbar-title>
-        {{ page.title }} (<a target="_blank" :href="`/${page.slug}`">{{ page.slug }}</a>)
+        {{ page.title }}
+        <a target="blank" :href="`/${page.slug}`" class="text-decoration-none">
+          <v-icon>mdi-open-in-new</v-icon>
+        </a>
       </v-toolbar-title>
     </v-app-bar>
     <!--    <pre>{{ page }}</pre>-->

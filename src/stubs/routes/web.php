@@ -44,10 +44,14 @@ Route::put('/user/profile-information', [\App\Http\Controllers\ProfileInformatio
     ->middleware(['auth'])
     ->name('user-profile-information.update');
 
-//Pages
+
 
 //Home
 Route::get('/',  function(){
+    // if site settings
+
+
+
     return Inertia::render('Home', [
         'laravelVersion' => \Illuminate\Foundation\Application::VERSION,
         'phpVersion' => PHP_VERSION,
@@ -78,4 +82,5 @@ Route::get('/privacy-policy',  function (){
     return Inertia::render('PrivacyPolicy', []);
 })->name('policy.show');
 
+//Pages
 Route::get('/{slug}',  [PageController::class, 'page'])->name('page');

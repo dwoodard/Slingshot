@@ -15,19 +15,10 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->integer('parent_id')->nullable()->default(null);
             $table->string('title');
-            $table->string('category')->nullable()->default(null);
-            $table->string('link')->nullable();
-            $table->string('type')->nullable(); //relative,external
-            $table->string('target')->nullable();
-            $table->string('icon')->nullable();
-            $table->boolean('show_icon')->default(false);
-            $table->integer('order')->default(0);
-            $table->boolean('admin')->default(false);
-            $table->boolean('hide_link')->default(false);
+            $table->string('location');
+            $table->schemalessAttributes('items');
 
-            $table->timestamps();
         });
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['as'=>'admin.','middleware' => ['web','role:admin']], function(){
 
+    //Default route for admin
     Route::get('/', function (){return Redirect::route('admin.pages');})->name('index');
 
     //users
@@ -21,6 +22,9 @@ Route::group(['as'=>'admin.','middleware' => ['web','role:admin']], function(){
 
     //menu
     Route::get('/menus', [AdminController::class, 'menus'])->name('menu');
+
+    //seo
+    Route::get('/seo', [AdminController::class, 'seo'])->name('seo');
 
     //settings
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');

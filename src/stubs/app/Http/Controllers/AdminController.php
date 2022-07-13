@@ -77,10 +77,19 @@ class AdminController extends \Inertia\Controller
     public function menus(Request $request):Response
     {
         $data = [
-            'menus' => \App\Models\Menu::all()
+            'menus' => \App\Models\Menu::all(),
+            'pages' => Page::all("id", "title", "slug")
         ];
 
         return Inertia::render('Admin/Menus', $data);
+    }
+
+    //SEO
+    public function seo(Request $request):Response
+    {
+        $data = [];
+
+        return Inertia::render('Admin/Seo', $data);
     }
 
     public function posts(Request $request):Response

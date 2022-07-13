@@ -42,7 +42,7 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth.user' => $request->user() ? (new UserResource($request->user())) : null,
             'token' => csrf_token(),
-            'menuItems' => \App\Models\Menu::where('category','=','main')->orderBy('order','asc')->get()
+            'menus' => \App\Models\Menu::all(),
 
         ]);
     }

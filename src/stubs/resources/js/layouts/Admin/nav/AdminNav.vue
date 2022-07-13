@@ -66,7 +66,12 @@
           {
             title: 'Menus',
             link: '/admin/menus',
-            icon: 'mdi-menu'
+            icon: 'mdi-microsoft-xbox-controller-menu'
+          },
+          {
+            title: 'SEO',
+            link: '/admin/seo',
+            icon: 'mdi-file-find'
           },
           {
             title: 'Settings',

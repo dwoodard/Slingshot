@@ -5,9 +5,10 @@
         Admin
       </inertia-link>
 
-      <template v-for="(menuItem,n) in menuItems">
-        <inertia-link v-if="!menuItem.admin" :href="menuItem.link" as="v-tab">
-          {{ menuItem.title }}
+
+      <template v-for="(item,n) in items">
+        <inertia-link v-if="!item.admin || !item.hide_link" :href="item.link" as="v-tab">
+          <v-icon v-if="item.show_icon" class="mr-2">{{ item.icon }}</v-icon> {{ item.title }}
         </inertia-link>
       </template>
     </v-tabs>
@@ -17,8 +18,8 @@
   export default {
     name: 'MainNav',
     computed: {
-      menuItems() {
-        return this.$page.props?.menuItems;
+      items() {
+        return this.$page.props?.menus?.find((menu) => menu.location === 'header')?.items;
       },
       hasAuthUser() {
         return this.$page.props?.auth.user;

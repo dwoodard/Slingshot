@@ -14,12 +14,13 @@
           <inertia-link v-if="isAdmin" :href="route('admin.index')" as="span">
             <v-btn block text> Admin</v-btn>
           </inertia-link>
-          <inertia-link text :href="route('home')">
-            <v-btn block text left class="text-right">
-              <v-icon class="mr-3">mdi-home</v-icon>
-              Home
-            </v-btn>
-          </inertia-link>
+
+
+          <template v-for="(item,n) in headerItems">
+            <inertia-link v-if="!item.admin || !item.hide_link" :href="item.link" as="span">
+              <v-btn block text> <v-icon v-if="item.show_icon">{{ item.icon }}</v-icon> {{ item.title }}</v-btn>
+            </inertia-link>
+          </template>
         </div>
         <v-divider/>
 
@@ -35,13 +36,15 @@
         <slot></slot>
       </v-main>
 
-      <v-bottom-navigation v-model="bottomDrawer" app>
-        <inertia-link href="/home" as="v-btn">
-          <template #default>
-            <span>Home</span>
-            <v-icon>mdi-home</v-icon>
-          </template>
-        </inertia-link>
+      <v-bottom-navigation v-if="footerItems.length" v-model="bottomDrawer" app>
+        <template v-for="(item,n) in footerItems">
+          <inertia-link v-if="!item.admin || !item.hide_link" :href="item.link" as="v-btn">
+            <template #default>
+              <span>{{ item.title }}</span>
+              <v-icon v-if="item.show_icon">{{ item.icon }}</v-icon>
+            </template>
+          </inertia-link>
+        </template>
       </v-bottom-navigation>
     </v-app>
 
@@ -62,6 +65,12 @@
       };
     },
     computed: {
+      headerItems() {
+        return this.$page.props?.menus?.find((menu) => menu.location === 'header')?.items;
+      },
+      footerItems() {
+        return this.$page.props?.menus?.find((menu) => menu.location === 'footer')?.items;
+      },
       hasAuthUser() {
         return this.$page.props?.auth.user;
       },
