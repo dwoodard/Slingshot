@@ -7,6 +7,17 @@ import '@mdi/font/css/materialdesignicons.css';
 Vue.use(Vuetify);
 
 const opts = {
+  icons: {
+    iconfont: 'mdi' // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
+  },
+  breakpoint: {
+    thresholds: {
+      xs: 340,
+      sm: 540,
+      md: 960,
+      lg: 1024
+    }
+  },
   theme: {
     // disable: true,
     dark: false,
@@ -43,8 +54,8 @@ const opts = {
         warm: '#F2F0EB',
         cool: '#F9F9F9'
       }
-
     }
+
   }
 };
 

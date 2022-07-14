@@ -1,5 +1,18 @@
 <template>
   <v-container fluid>
+    <div class="d-flex">
+      <div class="flex-grow-1">
+      </div>
+      <div class="flex-grow-1">
+        <div>
+          Old Page: {{ oldPageIndex }}
+        </div>
+        <div>
+          New Page: {{ newPageIndex }}
+        </div>
+      </div>
+    </div>
+
     <v-app-bar>
       <v-toolbar-title>
         Menu Builder
@@ -17,30 +30,6 @@
 
 
     <v-row>
-      <v-col cols="12" md="6">
-        <v-card>
-          <v-card-title>Pages</v-card-title>
-          <v-card-text>
-            <draggable
-              tag="ul"
-              class="dragArea list-group"
-              :list="pages"
-
-
-              item-key="id">
-              <template #item="{ element }">
-                <li class="list-group-item">
-                  {{ element.title }}
-                </li>
-              </template>
-            </draggable>
-          </v-card-text>
-        </v-card>
-
-        <pre>{{ pages }}</pre>
-      </v-col>
-
-
       <v-col cols="12" md="6">
         <v-card>
           <v-card-title>Menu <span v-if="selectedMenu"> ({{ selectedMenu?.title }})</span></v-card-title>
@@ -62,6 +51,22 @@
 
         <pre>{{ selectedMenu }}</pre>
       </v-col>
+      <v-col cols="12" md="6">
+        <v-card>
+          <v-card-title>Pages</v-card-title>
+          <v-card-text>
+            <draggable v-model="pagesLocal" ghost-class="ghost" @end="onEnd">
+              <transition-group key="" name="fade" tag="div">
+                <div v-for="page in pagesLocal" :id="page.id" :key="page.id" class="sortable">
+                  {{ page.title }}
+                </div>
+              </transition-group>
+            </draggable>
+          </v-card-text>
+        </v-card>
+
+        <pre>{{ pagesLocal }}</pre>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -82,13 +87,18 @@
     },
     data() {
       return {
+        oldPageIndex: '',
+        newPageIndex: '',
         pageSearch: '',
         itemSearch: '',
-        selectedMenu: null
+        selectedMenu: null,
+        pagesLocal: this.pages,
+        menusLocal: this.menus
 
       };
     },
     computed: {
+
       selectedItems: {
         get() {
           return this.selectedMenu?.items;
@@ -100,18 +110,10 @@
 
     },
     methods: {
-      dragStart() {
-        console.log('dragStart');
-      },
-      dragEnd() {
-        console.log('dragEnd');
-      },
-      dragClone({id}) {
-        console.log('dragClone', `Clone ${id}`);
-        return {
-          title: `Clone ${id}`
-
-        };
+      onEnd(e) {
+        console.log(e);
+        this.oldPageIndex = e.oldIndex;
+        this.newPageIndex = e.newIndex;
       }
     },
 
