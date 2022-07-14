@@ -1,33 +1,16 @@
 <template>
   <v-container fluid>
-    <div class="d-flex">
-      <div class="flex-grow-1">
-      </div>
-      <div class="flex-grow-1">
-        <div>
-          Old Page: {{ oldPageIndex }}
-        </div>
-        <div>
-          New Page: {{ newPageIndex }}
-        </div>
-      </div>
-    </div>
-
-    <v-app-bar>
-      <v-toolbar-title>
-        Menu Builder
-      </v-toolbar-title>
-    </v-app-bar>
-
-    <div>
-      <v-select
-        v-model="selectedMenu"
-        :items="menus"
-        label="Menu"
-        item-text="title"
-        :item-value="(value) => value"/>
-    </div>
-
+    <v-toolbar class="mb-3" dense elevation="1">
+      <v-toolbar-items>
+        <v-select
+          v-model="selectedMenu"
+          :items="menus"
+          label="Menu"
+          item-text="title"
+          single-line
+          :item-value="(value) => value"/>
+      </v-toolbar-items>
+    </v-toolbar>
 
     <v-row>
       <v-col cols="12" md="6">
@@ -56,8 +39,11 @@
           <v-card-title>Pages</v-card-title>
           <v-card-text>
             <draggable v-model="pagesLocal" ghost-class="ghost" @end="onEnd">
-              <transition-group key="" name="fade" tag="div">
+              <transition-group key="" name="flip-list" tag="div" type="transition">
                 <div v-for="page in pagesLocal" :id="page.id" :key="page.id" class="sortable">
+                  <span class="handle">
+                    <v-icon>mdi-drag-vertical</v-icon>
+                  </span>
                   {{ page.title }}
                 </div>
               </transition-group>
@@ -124,5 +110,20 @@
 </script>
 
 <style scoped>
-
+.sortable {
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 1em;
+  cursor: move;
+}
+.sortable-drag{
+  opacity: 0;
+}
+.ghost{
+  border: 1px dashed #ccc;
+  background-color: #6e6e6e;
+}
+.flip-list-move{
+  transition: all .5s;
+}
 </style>
