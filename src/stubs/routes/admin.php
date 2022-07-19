@@ -15,13 +15,15 @@ Route::group(['as'=>'admin.','middleware' => ['web','role:admin']], function(){
 
     //pages
     Route::get('/pages', [AdminController::class, 'pages'])->name('pages');
-    Route::get('/pages/{slug}', [AdminController::class, 'pagesEdit'])->name('pages.slug');
+    Route::get('/pages/{slug}', [AdminController::class, 'pagesEdit'])->name('pages.edit');
     Route::post('/pages', [AdminController::class, 'pagesCreate'])->name('page.create');
     Route::post('/pages/{slug}', [AdminController::class, 'pagesSave'])->name('page.save');
     Route::delete('/pages', [AdminController::class, 'pagesDelete'])->name('page.delete');
 
     //menu
     Route::get('/menus', [AdminController::class, 'menus'])->name('menu');
+    Route::post('/menus', [AdminController::class, 'menusCreate'])->name('menu.create');
+    Route::put('/menus/{id}', [AdminController::class, 'menusSave'])->name('menu.save');
 
     //seo
     Route::get('/seo', [AdminController::class, 'seo'])->name('seo');

@@ -84,6 +84,38 @@ class AdminController extends \Inertia\Controller
         return Inertia::render('Admin/Menus', $data);
     }
 
+    public function menusCreate(Request $request)
+    {
+        $data = [
+            'menu' => Menu::create(
+                $request->validate([
+                    'title' => ['required'],
+                    'slug' => ['required']
+                ])
+            )
+        ];
+        return Redirect::back()->with($data);
+    }
+
+    public function menusSave($id, Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $menu = Menu::where('id', $id)->update(
+            $request->validate([
+                'title' => ['required'],
+                'items' => ['required'],
+                'location' => ['required']
+            ])
+        );
+
+        $data = [
+            'menu' => $menu
+        ];
+
+        return Redirect::back()->with($data);
+    }
+
+
+
     //SEO
     public function seo(Request $request):Response
     {

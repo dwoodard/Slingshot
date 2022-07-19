@@ -7,8 +7,9 @@
 
 
       <template v-for="(item,n) in items">
-        <inertia-link v-if="!item.admin || !item.hide_link" :href="item.link" as="v-tab">
-          <v-icon v-if="item.show_icon" class="mr-2">{{ item.icon }}</v-icon> {{ item.title }}
+        <inertia-link v-if="!item.hide_link ||!item.admin" :key="n" :href="item.link" as="v-tab">
+          <v-icon v-if="item.show_icon" class="mr-2">{{ item.icon }}</v-icon>
+          {{ item.title }}
         </inertia-link>
       </template>
     </v-tabs>
@@ -27,6 +28,7 @@
       isAdmin() {
         return this.$page.props?.auth.user?.data?.isAdmin;
       }
+
     }
   };
 </script>
