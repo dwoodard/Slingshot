@@ -78,10 +78,10 @@
         </v-card>
 
 
-        <pre>{{ selectedMenu }}</pre>
+        <!--        <pre>{{ selectedMenu }}</pre>-->
       </v-col>
       <v-col cols="12" md="6">
-        <v-card>
+        <v-card v-if="editing">
           <v-card-title>Pages</v-card-title>
           <v-card-text>
             <v-text-field
@@ -122,7 +122,7 @@
           </v-card-text>
         </v-card>
 
-        <pre>{{ pagesLocal }}</pre>
+        <!--        <pre>{{ pagesLocal }}</pre>-->
       </v-col>
     </v-row>
   </v-container>
@@ -185,7 +185,7 @@
         console.log('clone', e);
         return {
           icon: '',
-          link: e.slug,
+          link: `/${e.slug}`,
           type: 'relative',
           admin: false,
           order: 0,

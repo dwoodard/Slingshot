@@ -52,7 +52,7 @@
             mdi-file-find-outline
           </v-icon>
         </a>
-        <inertia-link :href="`/admin/pages/${item.slug}`" as="button">
+        <inertia-link :href="`/admin/pages/${item.id}`" as="button">
           <v-icon small class="mr-2">
             mdi-pencil
           </v-icon>

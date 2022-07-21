@@ -31,10 +31,10 @@ class AdminController extends \Inertia\Controller
 
         return Inertia::render('Admin/Pages', $data);
     }
-    public function pagesEdit(Request $request, $slug):Response
+    public function pagesEdit(Request $request, $id):Response
     {
         $data = [
-            'page' => Page::where('slug', '=', $slug)->first()
+            'page' => Page::find($id)
         ];
 
         return Inertia::render('Admin/Pages/edit', $data);
@@ -52,16 +52,25 @@ class AdminController extends \Inertia\Controller
         ];
         return Redirect::back()->with($data);
     }
-    public function pagesSave($slug, Request $request): \Illuminate\Http\RedirectResponse
+    public function pagesSave($id, Request $request): \Illuminate\Http\RedirectResponse
     {
         unset($request['_token']);
 
-        $page = Page::where('slug', $slug)->update([
-            'source' => json_encode($request->all())
+        $page = Page::find($id)->update([
+            'id' => $request->id,
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'source' => json_encode($request->content),
+            'middleware' => $request->middleware,
+            'sort_order' => $request->sort_order,
+            'is_active' => $request->is_active,
+            'is_published' => $request->is_published,
         ]);
+
         $data = [
             'page' => $page
         ];
+
         return Redirect::back()->with($data);
     }
     public function pagesDelete(Request $request): \Illuminate\Http\RedirectResponse

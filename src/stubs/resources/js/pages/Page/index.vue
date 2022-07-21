@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section v-html="JSON.parse($page.props.page.source).html"></section>
+    <section :v-html="pageSource"></section>
   </div>
 </template>
 
@@ -9,6 +9,11 @@
 
   export default {
     props: ['page'],
+    computed: {
+      pageSource() {
+        return JSON.parse(this.$page.props.page.source)?.html;
+      }
+    },
 
     methods: {
       nodeScriptReplace(node) {
@@ -39,9 +44,8 @@
         return node.tagName === 'SCRIPT';
       }
     },
-
     mounted() {
-      const css = JSON.parse(this.$page.props.page.source).css;
+      const css = JSON.parse(this.$page.props.page.source)?.css;
       const head = document.head || document.getElementsByTagName('head')[0];
       const style = document.createElement('style');
       head.appendChild(style);

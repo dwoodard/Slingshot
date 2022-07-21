@@ -1,18 +1,55 @@
 <template>
   <v-container fluid>
-    <v-app-bar>
-      <inertia-link href="/admin/pages" as="button">
-        <v-icon>mdi-menu-left</v-icon>
-      </inertia-link>
+    <v-expansion-panels>
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          <template>
+            <div>
+              <span>
+                <inertia-link href="/admin/pages" as="button">
+                  <v-icon>mdi-menu-left</v-icon>
+                </inertia-link>
+              </span>
+              <span>{{ page.title }}</span>
 
-      <v-toolbar-title>
-        {{ page.title }}
-        <a target="blank" :href="`/${page.slug}`" class="text-decoration-none">
-          <v-icon>mdi-open-in-new</v-icon>
-        </a>
-      </v-toolbar-title>
-    </v-app-bar>
-    <!--    <pre>{{ page }}</pre>-->
+
+              <span>
+                <a target="blank" :href="`/${page.id}`" class="text-decoration-none">
+                  <v-icon>mdi-open-in-new</v-icon>
+                </a>
+              </span>
+            </div>
+          </template>
+          <template #actions>
+            <v-icon>mdi-pencil</v-icon>
+          </template>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <pre>{{ page }}</pre>
+
+          <v-text-field
+            v-model="page.title"
+            label="Title"/>
+          <v-text-field
+            v-model="page.slug"
+            label="Slug"/>
+          <v-text-field
+            v-model="page.meta_title"
+            label="Meta Title"/>
+          <v-text-field
+            v-model="page.meta_description"
+            label="Meta Description"/>
+          <v-text-field
+            v-model="page.meta_keywords"
+            label="Meta Keywords"/>
+          <v-text-field
+            v-model="page.content"
+            label="Content"/>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+
+
     <GrapesEditor :source="page.source" @save="onSave"/>
 
     <v-snackbar v-model="savedSnackBar">
@@ -38,7 +75,7 @@
         savedSnackBar: false,
         form: this.$inertia.form({
           id: this.page.id,
-          title: this.page.title,
+          title: this.page?.title,
           slug: this.page.slug,
           content: this.page.content,
           middleware: this.page.middleware,
@@ -55,11 +92,13 @@
         this.savedSnackBar = true;
       },
       submit() {
-        this.form.put(this.route('admin.page.save'), {
+        console.log(this.form);
+        this.form.put(`/admin/pages/${this.form.id}`, {
+
           onSuccess: (data) => {
             console.log(`submit${data}`);
           },
-          onFinish: () => this.form.reset('password', 'password_confirmation')
+          onFinish: () => this.form.reset()
         });
       }
     },

@@ -25,7 +25,7 @@
     computed: {
       components() {
         const source = JSON.parse(this.source);
-        return source.components ? JSON.parse(source.components) : '';
+        return source.components ? JSON.parse(source?.components) : '';
       },
       styles() {
         const source = JSON.parse(this.source);
@@ -42,38 +42,38 @@
         container: '#gjs',
         fromElement: false,
 
-        commands:{
+        commands: {
           defaults: [
             {
-              id: "undo",
-              run: function (editor, sender) {
-                sender.set("active", false);
+              id: 'undo',
+              run(editor, sender) {
+                sender.set('active', false);
                 editor.UndoManager.undo(1);
               }
             },
             {
-              id: "redo",
-              run: function (editor, sender) {
-                sender.set("active", false);
+              id: 'redo',
+              run(editor, sender) {
+                sender.set('active', false);
                 editor.UndoManager.redo(1);
               }
             },
             {
-              id: "clean-all",
-              run: function (editor, sender) {
-                sender.set("active", false);
-                if (confirm("Are you sure to clean the canvas?")) {
-                  var comps = editor.DomComponents.clear();
+              id: 'clean-all',
+              run(editor, sender) {
+                sender.set('active', false);
+                if (confirm('Are you sure to clean the canvas?')) {
+                  const comps = editor.DomComponents.clear();
                 }
               }
             },
             {
-              id: "save",
-              run: function (editor, senderBtn) {
-                sender.set("active", false);
+              id: 'save',
+              run(editor, senderBtn) {
+                sender.set('active', false);
                 saveHtmlToList(editor);
               },
-              stop: function (editor, senderBtn) {}
+              stop(editor, senderBtn) {}
             }
           ]
         },
@@ -106,28 +106,28 @@
 
       });
 
-      var pnm = this.editor.Panels;
-      pnm.addButton("options", [
+      const pnm = this.editor.Panels;
+      pnm.addButton('options', [
         {
-          id: "undo",
-          className: "fa fa-undo icon-undo",
+          id: 'undo',
+          className: 'fa fa-undo icon-undo',
           command: function command(editor, sender) {
-            sender.set("active", 0);
+            sender.set('active', 0);
             editor.UndoManager.undo(1);
           },
           attributes: {
-            title: "Undo (CTRL/CMD + Z)"
+            title: 'Undo (CTRL/CMD + Z)'
           }
         },
         {
-          id: "redo",
-          className: "fa fa-repeat icon-redo",
+          id: 'redo',
+          className: 'fa fa-repeat icon-redo',
           command: function command(editor, sender) {
-            sender.set("active", 0);
+            sender.set('active', 0);
             editor.UndoManager.redo(1);
           },
           attributes: {
-            title: "Redo (CTRL/CMD + Y)"
+            title: 'Redo (CTRL/CMD + Y)'
           }
         }
       ]);
