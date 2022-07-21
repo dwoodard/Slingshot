@@ -130,9 +130,9 @@
 
 <script>
   import draggable from 'vuedraggable';
-  import axios from 'axios';
   import Admin from '@/layouts/Admin/Layout';
   import MenuItems from '@/pages/Admin/Menus/MenuItems';
+
 
   export default {
     layout: Admin,

@@ -1,53 +1,55 @@
 <template>
   <v-container fluid>
-    <v-expansion-panels>
-      <v-expansion-panel>
-        <v-expansion-panel-header>
-          <template>
-            <div>
-              <span>
-                <inertia-link href="/admin/pages" as="button">
-                  <v-icon>mdi-menu-left</v-icon>
-                </inertia-link>
-              </span>
-              <span>{{ page.title }}</span>
+    <div>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>
+            <template>
+              <div>
+                <span>
+                  <inertia-link href="/admin/pages" as="button">
+                    <v-icon>mdi-menu-left</v-icon>
+                  </inertia-link>
+                </span>
+                <span>{{ page.title }}</span>
 
 
-              <span>
-                <a target="blank" :href="`/${page.id}`" class="text-decoration-none">
-                  <v-icon>mdi-open-in-new</v-icon>
-                </a>
-              </span>
-            </div>
-          </template>
-          <template #actions>
-            <v-icon>mdi-pencil</v-icon>
-          </template>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <pre>{{ page }}</pre>
+                <span>
+                  <a target="blank" :href="`/${page.id}`" class="text-decoration-none">
+                    <v-icon>mdi-open-in-new</v-icon>
+                  </a>
+                </span>
+              </div>
+            </template>
+            <template #actions>
+              <v-icon>mdi-pencil</v-icon>
+            </template>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <!--            <pre>{{ page }}</pre>-->
 
-          <v-text-field
-            v-model="page.title"
-            label="Title"/>
-          <v-text-field
-            v-model="page.slug"
-            label="Slug"/>
-          <v-text-field
-            v-model="page.meta_title"
-            label="Meta Title"/>
-          <v-text-field
-            v-model="page.meta_description"
-            label="Meta Description"/>
-          <v-text-field
-            v-model="page.meta_keywords"
-            label="Meta Keywords"/>
-          <v-text-field
-            v-model="page.content"
-            label="Content"/>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+            <v-text-field
+              v-model="form.title"
+              label="Title"/>
+            <v-text-field
+              v-model="form.slug"
+              label="Slug"/>
+            <v-text-field
+              v-model="form.meta_title"
+              label="Meta Title"/>
+            <v-text-field
+              v-model="form.meta_description"
+              label="Meta Description"/>
+            <v-text-field
+              v-model="form.meta_keywords"
+              label="Meta Keywords"/>
+            <v-text-field
+              v-model="form.content"
+              label="Content"/>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </div>
 
 
     <GrapesEditor :source="page.source" @save="onSave"/>

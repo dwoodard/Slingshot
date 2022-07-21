@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section :v-html="pageSource"></section>
+    <section v-html="pageSource"></section>
   </div>
 </template>
 
