@@ -6,8 +6,8 @@
       </inertia-link>
 
 
-      <template v-for="(item,n) in filterByHideLinkItems">
-        <inertia-link :key="n" :href="item.link" as="v-tab">
+      <template v-for="(item,n) in filterItems">
+        <inertia-link :key="n" :href="item.link" :target="item.target" as="v-tab">
           <v-icon v-if="item.show_icon" class="mr-2">{{ item.icon }}</v-icon>
           {{ item.title }}
         </inertia-link>
@@ -22,8 +22,14 @@
       items() {
         return this.$page.props?.menus?.find((menu) => menu.location === 'header')?.items;
       },
-      filterByHideLinkItems() {
-        return this.items.filter((item) => !item.hide_link);
+      filterItems() {
+        return this.items?.filter((item) => {
+          if (item.admin && !this.isAdmin) {
+            return false;
+          }
+
+          return !item.hide_link;
+        });
       },
       hasAuthUser() {
         return this.$page.props?.auth.user;

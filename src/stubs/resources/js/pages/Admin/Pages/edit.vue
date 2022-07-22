@@ -15,7 +15,9 @@
 
 
                 <span>
-                  <a target="blank" :href="`/${page.id}`" class="text-decoration-none">
+
+
+                  <a target="blank" :href="`/${page.slug}`" class="text-decoration-none">
                     <v-icon>mdi-open-in-new</v-icon>
                   </a>
                 </span>
@@ -43,9 +45,6 @@
             <v-text-field
               v-model="form.meta_keywords"
               label="Meta Keywords"/>
-            <v-text-field
-              v-model="form.content"
-              label="Content"/>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>

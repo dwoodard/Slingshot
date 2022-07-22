@@ -25,11 +25,11 @@
     computed: {
       components() {
         const source = JSON.parse(this.source);
-        return source.components ? JSON.parse(source?.components) : '';
+        return source?.components == null ? {} : JSON.parse(source?.components);
       },
       styles() {
         const source = JSON.parse(this.source);
-        return source.styles ? JSON.parse(source.styles) : '';
+        return source?.styles ? JSON.parse(source.styles) : '';
       }
     },
     methods: {
@@ -66,15 +66,15 @@
                   const comps = editor.DomComponents.clear();
                 }
               }
-            },
-            {
-              id: 'save',
-              run(editor, senderBtn) {
-                sender.set('active', false);
-                saveHtmlToList(editor);
-              },
-              stop(editor, senderBtn) {}
             }
+            // {
+            //   id: 'save',
+            //   run(editor, senderBtn) {
+            //     sender.set('active', false);
+            //     saveHtmlToList(editor);
+            //   },
+            //   stop(editor, senderBtn) {}
+            // }
           ]
         },
 
@@ -132,7 +132,7 @@
         }
       ]);
 
-      this.editor.setComponents(this.components);
+      this.editor.setComponents(this.components || {});
       this.editor.setStyle(this.styles);
 
       this.editor.on('storage:start:store', (objectToStore) => {

@@ -1,66 +1,90 @@
 <template>
   <v-expansion-panel class="sortable" :readonly="readonly" :disabled="readonly">
     <v-expansion-panel-header>
-      <div>
-        <span class="handle">
-          <v-icon>mdi-drag-vertical</v-icon>
-        </span>
+      <template>
+        <div>
+          <span class="handle">
+            <v-icon>mdi-drag-vertical</v-icon>
+          </span>
 
-        <span>
-          <v-icon>{{ item.icon }}</v-icon>
-        </span>
+          <span>
+            <v-icon>{{ item.icon }}</v-icon>
+          </span>
 
-        <span>
-          {{ item.title }}
-        </span>
-      </div>
+          <span>
+            {{ item.title }}
+          </span>
+        </div>
+      </template>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
-      <v-text-field
-        v-model="itemLocal.title"
-        label="Title"/>
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="itemLocal.title"
+            hint="Title of the page"
+            label="Title"/>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="itemLocal.icon"
+            hint="Icon is MDI icon name"
+            :prepend-icon="itemLocal.icon"
+            label="Icon">
+            <template #append-outer>
+              <v-tooltip bottom>
+                <template #activator="{ on }">
+                  <a href="https://pictogrammers.github.io/@mdi/font/6.9.96/" target="_blank">
+                    <v-icon v-on="on">mdi-open-in-new</v-icon>
+                  </a>
+                </template>
+                <span>Find Icons</span>
+              </v-tooltip>
+            </template>
+          </v-text-field>
+        </v-col>
+      </v-row>
+
 
       <v-row>
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="itemLocal.link"
-            label="Link"/>
+            v-model="itemLocal.slug"
+            hint="can be relative to the url with '/' at the beginning"
+            label="Slug"/>
         </v-col>
         <v-col cols="12" md="6">
           <v-select
             v-model="itemLocal.target"
+            hint="Open page in new tab?"
             :items="[
               { text: '_self', value: '_self' },
               { text: '_blank', value: '_blank' },
-              { text: '_parent', value: '_parent' },
-              { text: '_top', value: '_top' },
             ]"
             label="Target"/>
         </v-col>
       </v-row>
 
 
-      <v-text-field
-        v-model="itemLocal.icon"
-        label="Icon"/>
-
-      <IconSelector :icon="item.icon" @icon-changed="onIconChanged"/>
-
+      <v-checkbox
+        v-model="itemLocal.admin"
+        hide-details
+        label="Admin Only "/>
 
       <v-checkbox
         v-model="itemLocal.hide_link"
-        helper-text="Keep link in menu but hide it"
-        :label="`Hide Link: ${item.hide_link.toString()}`"/>
+        hide-details
+        label="Hide Link"/>
 
       <v-checkbox
         v-model="itemLocal.show_icon"
-        :label="`Show Icon: ${item.show_icon.toString()}`"/>
+        hide-details
+        label="Show Icon"/>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
 
 <script>
-  import IconSelector from '@/components/IconSelector.vue';
 
   export default {
     name: 'MenuItems',
@@ -88,19 +112,21 @@
         itemLocal: this.item
       };
     },
+
     methods: {
       updateItem() {
         this.$emit('update-item', this.itemLocal);
+      },
+      deleteItem() {
+        this.$emit('delete-item', this.itemLocal);
       },
       onIconChanged(icon) {
         this.itemLocal.icon = icon;
       }
 
 
-    },
-    components: {
-      IconSelector
     }
+
 
   };
 </script>

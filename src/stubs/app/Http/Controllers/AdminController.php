@@ -33,6 +33,7 @@ class AdminController extends \Inertia\Controller
     }
     public function pagesEdit(Request $request, $id):Response
     {
+
         $data = [
             'page' => Page::find($id)
         ];
@@ -60,7 +61,7 @@ class AdminController extends \Inertia\Controller
             'id' => $request->id,
             'title' => $request->title,
             'slug' => $request->slug,
-            'source' => json_encode($request->content),
+            'source' => json_encode($request->get('content')),
             'middleware' => $request->middleware,
             'sort_order' => $request->sort_order,
             'is_active' => $request->is_active,

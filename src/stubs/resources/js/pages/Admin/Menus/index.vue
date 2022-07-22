@@ -57,21 +57,20 @@
               :disabled="!editing"
               group="menuItems"
               :list="selectedMenuItems"
-              :component-data="{
-                tag: 'v-list-item',
-                name: 'flip-list',
-                type: 'transition',
-              }"
+              :options="{ handle: '.handle' }"
               item-key="id">
               <transition-group
                 name="flip-list"
                 tag="v-expansion-panels"
+                component-data-name="panel"
                 type="transition">
                 <MenuItems v-for="(item,n) in selectedMenuItems"
                            :key="`item-${n}`"
                            :item="item"
                            :readonly="!editing"
-                           @update-item="updateItem"/>
+                           @update-item="updateItem"
+                           @delete-item="deleteItem(n)"/>
+                />
               </transition-group>
             </draggable>
           </v-card-text>
@@ -228,6 +227,9 @@
           }
           return i;
         });
+      },
+      deleteItem(index) {
+        this.selectedMenu.items.splice(index, 1);
       }
     },
     mounted() {
