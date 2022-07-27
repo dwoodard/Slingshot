@@ -1,19 +1,66 @@
 <template>
-  <v-expansion-panel class="sortable" :readonly="readonly" :disabled="readonly">
-    <v-expansion-panel-header>
-      <template>
-        <div>
-          <span class="handle">
-            <v-icon>mdi-drag-vertical</v-icon>
-          </span>
+  <v-expansion-panel class="sortable menu-items" :readonly="readonly" :disabled="readonly">
+    <v-expansion-panel-header class="flex">
+      <template #default>
+        <div class="d-flex justify-space-between">
+          <div class="flex-grow-1">
+            <span class="handle">
+              <v-icon>mdi-drag-vertical</v-icon>
+            </span>
 
-          <span>
-            <v-icon>{{ item.icon }}</v-icon>
-          </span>
+            <span>
+              <v-icon>{{ item.icon }}</v-icon>
+            </span>
 
-          <span>
-            {{ item.title }}
-          </span>
+            <span>
+              {{ item.title }}
+            </span>
+          </div>
+          <div class=" text-right">
+            <v-menu
+              v-if="!readonly"
+              v-model="menu"
+              :nudge-width="200"
+              offset-x
+              :close-on-content-click="false">
+              <template #activator="{on:menu, attrs}">
+                <v-tooltip right>
+                  <template #activator="{ on: tooltip }">
+                    <v-icon v-bind="attrs" v-on="{ ...tooltip, ...menu }">
+                      mdi-dots-horizontal
+                    </v-icon>
+                  </template>
+                  <span>More</span>
+                </v-tooltip>
+              </template>
+              <v-list>
+                <v-list-item>
+                  <v-switch v-model="itemLocal.show_icon" label="Show Icon"/>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-switch v-model="itemLocal.admin" label="Admin Only"/>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-switch v-model="itemLocal.hide_link" label="Hide Link"/>
+                </v-list-item>
+                <v-divider/>
+
+                <v-list-item two-line @click="deleteItem(item)">
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      <v-icon>mdi-delete</v-icon>
+                      Delete
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      Delete this menu item
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
         </div>
       </template>
     </v-expansion-panel-header>
@@ -45,6 +92,8 @@
         </v-col>
       </v-row>
 
+      <!-- a header in between the rows titled links-->
+
 
       <v-row>
         <v-col cols="12" md="6">
@@ -58,44 +107,10 @@
             v-model="itemLocal.target"
             hint="Open page in new tab?"
             :items="[
-              { text: '_self', value: '_self' },
-              { text: '_blank', value: '_blank' },
+              { text: 'self', value: '_self' },
+              { text: 'blank', value: '_blank' },
             ]"
             label="Target"/>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-checkbox
-            v-model="itemLocal.admin"
-            hide-details
-            label="Admin Only "/>
-
-          <v-checkbox
-            v-model="itemLocal.hide_link"
-            hide-details
-            label="Hide Link"/>
-
-          <v-checkbox
-            v-model="itemLocal.show_icon"
-            hide-details
-            label="Show Icon"/>
-        </v-col>
-      </v-row>
-
-
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-btn
-            v-if="!readonly"
-            color="red"
-            text
-            class="mar-0"
-            @click="deleteItem(item)">
-            <v-icon>mdi-delete</v-icon>
-            Delete
-          </v-btn>
         </v-col>
       </v-row>
     </v-expansion-panel-content>
@@ -112,11 +127,11 @@
         type: Object,
         default: () => ({
           title: '',
-          link: '',
+          slug: '',
           icon: '',
           hide_link: false,
           show_icon: false,
-          target: '_self'
+          target: '_self' // '_self' or '_blank'
         }),
 
         required: true
@@ -127,6 +142,7 @@
 
     data() {
       return {
+        menu: null,
         itemLocal: this.item
       };
     },
@@ -149,6 +165,14 @@
   };
 </script>
 
-<style scoped>
-
+<style>
+.menu-items .v-expansion-panel-header__icon{
+  order: -1;
+  margin-left: -1rem;
+  padding-right: 1rem;
+  position: relative;
+}
+.actions{
+  order: 1;
+}
 </style>

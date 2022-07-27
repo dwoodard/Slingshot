@@ -53,11 +53,7 @@
               </v-tooltip>
             </v-toolbar>
 
-            <v-expansion-panels
-              v-model="openedMenuPanels"
-              accordion
-              :disabled="!editing"
-              class="d-flex">
+            <v-expansion-panels v-model="openedMenuPanels" accordion :disabled="!editing">
               <template #default>
                 <draggable
                   class="flex-grow-1"
