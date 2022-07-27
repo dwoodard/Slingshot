@@ -53,26 +53,27 @@
               </v-tooltip>
             </v-toolbar>
 
-            <draggable
+            <v-expansion-panels
+              v-model="openedMenuPanels"
+              accordion
               :disabled="!editing"
-              group="menuItems"
-              :list="selectedMenuItems"
-              :options="{ handle: '.handle' }"
-              item-key="id">
-              <transition-group
-                name="flip-list"
-                tag="v-expansion-panels"
-                component-data-name="panel"
-                type="transition">
-                <MenuItems v-for="(item,n) in selectedMenuItems"
-                           :key="`item-${n}`"
-                           :item="item"
-                           :readonly="!editing"
-                           @update-item="updateItem"
-                           @delete-item="deleteItem(n)"/>
-                />
-              </transition-group>
-            </draggable>
+              class="d-flex">
+              <template #default>
+                <draggable
+                  class="flex-grow-1"
+                  group="menuItems"
+                  :list="selectedMenuItems"
+                  :options="{ handle: '.handle' }"
+                  item-key="id">
+                  <MenuItems v-for="(item,n) in selectedMenuItems"
+                             :key="`item-${n}`"
+                             :item="item"
+                             :readonly="!editing"
+                             @update-item="updateItem"
+                             @delete-item="deleteItem(n)"/>
+                </draggable>
+              </template>
+            </v-expansion-panels>
           </v-card-text>
         </v-card>
 
@@ -145,6 +146,7 @@
     },
     data() {
       return {
+        openedMenuPanels: [],
         before: null,
         editing: false,
         oldPageIndex: '',
@@ -184,7 +186,7 @@
         console.log('clone', e);
         return {
           icon: '',
-          link: `/${e.slug}`,
+          slug: `/${e.slug}`,
           type: 'relative',
           admin: false,
           order: 0,
@@ -214,7 +216,13 @@
 
           this.$inertia.put(`/admin/menus/${this.selectedMenu.id}`, this.selectedMenu);
         }
+
+        // on cancel or save close all the panels
+        if (e === 'cancel' || e === 'save') {
+          this.openedMenuPanels = [];
+        }
       },
+
 
       log(evt) {
         window.console.log(evt);

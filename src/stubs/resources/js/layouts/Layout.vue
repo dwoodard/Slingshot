@@ -17,7 +17,7 @@
 
 
           <template v-for="(item,n) in headerItems">
-            <inertia-link v-if="!item.admin || !item.hide_link" :href="item.link" as="span">
+            <inertia-link v-if="!item.admin || !item.hide_link" :key="n" :href="item.slug" as="span">
               <v-btn block text> <v-icon v-if="item.show_icon">{{ item.icon }}</v-icon> {{ item.title }}</v-btn>
             </inertia-link>
           </template>
@@ -38,7 +38,11 @@
 
       <v-bottom-navigation v-if="footerItems.length" v-model="bottomDrawer" app>
         <template v-for="(item,n) in footerItems">
-          <inertia-link v-if="!item.admin || !item.hide_link" :href="item.link" as="v-btn">
+          <inertia-link
+            v-if="!item.admin || !item.hide_link"
+            :key="n"
+            :href="item.slug"
+            as="v-btn">
             <template #default>
               <span>{{ item.title }}</span>
               <v-icon v-if="item.show_icon">{{ item.icon }}</v-icon>

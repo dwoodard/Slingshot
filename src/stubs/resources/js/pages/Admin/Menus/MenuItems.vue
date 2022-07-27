@@ -65,21 +65,39 @@
         </v-col>
       </v-row>
 
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-checkbox
+            v-model="itemLocal.admin"
+            hide-details
+            label="Admin Only "/>
 
-      <v-checkbox
-        v-model="itemLocal.admin"
-        hide-details
-        label="Admin Only "/>
+          <v-checkbox
+            v-model="itemLocal.hide_link"
+            hide-details
+            label="Hide Link"/>
 
-      <v-checkbox
-        v-model="itemLocal.hide_link"
-        hide-details
-        label="Hide Link"/>
+          <v-checkbox
+            v-model="itemLocal.show_icon"
+            hide-details
+            label="Show Icon"/>
+        </v-col>
+      </v-row>
 
-      <v-checkbox
-        v-model="itemLocal.show_icon"
-        hide-details
-        label="Show Icon"/>
+
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-btn
+            v-if="!readonly"
+            color="red"
+            text
+            class="mar-0"
+            @click="deleteItem(item)">
+            <v-icon>mdi-delete</v-icon>
+            Delete
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>

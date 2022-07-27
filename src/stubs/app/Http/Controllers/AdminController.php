@@ -109,19 +109,21 @@ class AdminController extends \Inertia\Controller
 
     public function menusSave($id, Request $request): \Illuminate\Http\RedirectResponse
     {
-        $menu = Menu::where('id', $id)->update(
-            $request->validate([
-                'title' => ['required'],
-                'items' => ['required'],
-                'location' => ['required']
-            ])
-        );
+        $menu = Menu::find($id);
 
-        $data = [
-            'menu' => $menu
-        ];
+        $request->validate([
+            'title' => ['required'],
+            'items' => ['required'],
+            'location' => ['required']
+        ]);
 
-        return Redirect::back()->with($data);
+        $menu->update([
+            'title' => $request->title,
+            'location' => $request->location,
+            'items' => $request->items
+        ]);
+
+        return Redirect::back();
     }
 
 

@@ -30,21 +30,39 @@
           <v-expansion-panel-content>
             <!--            <pre>{{ page }}</pre>-->
 
-            <v-text-field
-              v-model="form.title"
-              label="Title"/>
-            <v-text-field
-              v-model="form.slug"
-              label="Slug"/>
-            <v-text-field
-              v-model="form.meta_title"
-              label="Meta Title"/>
-            <v-text-field
-              v-model="form.meta_description"
-              label="Meta Description"/>
-            <v-text-field
-              v-model="form.meta_keywords"
-              label="Meta Keywords"/>
+            <v-tabs v-model="pageTab">
+              <v-tab>
+                <span>Meta</span>
+              </v-tab>
+              <v-tab>
+                <span>SEO</span>
+              </v-tab>
+            </v-tabs>
+
+
+            <v-tabs-items v-model="pageTab">
+              <v-tab-item title="Meta" class="mt-3">
+                <v-row>
+                  <v-col md="6">
+                    <v-text-field
+                      v-model="form.title"
+                      label="Title"/>
+                  </v-col>
+                  <v-col md="6">
+                    <v-text-field
+                      v-model="form.slug"
+                      label="Slug"/>
+                  </v-col>
+                </v-row>
+              </v-tab-item>
+              <v-tab-item title="SEO">
+                <v-row>
+                  <v-col>
+                    SEO
+                  </v-col>
+                </v-row>
+              </v-tab-item>
+            </v-tabs-items>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -74,6 +92,7 @@
     data() {
       return {
         savedSnackBar: false,
+        pageTab: null,
         form: this.$inertia.form({
           id: this.page.id,
           title: this.page?.title,
