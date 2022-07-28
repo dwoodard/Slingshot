@@ -33,7 +33,7 @@
                   <span>More</span>
                 </v-tooltip>
               </template>
-              <v-list>
+              <v-list dense>
                 <v-list-item>
                   <v-switch v-model="itemLocal.show_icon" label="Show Icon"/>
                 </v-list-item>
@@ -92,20 +92,33 @@
         </v-col>
       </v-row>
 
-      <!-- a header in between the rows titled links-->
-
-
       <v-row>
-        <v-col cols="12" md="6">
+        <v-col cols="12" md="10">
           <v-text-field
-            v-model="itemLocal.slug"
-            hint="can be relative to the url with '/' at the beginning"
-            label="Slug"/>
+            v-if="itemLocal.type === 'internal'"
+            v-model="itemLocal.link"
+            hint="relative path to the page (e.g. /about)"
+            label="Internal Link"/>
+          <v-text-field
+            v-if="itemLocal.type === 'external'"
+            v-model="itemLocal.link"
+            hint="External link start with https://"
+            label="External Link"/>
         </v-col>
+        <v-col cols="12" md="2">
+          <v-switch
+            v-model="itemLocal.type"
+            :true-value="'external'"
+            :false-value="'internal'"/>
+        </v-col>
+      </v-row>
+
+
+      <v-row v-if="itemLocal.type == 'external'">
         <v-col cols="12" md="6">
           <v-select
             v-model="itemLocal.target"
-            hint="Open page in new tab?"
+            :hint="itemLocal.target == '_self' ? 'Open in same tab' : 'Open in new tab'"
             :items="[
               { text: 'self', value: '_self' },
               { text: 'blank', value: '_blank' },
@@ -118,6 +131,7 @@
 </template>
 
 <script>
+  import {toTitleCase} from '@/helper';
 
   export default {
     name: 'MenuItems',
@@ -147,7 +161,21 @@
       };
     },
 
+    computed: {
+      linkType() {
+        switch (this.itemLocal.type) {
+          case 'internal':
+            return 'Internal';
+          case 'external':
+            return 'External';
+          default:
+            return 'Internal';
+        }
+      }
+    },
+
     methods: {
+      toTitleCase,
       updateItem() {
         this.$emit('update-item', this.itemLocal);
       },

@@ -7,7 +7,25 @@
 
 
       <template v-for="(item,n) in filterItems">
-        <inertia-link :key="n" :href="item.slug" :target="item.target" as="v-tab">
+        <v-tab
+          v-if="item.type === 'external' && !item.hide_link"
+          :key="n"
+          :href="item.link"
+          :target="item.target">
+          <template #default>
+            <v-icon v-if="item.show_icon" class="mr-2">
+              {{ item.icon }}
+            </v-icon>
+            <span>{{ item.title }}</span>
+          </template>
+        </v-tab>
+
+
+        <inertia-link
+          v-if="item.type === 'internal' && !item.hide_link"
+          :key="n"
+          :href="item.link"
+          as="v-tab">
           <v-icon v-if="item.show_icon" class="mr-2">{{ item.icon }}</v-icon>
           {{ item.title }}
         </inertia-link>

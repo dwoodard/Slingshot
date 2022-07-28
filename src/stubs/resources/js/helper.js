@@ -11,3 +11,10 @@ export const toPascalCase = (str) => {
 export const pascalToTitleCase = (str) => {
   return str.replace(/([A-Z])/g, ' $1').replace(/^\s/, '');
 };
+
+// eslint-disable-next-line no-extend-native
+String.prototype.toTitleCase = function () {
+  return this.split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+};
