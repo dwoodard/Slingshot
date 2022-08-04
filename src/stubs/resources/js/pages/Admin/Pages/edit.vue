@@ -17,7 +17,7 @@
                 <span>
 
 
-                  <a target="blank" :href="`/${page.slug}`" class="text-decoration-none">
+                  <a target="blank" :href="`/${page.link}`" class="text-decoration-none">
                     <v-icon>mdi-open-in-new</v-icon>
                   </a>
                 </span>
@@ -50,8 +50,8 @@
                   </v-col>
                   <v-col md="6">
                     <v-text-field
-                      v-model="form.slug"
-                      label="Slug"/>
+                      v-model="form.link"
+                      label="Link"/>
                   </v-col>
                 </v-row>
               </v-tab-item>
@@ -96,7 +96,7 @@
         form: this.$inertia.form({
           id: this.page.id,
           title: this.page?.title,
-          slug: this.page.slug,
+          link: this.page.link,
           content: this.page.content,
           middleware: this.page.middleware,
           sort_order: this.page.sort_order,

@@ -33,7 +33,6 @@ class AdminController extends \Inertia\Controller
     }
     public function pagesEdit(Request $request, $id):Response
     {
-
         $data = [
             'page' => Page::find($id)
         ];
@@ -47,10 +46,11 @@ class AdminController extends \Inertia\Controller
             'page' => Page::create(
                 $request->validate([
                     'title' => ['required'],
-                    'slug' => ['required']
+                    'link' => ['required']
                 ])
             )
         ];
+
         return Redirect::back()->with($data);
     }
     public function pagesSave($id, Request $request): \Illuminate\Http\RedirectResponse
@@ -60,7 +60,7 @@ class AdminController extends \Inertia\Controller
         $page = Page::find($id)->update([
             'id' => $request->id,
             'title' => $request->title,
-            'slug' => $request->slug,
+            'link' => $request->link,
             'source' => json_encode($request->get('content')),
             'middleware' => $request->middleware,
             'sort_order' => $request->sort_order,
@@ -76,7 +76,7 @@ class AdminController extends \Inertia\Controller
     }
     public function pagesDelete(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $page = Page::where('slug', $request->slug)->delete();
+        $page = Page::where('link', $request->link)->delete();
         $data = [
             'page' => $page
         ];
@@ -88,7 +88,7 @@ class AdminController extends \Inertia\Controller
     {
         $data = [
             'menus' => \App\Models\Menu::all(),
-            'pages' => Page::all("id", "title", "slug")
+            'pages' => Page::all("id", "title", "link")
         ];
 
         return Inertia::render('Admin/Menus', $data);
@@ -100,7 +100,7 @@ class AdminController extends \Inertia\Controller
             'menu' => Menu::create(
                 $request->validate([
                     'title' => ['required'],
-                    'slug' => ['required']
+                    'link' => ['required']
                 ])
             )
         ];

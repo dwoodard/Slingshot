@@ -9,9 +9,9 @@
             label="Title"
             required/>
           <v-text-field
-            v-model="form.slug"
-            :error-messages="form.errors.slug"
-            label="Slug"
+            v-model="form.link"
+            :error-messages="form.errors.link"
+            label="Link"
             required/>
         </v-card-text>
 
@@ -36,7 +36,7 @@
       return {
         form: this.$inertia.form({
           title: '',
-          slug: ''
+          link: ''
         })
       };
     },
@@ -67,7 +67,7 @@
     },
     watch: {
       title() {
-        this.form.slug = toKebabCase(this.form.title)
+        this.form.link = toKebabCase(this.form.title)
           .replace('.', '');
       }
     }

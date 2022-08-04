@@ -181,7 +181,7 @@
         console.log('clone', e);
         return {
           icon: '',
-          link: `/${e.slug}`,
+          link: `/${e.link}`,
           type: 'internal',
           admin: false,
           order: 0,

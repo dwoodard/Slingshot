@@ -83,4 +83,4 @@ Route::get('/privacy-policy',  function (){
 })->name('policy.show');
 
 //Pages
-Route::get('/{slug}',  [PageController::class, 'page'])->name('page');
+Route::get('/{link}',  [PageController::class, 'page'])->name('page');

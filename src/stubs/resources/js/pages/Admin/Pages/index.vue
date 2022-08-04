@@ -47,7 +47,7 @@
       </template>
 
       <template #item.actions="{ item }">
-        <a target="_blank" :href="`/${item.slug}`" class="text-decoration-none">
+        <a target="_blank" :href="`/${item.link}`" class="text-decoration-none">
           <v-icon small class="mr-2">
             mdi-file-find-outline
           </v-icon>
@@ -118,10 +118,10 @@
             value: 'title'
           },
           {
-            text: 'Slug',
+            text: 'Link',
             align: 'start',
             sortable: true,
-            value: 'slug'
+            value: 'link'
           },
           {
             text: 'Is Published',
@@ -146,7 +146,7 @@
 
       deleteItemConfirm(item) {
         this.$inertia.delete(route('admin.page.delete', {
-          slug: this.selectedPage.slug
+          link: this.selectedPage.link
         }), {
           onSuccess: (data) => {
             // this.editedIndex = this.pages.indexOf(item);

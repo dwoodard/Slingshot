@@ -59,7 +59,7 @@
 
 <script>
   import ProfileMenu from '@/layouts/nav/ProfileMenu';
-  import MainNav from './nav/MainNav';
+  import MainNav from '@/layouts/nav/MainNav';
 
   export default {
     data() {

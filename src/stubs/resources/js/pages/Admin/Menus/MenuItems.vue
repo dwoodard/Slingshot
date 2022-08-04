@@ -147,7 +147,7 @@
         type: Object,
         default: () => ({
           title: '',
-          slug: '',
+          link: '',
           icon: '',
           hide_link: false,
           show_icon: false,

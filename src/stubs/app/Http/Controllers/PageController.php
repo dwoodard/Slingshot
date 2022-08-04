@@ -8,9 +8,9 @@ use Inertia\Response;
 
 class PageController extends Controller
 {
-    public function page($slug)
+    public function page($link)
     {
-        $page = Page::where('slug','=', $slug)->first();
+        $page = Page::where('link','=', $link)->first();
 
         if (!$page){
             abort(404);
