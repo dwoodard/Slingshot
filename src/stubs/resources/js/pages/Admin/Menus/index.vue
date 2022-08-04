@@ -53,13 +53,13 @@
               </v-tooltip>
             </v-toolbar>
 
-            <v-expansion-panels v-model="openedMenuPanels" accordion :disabled="!editing">
-              <template #default>
+            <v-expansion-panels v-model="openedMenuPanels" :disabled="!editing" accordion multiple>
+              <template>
                 <draggable
                   class="flex-grow-1"
-                  group="menuItems"
                   :list="selectedMenuItems"
-                  :options="{ handle: '.handle' }"
+                  group="menuItems"
+                  handle=".handle"
                   item-key="id">
                   <MenuItems v-for="(item,n) in selectedMenuItems"
                              :key="`item-${n}`"
@@ -95,7 +95,6 @@
             <draggable
               v-model="pagesLocal"
               class="dragArea list-group"
-              :list="pagesLocal"
               :group="{ name: 'menuItems', pull: 'clone', put: false }"
               multiple
               ghost-class="ghost"
@@ -182,8 +181,8 @@
         console.log('clone', e);
         return {
           icon: '',
-          slug: `/${e.slug}`,
-          type: 'relative',
+          link: `/${e.slug}`,
+          type: 'internal',
           admin: false,
           order: 0,
           title: e.title,

@@ -16,17 +16,25 @@
               {{ item.title }}
             </span>
           </div>
-          <div class=" text-right">
+
+          <div class="text-right">
             <v-menu
-              v-if="!readonly"
+              v-show="!readonly"
               v-model="menu"
               :nudge-width="200"
               offset-x
               :close-on-content-click="false">
-              <template #activator="{on:menu, attrs}">
-                <v-tooltip right>
-                  <template #activator="{ on: tooltip }">
-                    <v-icon v-bind="attrs" v-on="{ ...tooltip, ...menu }">
+              <template #activator="{on, attrs}">
+                <v-tooltip
+                  v-show="!readonly"
+                  right
+                  v-bind="attrs"
+                  v-on="on">
+                  <template #activator="{ on:menu, tooltip }">
+                    <v-icon
+                      v-show="!readonly"
+                      v-bind="attrs"
+                      v-on="on">
                       mdi-dots-horizontal
                     </v-icon>
                   </template>
@@ -75,7 +83,7 @@
         <v-col cols="12" md="6">
           <v-text-field
             v-model="itemLocal.icon"
-            hint="Icon is MDI icon name"
+            hint="Icon is MDI icon name, use the finder link to find more icons"
             :prepend-icon="itemLocal.icon"
             label="Icon">
             <template #append-outer>
@@ -91,13 +99,12 @@
           </v-text-field>
         </v-col>
       </v-row>
-
       <v-row>
         <v-col cols="12" md="10">
           <v-text-field
             v-if="itemLocal.type === 'internal'"
             v-model="itemLocal.link"
-            hint="relative path to the page (e.g. /about)"
+            hint="relative path to the page (ex: /about)"
             label="Internal Link"/>
           <v-text-field
             v-if="itemLocal.type === 'external'"
@@ -112,13 +119,12 @@
             :false-value="'internal'"/>
         </v-col>
       </v-row>
-
-
-      <v-row v-if="itemLocal.type == 'external'">
+      <v-row v-if="itemLocal.type === 'external'">
         <v-col cols="12" md="6">
           <v-select
             v-model="itemLocal.target"
-            :hint="itemLocal.target == '_self' ? 'Open in same tab' : 'Open in new tab'"
+            :hint="itemLocal.target === '_self' ? 'Open in same tab' : 'Open in new tab'"
+            persistent-hint
             :items="[
               { text: 'self', value: '_self' },
               { text: 'blank', value: '_blank' },
@@ -188,8 +194,6 @@
 
 
     }
-
-
   };
 </script>
 

@@ -10,8 +10,8 @@
         <v-tab
           v-if="item.type === 'external' && !item.hide_link"
           :key="n"
-          :href="item.link"
-          :target="item.target">
+          :href="itemLink(item)"
+          :target="itemTarget(item)">
           <template #default>
             <v-icon v-if="item.show_icon" class="mr-2">
               {{ item.icon }}
@@ -24,7 +24,7 @@
         <inertia-link
           v-if="item.type === 'internal' && !item.hide_link"
           :key="n"
-          :href="item.link"
+          :href="itemLink(item)"
           as="v-tab">
           <v-icon v-if="item.show_icon" class="mr-2">{{ item.icon }}</v-icon>
           {{ item.title }}
@@ -34,6 +34,8 @@
   </div>
 </template>
 <script>
+
+
   export default {
     name: 'MainNav',
     computed: {
@@ -55,11 +57,20 @@
       isAdmin() {
         return this.$page.props?.auth.user?.data?.isAdmin;
       }
+
+
     },
     methods: {
+      itemLink(item) {
+        return item.link ? item.link : '';
+      },
+      itemTarget(item) {
+        return item.target ? item.target : '';
+      },
       showLink(item) {
         return !item.hide_link || !item.admin;
       }
     }
+
   };
 </script>

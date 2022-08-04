@@ -109,6 +109,8 @@ class AdminController extends \Inertia\Controller
 
     public function menusSave($id, Request $request): \Illuminate\Http\RedirectResponse
     {
+
+
         $menu = Menu::find($id);
 
         $request->validate([

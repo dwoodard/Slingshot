@@ -17,7 +17,7 @@
 
 
           <template v-for="(item,n) in headerItems">
-            <inertia-link v-if="!item.admin || !item.hide_link" :key="n" :href="item.slug" as="span">
+            <inertia-link v-if="!item.admin || !item.hide_link" :key="n" :href="item.link" as="span">
               <v-btn block text> <v-icon v-if="item.show_icon">{{ item.icon }}</v-icon> {{ item.title }}</v-btn>
             </inertia-link>
           </template>
@@ -41,7 +41,7 @@
           <inertia-link
             v-if="!item.admin || !item.hide_link"
             :key="n"
-            :href="item.slug"
+            :href="item.link"
             as="v-btn">
             <template #default>
               <span>{{ item.title }}</span>
