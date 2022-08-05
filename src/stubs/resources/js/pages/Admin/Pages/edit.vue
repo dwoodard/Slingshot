@@ -7,16 +7,15 @@
             <template>
               <div>
                 <span>
-                  <inertia-link href="/admin/pages" as="button">
-                    <v-icon>mdi-backburger</v-icon>
-                  </inertia-link>
+                  <v-icon @click.stop="$inertia.get('/admin/pages')">mdi-backburger</v-icon>
                 </span>
-                <span>{{ page.title }}</span>
-
+                <span>
+                  <h2 class="d-inline-block">
+                    {{ page.title }}
+                  </h2>
+                </span>
 
                 <span>
-
-
                   <a target="blank" :href="`/${page.link}`" class="text-decoration-none">
                     <v-icon>mdi-open-in-new</v-icon>
                   </a>
