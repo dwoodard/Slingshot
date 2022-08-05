@@ -89,7 +89,7 @@
             <template #append-outer>
               <v-tooltip bottom>
                 <template #activator="{ on }">
-                  <a href="https://pictogrammers.github.io/@mdi/font/6.9.96/" target="_blank">
+                  <a href="https://pictogrammers.github.io/@mdi/font/5.9.55/" target="_blank">
                     <v-icon v-on="on">mdi-open-in-new</v-icon>
                   </a>
                 </template>

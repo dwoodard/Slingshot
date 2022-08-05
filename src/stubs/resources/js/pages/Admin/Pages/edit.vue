@@ -8,7 +8,7 @@
               <div>
                 <span>
                   <inertia-link href="/admin/pages" as="button">
-                    <v-icon>mdi-menu-left</v-icon>
+                    <v-icon>mdi-backburger</v-icon>
                   </inertia-link>
                 </span>
                 <span>{{ page.title }}</span>
