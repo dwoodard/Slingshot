@@ -2,7 +2,7 @@
   <div class="d-flex row">
     <v-tabs background-color="transparent">
       <inertia-link v-if="isAdmin" :href="route('admin.index')" as="v-tab">
-        Admin
+        <v-icon class="mr-2">mdi-account-cog</v-icon> Admin
       </inertia-link>
 
 
@@ -26,8 +26,7 @@
           :key="n"
           :href="itemLink(item)"
           as="v-tab">
-          <v-icon v-if="item.show_icon" class="mr-2">{{ item.icon }}</v-icon>
-          {{ item.title }}
+          <v-icon v-if="item.show_icon" class="mr-2">{{ item.icon }}</v-icon> {{ item.title }}
         </inertia-link>
       </template>
     </v-tabs>
@@ -39,11 +38,10 @@
   export default {
     name: 'MainNav',
     computed: {
-      items() {
-        return this.$page.props?.menus?.find((menu) => menu.location === 'header')?.items;
-      },
       filterItems() {
-        return this.items?.filter((item) => {
+        const items = this.$page.props.menus?.find((menu) => menu.location === 'header')?.items;
+
+        return items?.filter((item) => {
           if (item.admin && !this.isAdmin) {
             return false;
           }

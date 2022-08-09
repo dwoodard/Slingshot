@@ -12,6 +12,7 @@
     "lint-autofix:js": "eslint --ext .js,.vue . --fix"
   },
   "devDependencies": {
+    "animate.css": "^4.1.1",
     "@aszydelko/eslint-config-vue": "^1.0.4",
     "@babel/eslint-parser": "^7.14.7",
     "@babel/helpers": "^7.14.6",

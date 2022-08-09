@@ -8,7 +8,8 @@
           label="Menu"
           item-text="title"
           single-line
-          :item-value="(value) => value"/>
+          :item-value="(menu) => menu"
+          @change="changeMenu"/>
       </v-toolbar-items>
     </v-toolbar>
 
@@ -24,7 +25,10 @@
               <v-tooltip v-if="!editing" bottom>
                 <template #activator="{ on, attrs }">
                   <v-btn v-bind="attrs" icon v-on="on" @click="action('edit')">
-                    <v-icon>mdi-pencil</v-icon>
+                    <v-icon
+                      :class="{ 'animate__animated animate__tada animate__infinite animate__slow  ': !menusLocal.isDirty }">
+                      mdi-pencil
+                    </v-icon>
                   </v-btn>
                 </template>
                 <span>
@@ -34,7 +38,10 @@
               <v-tooltip v-if="editing" bottom>
                 <template #activator="{ on, attrs }">
                   <v-btn v-bind="attrs" icon v-on="on" @click="action('save')">
-                    <v-icon>mdi-check</v-icon>
+                    <v-icon
+                      :class="{ 'mdi-48px animate__animated animate__bounceIn animate__slower': menusLocal.isDirty }">
+                      mdi-check
+                    </v-icon>
                   </v-btn>
                 </template>
                 <span>
@@ -53,7 +60,7 @@
               </v-tooltip>
             </v-toolbar>
 
-            <v-expansion-panels v-model="openedMenuPanels" :disabled="!editing" accordion multiple>
+            <v-expansion-panels v-model="openedMenuPanels" :disabled="!editing" accordion>
               <template>
                 <draggable
                   class="flex-grow-1"
@@ -72,9 +79,6 @@
             </v-expansion-panels>
           </v-card-text>
         </v-card>
-
-
-        <!--        <pre>{{ selectedMenu }}</pre>-->
       </v-col>
       <v-col cols="12" md="6">
         <v-card v-if="editing">
@@ -120,6 +124,9 @@
         <!--        <pre>{{ pagesLocal }}</pre>-->
       </v-col>
     </v-row>
+
+
+    <!--      <pre>{{ before }}</pre>-->
   </v-container>
 </template>
 
@@ -133,10 +140,12 @@
     layout: Admin,
     props: {
       menus: {
-        type: Array
+        type: Array,
+        default: () => []
       },
       pages: {
-        type: Array
+        type: Array,
+        default: () => []
       }
     },
     data() {
@@ -144,13 +153,13 @@
         openedMenuPanels: [],
         before: null,
         editing: false,
-        oldPageIndex: '',
-        newPageIndex: '',
         pageSearch: '',
         itemSearch: '',
         selectedMenu: null,
         pagesLocal: this.pages,
-        menusLocal: this.menus
+        menusLocal: this.$inertia.form({
+          ...this.menus
+        })
 
       };
     },
@@ -161,24 +170,20 @@
 
     },
     methods: {
+      changeMenu(menu) {
+        this.selectedMenu = menu;
+      },
+
       filterPagesLocal() {
         this.pagesLocal = this.pages.filter(
-          (page) => page.title?.toLowerCase().includes(this.pageSearch?.toLowerCase())
+          // if pageSearch is empty or null, return all pages
+          (page) => !this.pageSearch || page.title?.toLowerCase().includes(this.pageSearch?.toLowerCase())
         );
       },
 
-      onEndMenu(e) {
-        console.log(e);
-        this.oldPageIndex = e.oldIndex;
-        this.newPageIndex = e.newIndex;
-      },
-      onEndPages(e) {
-        console.log(e);
-        this.oldPageIndex = e.oldIndex;
-        this.newPageIndex = e.newIndex;
-      },
+
       clonePage(e) {
-        console.log('clone', e);
+        // console.log('clone', e);
         return {
           icon: '',
           link: `/${e.link}`,
@@ -195,11 +200,14 @@
       action(e) {
         if (e === 'edit') {
           this.editing = true;
-          this.before = Object.assign({}, this.selectedMenu);
+          this.before = JSON.parse(JSON.stringify(this.selectedMenu));
         }
         if (e === 'cancel') {
           this.editing = false;
           this.selectedMenu = this.before;
+
+          // reset before
+          this.before = null;
         }
         if (e === 'save') {
           this.editing = false;
@@ -209,7 +217,9 @@
             item.order = i;
           });
 
-          this.$inertia.put(`/admin/menus/${this.selectedMenu.id}`, this.selectedMenu);
+          this.$inertia.put(`/admin/menus/${this.selectedMenu.id}`, this.selectedMenu, {
+            onSuccess: () => this.menusLocal.reset()
+          });
         }
 
         // on cancel or save close all the panels
@@ -247,16 +257,8 @@
 </script>
 
 <style scoped>
-/*.sortable {*/
-/*  width: 100%;*/
-/*  background-color: #f5f5f5;*/
-/*  padding: 1em;*/
-/*  cursor: move;*/
-/*}*/
-.sortable-drag{
-  /*opacity: 0;*/
-}
- .ghost{
+.sortable-drag{}
+.ghost{
   border: 1px dashed #ccc;
   background-color: #dedede;
 }

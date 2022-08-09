@@ -77,7 +77,7 @@
         <v-col cols="12" md="6">
           <v-text-field
             v-model="itemLocal.title"
-            hint="Title of the page"
+            hint="Title of the menu"
             label="Title"/>
         </v-col>
         <v-col cols="12" md="6">
@@ -142,18 +142,8 @@
   export default {
     name: 'MenuItems',
     props: {
-
       item: {
         type: Object,
-        default: () => ({
-          title: '',
-          link: '',
-          icon: '',
-          hide_link: false,
-          show_icon: false,
-          target: '_self' // '_self' or '_blank'
-        }),
-
         required: true
       },
 
@@ -165,19 +155,6 @@
         menu: null,
         itemLocal: this.item
       };
-    },
-
-    computed: {
-      linkType() {
-        switch (this.itemLocal.type) {
-          case 'internal':
-            return 'Internal';
-          case 'external':
-            return 'External';
-          default:
-            return 'Internal';
-        }
-      }
     },
 
     methods: {

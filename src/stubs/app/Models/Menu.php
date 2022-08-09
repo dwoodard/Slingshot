@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
-use Spatie\SchemalessAttributes\SchemalessAttributes;
 use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
 
 
@@ -21,6 +21,10 @@ class Menu extends Model
 
     protected $schemalessAttributes = [
         'items',
+    ];
+
+    public $casts = [
+        'items' => 'array',
     ];
 
     public function scopeWithItems(): Builder

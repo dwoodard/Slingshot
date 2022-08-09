@@ -50,8 +50,8 @@ class MenuSeeder extends Seeder
         $footer->items = [
             [
                 'title' => 'Welcome',
-                'link' => '/home',
-                'type' => 'relative',
+                'link' => '/welcome',
+                'type' => 'internal',
                 'target' => '_self',
                 'icon' => 'mdi-home',
                 'show_icon' => true,

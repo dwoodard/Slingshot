@@ -3,6 +3,7 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.css';
 import colors from 'vuetify/lib/util/colors';
 import '@mdi/font/css/materialdesignicons.css';
+import 'animate.css/animate.css';
 
 Vue.use(Vuetify);
 

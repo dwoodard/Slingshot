@@ -11,11 +11,13 @@ use Inertia\Response;
 
 class AdminController extends \Inertia\Controller
 {
+    // default admin page
     public function index()
     {
         return Redirect::route('admin.dashboard');
     }
 
+    //dashboard
     public function dashboard(Request $request):Response
     {
         $data = [];
@@ -23,6 +25,7 @@ class AdminController extends \Inertia\Controller
         return Inertia::render('Admin/Pages', $data);
     }
 
+    //pages
     public function pages(Request $request):Response
     {
         $data = [
@@ -93,7 +96,6 @@ class AdminController extends \Inertia\Controller
 
         return Inertia::render('Admin/Menus', $data);
     }
-
     public function menusCreate(Request $request)
     {
         $data = [
@@ -106,12 +108,8 @@ class AdminController extends \Inertia\Controller
         ];
         return Redirect::back()->with($data);
     }
-
     public function menusSave($id, Request $request): \Illuminate\Http\RedirectResponse
     {
-
-
-        $menu = Menu::find($id);
 
         $request->validate([
             'title' => ['required'],
@@ -119,16 +117,14 @@ class AdminController extends \Inertia\Controller
             'location' => ['required']
         ]);
 
-        $menu->update([
+       Menu::find($id)->update([
             'title' => $request->title,
             'location' => $request->location,
             'items' => $request->items
         ]);
 
-        return Redirect::back();
+       return Redirect::back();
     }
-
-
 
     //SEO
     public function seo(Request $request):Response
@@ -137,7 +133,6 @@ class AdminController extends \Inertia\Controller
 
         return Inertia::render('Admin/Seo', $data);
     }
-
     public function posts(Request $request):Response
     {
         $data = [
@@ -146,7 +141,6 @@ class AdminController extends \Inertia\Controller
 
         return Inertia::render('Admin/Posts', $data);
     }
-
     public function settings(Request $request):Response
     {
         $data = [
