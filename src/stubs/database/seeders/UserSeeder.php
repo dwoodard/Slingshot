@@ -19,6 +19,11 @@ class UserSeeder extends Seeder
         $user->email = 'admin@admin.com';
         $user->password = bcrypt('asdfasdf');
         $user->assignRole('admin');
+        $user->settings = [
+            'admin' => [
+                'sidebar' => true
+            ]
+        ];
         $user->save();
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\UserSettingsController;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use Inertia\Inertia;
@@ -49,7 +51,9 @@ Route::put('/user/profile-information', [\App\Http\Controllers\ProfileInformatio
 //Home
 Route::get('/',  function(){
     // if site settings
-
+    if(Setting::config()->get('site.default_route') !== '') {
+         return redirect(Setting::config()->get('site.default_route'));
+     }
 
 
     return Inertia::render('Home', [
@@ -67,20 +71,8 @@ Route::get('/profile', function (){
 ->name('profile.show')
 ->middleware('auth');
 
-Route::get('/settings', function (){
-    return Inertia::render('settings', []);
-})
-->name('settings.show')
-->middleware('auth');
-
-
-Route::get('/terms-of-service',  function (){
-    return Inertia::render('TermsOfService', []);
-})->name('terms.show');
-
-Route::get('/privacy-policy',  function (){
-    return Inertia::render('PrivacyPolicy', []);
-})->name('policy.show');
+//UserSettings
+Route::resource('/user-settings', 'UserSettingsController');
 
 //Pages
 Route::get('/{link}',  [PageController::class, 'page'])->name('page');

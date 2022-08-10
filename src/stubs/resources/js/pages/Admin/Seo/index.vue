@@ -1,10 +1,45 @@
 <template>
   <v-container fluid>
-    <v-app-bar>
-      <v-toolbar-title>
-        SEO Builder
-      </v-toolbar-title>
-    </v-app-bar>
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title class="primary white--text text-h5">
+            SEO Builder
+          </v-card-title>
+
+          <v-card-text>
+            <v-row>
+              <v-col>
+                <v-tabs v-model="seotab">
+                  <v-tabs-slider color="primary"/>
+                  <v-tab item-value="home">
+                    <v-icon>mdi-key</v-icon>
+                    Keywords
+                  </v-tab>
+                  <v-tab item-value="about">
+                    <v-icon>mdi-image</v-icon>
+                    Images
+                  </v-tab>
+                </v-tabs>
+              </v-col>
+            </v-row>
+
+            <v-tabs-items v-model="seotab">
+              <v-tab-item>
+                <v-card flat>
+                  test1
+                </v-card>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card flat>
+                  test2
+                </v-card>
+              </v-tab-item>
+            </v-tabs-items>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -22,7 +57,10 @@
       }
     },
     data() {
-      return {};
+      return {
+        seotab: null
+
+      };
     },
     computed: {
 

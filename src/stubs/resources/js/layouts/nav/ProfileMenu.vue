@@ -30,7 +30,7 @@
       return {
         items: [
           {title: 'Profile', link: this.route('profile.show')},
-          {title: 'Settings', link: this.route('settings.show')},
+          {title: 'Settings', link: this.route('user-settings.index')},
           {title: 'Logout', link: this.route('logout')}
         ]
       };

@@ -40,8 +40,8 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth.user' => $request->user() ? (new UserResource($request->user())) : null,
             'token' => csrf_token(),
-            'menus' => \App\Models\Menu::all(),
-
+            'menus' => \App\Models\Menu::all()->toArray(),
+            'settings' => \App\Models\Setting::config(),
         ]);
     }
 }
