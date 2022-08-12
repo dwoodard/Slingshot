@@ -26,6 +26,7 @@ class UserResource extends JsonResource
             'state' => $this->state,
             'zip' => $this->zip,
             'isAdmin'=> $this->isAdmin,
+            'settings' => $this->settings,
             'roles' => $this->getRoleNames()
         ];
     }

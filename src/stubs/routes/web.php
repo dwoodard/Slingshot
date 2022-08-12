@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\PasswordController;
-use App\Http\Controllers\UserSettingsController;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
@@ -51,9 +50,9 @@ Route::put('/user/profile-information', [\App\Http\Controllers\ProfileInformatio
 //Home
 Route::get('/',  function(){
     // if site settings
-    if(Setting::config()->get('site.default_route') !== '') {
-         return redirect(Setting::config()->get('site.default_route'));
-     }
+    //    if(Setting::config()->get('site.default_route') !== '') {
+    //         return redirect(Setting::config()->get('site.default_route'));
+    //    }
 
 
     return Inertia::render('Home', [

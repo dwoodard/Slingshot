@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\SchemalessAttributes\SchemalessAttributes;
 use Venturecraft\Revisionable\RevisionableTrait;
+use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
+
 
 class User extends Authenticatable
 {
@@ -16,9 +18,10 @@ class User extends Authenticatable
     use Notifiable;
     use RevisionableTrait;
     use HasRoles;
+    use SchemalessAttributesTrait;
 
     protected $schemalessAttributes = [
-        'settings',
+        'settings'
     ];
 
     /**
@@ -57,12 +60,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'settings' => 'array'
+        'settings' => SchemalessAttributes::class
     ];
 
-    public function getSettings(): SchemalessAttributes
+    public function scopeWithSettings(): Builder
     {
-        return SchemalessAttributes::createForModel($this, 'settings');
+        return $this->settings->modelScope();
     }
 
     public function getIsAdminAttribute()

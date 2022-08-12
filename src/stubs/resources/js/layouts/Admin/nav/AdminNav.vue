@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer v-model="sidebarDrawer" :mini-variant.sync="mini" app dark permanent stateless clipped>
     <v-list dense flat outlined>
-      <v-list-item class="pointer" @click="toggleMini = !toggleMini">
+      <v-list-item class="pointer" @click="isSidebarClosed = !isSidebarClosed">
         <v-icon v-if="!mini">mdi-menu-open</v-icon>
         <v-icon v-else>mdi-menu-open mdi-rotate-180</v-icon>
       </v-list-item>
@@ -46,12 +46,14 @@
   </v-navigation-drawer>
 </template>
 <script>
+  import axios from 'axios';
+
   export default {
     name: 'AdminNav',
     data() {
       return {
         sidebarDrawer: true,
-        toggleMini: false,
+        isSidebarClosed: this.$page.props.auth.user.data.settings?.adminNav?.isSidebarClosed,
         items: [
           {
             title: 'Users',
@@ -86,12 +88,19 @@
     computed: {
       mini: {
         get() {
-          return (this.toggleMini || this.$vuetify.breakpoint.smAndDown) && this.toggleMini;
+          return (this.isSidebarClosed || this.$vuetify.breakpoint.smAndDown) && this.isSidebarClosed;
         },
         set(value) {
           return value;
         }
 
+      }
+    },
+    watch: {
+      isSidebarClosed(value) {
+        axios.post('/user-settings', {
+          'adminNav.isSidebarClosed': value
+        });
       }
     }
   };
