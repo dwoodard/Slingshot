@@ -12,5 +12,3 @@ class Page extends Model
     use RevisionableTrait;
 
     protected $guarded = [];
-
-}
