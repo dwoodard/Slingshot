@@ -29,7 +29,7 @@ Route::group(['as'=>'admin.','middleware' => ['web','role:admin']], function(){
     Route::get('/seo', [AdminController::class, 'seo'])->name('seo');
 
     //settings
-    Route::resource('settings', 'Admin\SettingController');
+    Route::resource('site-settings', 'Admin\SiteSettingController');
 
 });
 

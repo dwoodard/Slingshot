@@ -137,8 +137,6 @@
 </template>
 
 <script>
-  import {toTitleCase} from '@/helper';
-
   export default {
     name: 'MenuItems',
     props: {
@@ -158,7 +156,7 @@
     },
 
     methods: {
-      toTitleCase,
+
       updateItem() {
         this.$emit('update-item', this.itemLocal);
       },

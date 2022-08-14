@@ -13,25 +13,34 @@ class PageTest extends TestCase
 
 
     /** @test */
-    public function check_if_a_page_in_the_protected_function_assert_database_count_table_int_count_connection_null_()
+    public function check_if_page_is_created()
     {
-        // create a page called 'foo'
-        $page = Page::create([
-            'title' => 'foo',
-            'link' => 'foo'
+        $this->withoutExceptionHandling();
+        $this->seed();
+        Page::create([
+            'title' => 'Test Page',
+            'link' => 'test-page'
         ]);
-
-        // check if the page is in the database
         $this->assertDatabaseHas('pages', [
-            'title' => 'foo',
-            'link' => 'foo'
+            'title' => 'Test Page',
+            'link' => 'test-page'
         ]);
 
-        dump(Page::all()->count());
+        // next assert that the page that is created can be loaded via the browser
+        $this->get('/test-page')
+            ->assertOk();
 
-        //assert page with title 'foo' is in the database
-        $this->assertDatabaseHas('pages', [
-            'title' => 'foo'
-        ]);
+
+
+
     }
+
+    /** @test */
+    public function check_fake_page()
+    {
+        //a non existing page should return a 404
+        $this->get('/fake-page')
+            ->assertStatus(404);
+    }
+
 }

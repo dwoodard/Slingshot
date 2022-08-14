@@ -77,7 +77,7 @@
           },
           {
             title: 'Settings',
-            link: '/admin/settings',
+            link: '/admin/site-settings',
             icon: 'mdi-card-bulleted-settings-outline'
           }
 

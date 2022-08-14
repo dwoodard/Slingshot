@@ -14,7 +14,12 @@
 
 <script>
   export default {
-    props: ['userSettings']
+    props: ['userSettings'],
+    data() {
+      return {
+
+      };
+    }
   };
 </script>
 

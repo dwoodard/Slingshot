@@ -23,7 +23,7 @@ class UserSettingsController extends Controller
         ];
 
 
-        return Inertia::render('settings', $data);
+        return Inertia::render('UserSettings', $data);
     }
 
     /**
