@@ -12,25 +12,9 @@
             justify="space-between">
             <v-col sm="12" md="6">
               <v-row justify="center">
-                <v-expansion-panels accordion>
-                  <v-expansion-panel v-for="(group, index) in Object.keys(settingsLocal)" :key="index">
-                    <v-expansion-panel-header>{{ group }}</v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                      <v-row>
-                        <v-col cols="12">
-                          <keep-alive v-for="(setting, index) in settingsLocal[group]" :key="index">
-                            <component
-                              :is="typeMap(setting).tag"
-                              v-model="setting.value"
-                              v-bind="typeMap(setting).attributes"
-                              @input.native="typeMap(setting).attributes.input"
-                              @click.native="typeMap(setting).attributes.click"/>
-                          </keep-alive>
-                        </v-col>
-                      </v-row>
-                    </v-expansion-panel-content>
-                  </v-expansion-panel>
-                </v-expansion-panels>
+                <v-form v-model="valid">
+                  <v-jsf v-model="model" :schema="schema" :options="options"/>
+                </v-form>
               </v-row>
             </v-col>
           </v-row>
@@ -38,102 +22,115 @@
       </v-col>
     </v-row>
 
-    <!--    <JsonEditor :obj-data="settingsLocal" :json="settingsLocal" @update="updateSettingsLocal"/>-->
+    <v-row>
+      <v-col>
+        <pre>{{ model }}</pre>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-  import JsonEditor from 'vue-json-edit';
-  import Vue from 'vue';
-  import axios from 'axios';
-  import Admin from '@/layouts/Admin/Layout';
-  import TypeInput from '@/components/TypeInput';
 
-  Vue.use(JsonEditor);
+
+  import Admin from '@/layouts/Admin/Layout';
+
 
   export default {
     layout: Admin,
     props: ['siteSettings'],
     data() {
       return {
-        settingsLocal: this.siteSettings
-      };
-    },
-    methods: {
-      typeMap(setting) {
-        switch (setting.type) {
-          case 'bool':
-            return {
-              tag: 'v-switch',
-              attributes: {
-                label: setting.name,
-                input(value) {
-                  this.updateSetting(setting);
-                },
-                click() {
-                  this.updateSettings(setting);
+        valid: false,
+        model: {},
+        options: {
+          editMode: 'inline'
+        },
+        schema: {
+          type: 'object',
+          required: [
+            'requiredStringProp'
+          ],
+          properties: {
+            requiredStringProp: {
+              type: 'string',
+              title: "I'm a required string"
+            },
+            patternStringProp: {
+              type: 'string',
+              title: "I'm a string with a pattern (letters only)",
+              pattern: '^[a-zA-Z]*$',
+              examples: [
+                'valid',
+                'not-valid',
+                'something-else'
+              ],
+              'x-options': {
+                messages: {
+                  pattern: 'Only letters are accepted'
                 }
               }
-            };
-          default: // text
-            return {
-              tag: 'v-text-field',
-              attributes: {
-                label: setting.name.toTitleCase().underscoreToSpaces(),
-                hint: 'Enter text',
-                input(value) {
-                  this.updateSetting(setting);
-                },
-                click() {
-                  this.updateSettings(setting);
+            },
+            ruleStringProp: {
+              type: 'number',
+              title: "I'm a number with a custom rule (even numbers only)",
+              'x-rules': [
+                'even'
+              ]
+            },
+            limitedInteger: {
+              type: 'integer',
+              title: "I'm a integer with min/max value and bad initial value",
+              minimum: 0,
+              maximum: 100
+            },
+            limitedString: {
+              type: 'string',
+              title: "I'm a string with min/max length and bad initial value",
+              minLength: 10,
+              maxLength: 100
+            },
+            limitedArray: {
+              type: 'array',
+              title: "I'm an array with min/max items",
+              items: {
+                type: 'string'
+              },
+              minItems: 1,
+              maxItems: 100
+            },
+            patternStringArray: {
+              type: 'array',
+              title: "I'm an array whose items have a pattern",
+              items: {
+                type: 'string',
+                pattern: '^[a-zA-Z]*$',
+                'x-options': {
+                  messages: {
+                    pattern: 'Only letters are accepted'
+                  }
                 }
               }
-
-            };
+            },
+            limitedObjectsArray: {
+              type: 'array',
+              title: "I'm an array of objects with min/max items",
+              items: {
+                type: 'object',
+                properties: {
+                  stringProp: {
+                    type: 'string'
+                  }
+                }
+              },
+              minItems: 2,
+              maxItems: 100
+            }
+          }
         }
-      },
-      valueMap(type, value) {
-        switch (type) {
-          case 'json':
-            return JSON.parse(value);
-          default:
-            return value;
-        }
-      },
-      updateSetting(siteSetting) {
-        console.log(siteSetting);
-        axios.post(`/admin/site-settings/${siteSetting.id}`, {
-          _method: 'PUT',
-          siteSetting
-        });
-      },
-      updateSettingsLocal(json) {
-        this.settingsLocal = json;
-      },
-      onSave() {
-
-      },
-      onJsonChange(json) {
-        this.settingsLocal = json;
-      }
-    },
-    beforeMount() {
-      // eslint-disable-next-line no-extend-native
-      String.prototype.toTitleCase = function () {
-        return this.split(' ')
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-          .join(' ');
       };
-
-      // eslint-disable-next-line no-extend-native
-      String.prototype.underscoreToSpaces = function () {
-        return this.replace(/_/g, ' ');
-      };
-    },
-
-    components: {
-      TypeInput
     }
+
 
   };
 </script>
