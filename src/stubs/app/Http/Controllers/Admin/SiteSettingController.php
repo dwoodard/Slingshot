@@ -3,19 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Setting;
+use App\Models\Schema;
+use App\Models\SiteSettings;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class SettingController extends Controller
+class SiteSettingController extends Controller
 {
-
-
-    public function index(Request $request):Response
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request): Response
     {
+        $schema = Schema::where('name', 'settings')->get()->first();
+
         $data = [
-            'settings' => Setting::all(),
+            'schema' => $schema->toArray(),
         ];
 
         return Inertia::render('Admin/Settings', $data);
@@ -34,7 +40,7 @@ class SettingController extends Controller
             'value' => 'required',
         ]);
         // create the setting
-        Setting::create($setting);
+        SiteSettings::create($setting);
 
         return Inertia::render('Setting/Create');
     }
@@ -48,7 +54,7 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         // store the setting
-        $setting = Setting::create($request->validate([
+        $setting = SiteSettings::create($request->validate([
             'name' => 'required',
             'value' => 'required',
         ]));
@@ -58,7 +64,7 @@ class SettingController extends Controller
 
 
     //setting.show
-    public function show(Setting $setting)
+    public function show(SiteSettings $setting)
     {
         return Inertia::render('Setting/Show', [
             'setting' => $setting,
@@ -66,7 +72,7 @@ class SettingController extends Controller
     }
 
     //setting.edit
-    public function edit(Setting $setting)
+    public function edit(SiteSettings $setting)
     {
         return Inertia::render('Setting/Edit', [
             'setting' => $setting,
@@ -74,22 +80,27 @@ class SettingController extends Controller
     }
 
     //setting.update
-    public function update(Request $request, Setting $setting)
+    public function update(Request $request, SiteSettings $siteSetting): SiteSettings
     {
-        $setting->update($request->validate([
-            'name' => 'required',
-            'value' => 'required',
-        ]));
-        return redirect()->back();
+        $data = $request->validate([
+            'siteSetting.name' => 'required|string',
+            'siteSetting.value' => 'required',
+        ])['siteSetting'];
+
+
+        $siteSetting->update($data);
+
+
+        return $siteSetting;
     }
 
     //setting.destroy
 
     /**
-     * @param Setting $setting
+     * @param SiteSettings $setting
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Setting $setting)
+    public function destroy(SiteSettings $setting)
     {
         $setting->delete();
         return redirect()->back();

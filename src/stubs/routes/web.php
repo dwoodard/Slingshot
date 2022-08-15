@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\PasswordController;
-use App\Models\SiteSettings;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use Inertia\Inertia;
@@ -45,15 +44,12 @@ Route::put('/user/profile-information', [\App\Http\Controllers\ProfileInformatio
     ->middleware(['auth'])
     ->name('user-profile-information.update');
 
-
-
 //Home
 Route::get('/',  function(){
     // if site settings
     //    if(Setting::config()->get('site.default_route') !== '') {
     //         return redirect(Setting::config()->get('site.default_route'));
     //    }
-
 
     return Inertia::render('Home', [
         'laravelVersion' => \Illuminate\Foundation\Application::VERSION,
@@ -62,8 +58,7 @@ Route::get('/',  function(){
 })
 ->name('home');
 
-
-
+//Profile
 Route::get('/profile', function (){
     return Inertia::render('profile/Show', []);
 })

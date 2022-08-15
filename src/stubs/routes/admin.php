@@ -31,6 +31,9 @@ Route::group(['as'=>'admin.','middleware' => ['web','role:admin']], function(){
     //settings
     Route::resource('site-settings', 'Admin\SiteSettingController');
 
+    Route::resource('schema', 'Admin\SchemaController');
+
+
 });
 
 

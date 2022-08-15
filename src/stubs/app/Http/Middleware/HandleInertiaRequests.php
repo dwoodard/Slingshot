@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Http\Resources\UserResource;
+use App\Models\Schema;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -41,7 +42,7 @@ class HandleInertiaRequests extends Middleware
             'auth.user' => $request->user() ? (new UserResource($request->user())) : null,
             'token' => csrf_token(),
             'menus' => \App\Models\Menu::all()->toArray(),
-            'siteSettings' => \App\Models\SiteSettings::groups()->toArray(),
+//            'siteSettings' => Schema::where('name', 'settings')->firstorfail()->model,
         ]);
     }
 }

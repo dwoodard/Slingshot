@@ -7,11 +7,9 @@ import VueMeta from 'vue-meta';
 import vuetify from '@/plugins/vuetify'
 import Layout from '@/layouts/Layout';
 
+// https://github.com/koumoul-dev/vuetify-jsonschema-form/issues/89#issuecomment-632694855
 import VJsf from '@koumoul/vjsf';
 import '@koumoul/vjsf/dist/main.css';
-// load third-party dependencies (markdown-it, vuedraggable)
-// you can also load them separately based on your needs
-//import '@koumoul/vjsf/dist/third-party.js'
 import Draggable from 'vuedraggable'
 const _global = (typeof window !== 'undefined' && window) || (typeof global !== 'undefined' && global) || {}
 _global.markdownit = require('markdown-it')
