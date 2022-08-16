@@ -8,7 +8,7 @@
           </v-card-title>
 
           <v-row class="pa-4">
-            <v-col sm="12" md="6">
+            <v-col sm="12" md="8">
               <SettingsSchema :schema="schema"/>
             </v-col>
           </v-row>

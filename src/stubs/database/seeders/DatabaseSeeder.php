@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         UserSeeder::run();
         PageSeeder::run();
+
         MenuSeeder::run();
     }
 }

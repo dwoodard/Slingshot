@@ -25,7 +25,6 @@ class PageSeeder extends Seeder
 
 
         // loop through data and create pages
-
         foreach($pages as $page){
             \App\Models\Page::create($page);
         }

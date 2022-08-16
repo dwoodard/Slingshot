@@ -62,10 +62,11 @@ class SchemaController extends Controller
     public function update(Request $request, Schema $schema)
     {
         $data = $request->validate([
-            'name' => '',
-            'model' => '',
-            'options' => '',
-            'schema' => '',
+            'id' => 'required|integer',
+            'name' => 'string',
+            'model' => 'array',
+            'options' => 'array',
+            'schema' => 'array',
         ]);
 
         $schema->update($data);

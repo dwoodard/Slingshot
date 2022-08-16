@@ -66,15 +66,15 @@
                   const comps = editor.DomComponents.clear();
                 }
               }
+            },
+            {
+              id: 'save',
+              run(editor, senderBtn) {
+                sender.set('active', false);
+                saveHtmlToList(editor);
+              },
+              stop(editor, senderBtn) {}
             }
-            // {
-            //   id: 'save',
-            //   run(editor, senderBtn) {
-            //     sender.set('active', false);
-            //     saveHtmlToList(editor);
-            //   },
-            //   stop(editor, senderBtn) {}
-            // }
           ]
         },
 

@@ -1,6 +1,7 @@
 <?php
 
 
+use Database\Seeders\SchemaSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema as SchemaAlias;
@@ -15,25 +16,7 @@ class SeedSchemas extends Migration
      */
     public function up()
     {
-
-        Schema::create([
-            'name' => 'settings',
-
-            'model' => [
-                "general" => [
-                    "siteTitle" => "Project from db",
-                    "defaultPage" => "home-db",
-                ],
-
-                "layouts" => [
-                    "template" => "default"
-                ],
-
-
-            ],
-            // 'options' => [],
-            // 'schema' => [],
-        ]);
+        SchemaSeeder::run();
     }
 
     /**

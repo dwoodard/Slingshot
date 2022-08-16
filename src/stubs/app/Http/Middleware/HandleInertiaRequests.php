@@ -42,7 +42,7 @@ class HandleInertiaRequests extends Middleware
             'auth.user' => $request->user() ? (new UserResource($request->user())) : null,
             'token' => csrf_token(),
             'menus' => \App\Models\Menu::all()->toArray(),
-//            'siteSettings' => Schema::where('name', 'settings')->firstorfail()->model,
+//            'siteSettings' => Schema::where('name', 'settings')->first()->model,
         ]);
     }
 }
