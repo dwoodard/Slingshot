@@ -1,7 +1,7 @@
 <template>
   <v-form v-model="valid" @submit.prevent="submit">
     <v-toolbar color="primary" class="d-flex justify-end">
-      <v-btn  type="submit">Save</v-btn>
+      <v-btn type="submit">Save</v-btn>
     </v-toolbar>
 
     <v-jsf v-model="modelLocal" :schema="schemaLocal" :options="optionsLocal"/>
@@ -22,15 +22,18 @@
     <v-snackbar v-model="snackbar" :timeout="1000" bottom>
       {{ snackbarMessage }}
     </v-snackbar>
-
   </v-form>
 </template>
 <script>
-
+  import axios from 'axios';
 
   export default {
     props: {
-      schema: Object
+      schema: {
+        type: Object,
+        required: true
+      }
+
     },
     data() {
       return {
@@ -52,10 +55,10 @@
           options: this.optionsLocal,
           schema: this.schemaLocal
         })
-            .then(response => {
-              this.snackbar = true;
-              this.snackbarMessage = 'Settings saved';
-            });
+          .then((response) => {
+            this.snackbar = true;
+            this.snackbarMessage = 'Settings saved';
+          });
       }
     }
   };

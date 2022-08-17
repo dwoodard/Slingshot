@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-app-bar>
+    <v-app-bar color="primary">
       <v-toolbar-title>Users</v-toolbar-title>
       <v-spacer/>
       <v-tooltip bottom>

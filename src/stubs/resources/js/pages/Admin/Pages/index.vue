@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-app-bar>
+    <v-app-bar color="primary">
       <v-toolbar-title>Pages</v-toolbar-title>
       <v-spacer/>
       <v-tooltip bottom>
@@ -43,6 +43,7 @@
           v-model="searchPages"
           label="Search"
           clearable
+          prepend-icon="mdi-magnify"
           class="mx-4"/>
       </template>
 

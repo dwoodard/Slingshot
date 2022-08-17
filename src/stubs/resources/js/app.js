@@ -33,7 +33,9 @@ const app = document.getElementById('app');
 new Vue({
   vuetify,
   metaInfo: {
-    titleTemplate: (title) => (title ? ` - PROJECT` : 'PROJECT')
+    titleTemplate: function (title) {
+      return JSON.parse(app.dataset.page).props.siteSettings.general.siteTitle
+    }
   },
   render: (h) => h(InertiaApp, {
     props: {

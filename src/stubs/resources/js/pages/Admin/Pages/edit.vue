@@ -70,13 +70,13 @@
 
     <GrapesEditor :source="page.source" @save="onSave"/>
 
-    <v-snackbar v-model="savedSnackBar">
+    <v-snackbar v-model="savedSnackBar" :timeout="1000">
       Page Saved
-      <template #action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="savedSnackBar = false">
-          Close
-        </v-btn>
-      </template>
+      <!--      <template #action="{ attrs }">-->
+      <!--        <v-btn text v-bind="attrs" @click="savedSnackBar = false">-->
+      <!--          Close-->
+      <!--        </v-btn>-->
+      <!--      </template>-->
     </v-snackbar>
   </v-container>
 </template>

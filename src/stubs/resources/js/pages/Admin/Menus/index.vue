@@ -1,5 +1,9 @@
 <template>
   <v-container fluid>
+    <v-toolbar color="primary">
+      <v-toolbar-title>Menus</v-toolbar-title>
+    </v-toolbar>
+
     <v-toolbar class="mb-3" dense elevation="1">
       <v-toolbar-items>
         <v-select

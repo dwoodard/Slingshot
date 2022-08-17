@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title class="primary white--text text-h5">
+          <v-card-title class="primary">
             SEO Builder
           </v-card-title>
 
@@ -48,6 +48,9 @@
 
   export default {
     layout: Admin,
+    metaInfo: {
+      title: 'SEO Builder'
+    },
     props: {
       menus: {
         type: Array

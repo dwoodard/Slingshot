@@ -3,12 +3,12 @@
     <v-row>
       <v-col sm="12">
         <v-card>
-          <v-card-title class="primary white--text text-h5">
+          <v-card-title class="primary">
             Site Settings
           </v-card-title>
 
           <v-row class="pa-4">
-            <v-col sm="12" md="8">
+            <v-col sm="12" md="6">
               <SettingsSchema :schema="schema"/>
             </v-col>
           </v-row>
@@ -19,17 +19,17 @@
 </template>
 
 <script>
-
-
-  import Admin from "@/layouts/Admin/Layout";
-  import SettingsSchema from "@/schemas/SettingsSchema";
-
+  import Admin from '@/layouts/Admin/Layout';
+  import SettingsSchema from '@/schemas/SettingsSchema';
 
   export default {
-    "components": {SettingsSchema},
-    "layout": Admin,
-    props: {
-      schema: Object,
+    metaInfo: {
+      title: 'Site Settings'
     },
+    props: {
+      schema: Object
+    },
+    components: {SettingsSchema},
+    layout: Admin
   };
 </script>
