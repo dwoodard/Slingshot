@@ -71,6 +71,11 @@
             icon: 'mdi-microsoft-xbox-controller-menu'
           },
           {
+            title: 'Forms',
+            link: '/admin/forms',
+            icon: 'mdi-form-textbox'
+          },
+          {
             title: 'SEO',
             link: '/admin/seo',
             icon: 'mdi-file-find'

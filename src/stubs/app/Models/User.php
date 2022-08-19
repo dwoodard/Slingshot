@@ -70,7 +70,12 @@ class User extends Authenticatable
 
     public function getIsAdminAttribute()
     {
-        return $this->roles()->get()->contains('name', '=','admin');
+        return $this->hasRole('superadmin') || $this->hasRole('admin');
+    }
+
+    public function getIsSuperAdminAttribute()
+    {
+        return $this->hasRole('superadmin');
     }
 
 }

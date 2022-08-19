@@ -103,6 +103,8 @@
               clear-icon="mdi-close"
               :error-messages="form.errors.roles"
               :items="roles"
+              item-value="id"
+              item-text="name"
               multiple
               label="Roles"/>
           </v-card-text>
@@ -123,12 +125,10 @@
   import ActionMessage from '@/components/ActionMessage';
 
   export default {
-    props: ['user'],
+    props: ['user', 'roles'],
     data() {
       return {
-        roles: ['admin', 'user'],
         form: this.$inertia.form({...this.user.data})
-
       };
     },
     methods: {

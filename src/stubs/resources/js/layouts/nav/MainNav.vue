@@ -42,7 +42,7 @@
         const items = this.$page.props.menus?.find((menu) => menu.location === 'header')?.items;
 
         return items?.filter((item) => {
-          if (item.admin && !this.isAdmin) {
+          if (item.admin && (!this.isAdmin)) {
             return false;
           }
 
@@ -52,6 +52,7 @@
       hasAuthUser() {
         return this.$page.props?.auth.user;
       },
+
       isAdmin() {
         return this.$page.props?.auth.user?.data?.isAdmin;
       }

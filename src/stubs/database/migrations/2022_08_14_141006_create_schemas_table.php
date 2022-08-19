@@ -16,12 +16,11 @@ class CreateSchemasTable extends Migration
         Schema::create('schemas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('system')->default(false);
             $table->json('options')->nullable();
             $table->json('schema')->nullable();
             $table->json('model')->nullable();
         });
-
-
     }
 
     /**

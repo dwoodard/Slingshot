@@ -27,30 +27,29 @@
               <v-card-text>
                 Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
 
-
                 <v-text-field
-                    ref="password"
-                    v-model="form.password"
-                    :error-messages="form.errors.password"
-                    label="Password"
-                    type="password"
-                    autocomplete="password"
-                    @keyup.enter.native="deleteUser"/>
+                  ref="password"
+                  v-model="form.password"
+                  :error-messages="form.errors.password"
+                  label="Password"
+                  type="password"
+                  autocomplete="password"
+                  @keyup.enter.native="deleteUser"/>
               </v-card-text>
 
               <v-card-actions>
                 <v-spacer/>
 
                 <v-btn
-                    text
-                    @click.native="closeModal">
+                  text
+                  @click.native="closeModal">
                   Nevermind
                 </v-btn>
 
                 <v-btn
-                    color="green darken-1"
-                    text
-                    @click.native="deleteUser">
+                  color="green darken-1"
+                  text
+                  @click.native="deleteUser">
                   Delete Account
                 </v-btn>
               </v-card-actions>
@@ -63,42 +62,40 @@
 </template>
 
 <script>
-export default {
+  export default {
 
-  data() {
-    return {
-      confirmingUserDeletion: false,
+    data() {
+      return {
+        confirmingUserDeletion: false,
 
-      form: this.$inertia.form({
-        password: ''
-      })
-    };
-  },
-
-  methods: {
-    confirmUserDeletion() {
-      this.confirmingUserDeletion = true;
-
-      setTimeout(() => this.$refs.password.focus(), 250);
+        form: this.$inertia.form({
+          password: ''
+        })
+      };
     },
 
-    deleteUser() {
-      this.form.delete(route('current-user.destroy'), {
-        preserveScroll: true,
-        onSuccess: () => this.closeModal(),
-        onError: () => this.$refs.password.focus(),
-        onFinish: () => this.form.reset()
-      });
+    methods: {
+      confirmUserDeletion() {
+        this.confirmingUserDeletion = true;
+
+        setTimeout(() => this.$refs.password.focus(), 250);
+      },
+
+      deleteUser() {
+        this.form.delete(route('current-user.destroy'), {
+          preserveScroll: true,
+          onSuccess: () => this.closeModal(),
+          onError: () => this.$refs.password.focus(),
+          onFinish: () => this.form.reset()
+        });
+      },
+
+      closeModal() {
+        this.confirmingUserDeletion = false;
+
+        this.form.reset();
+      }
     },
-
-    closeModal() {
-      this.confirmingUserDeletion = false;
-
-      this.form.reset();
-    }
-  },
-  components: {
-
-  }
-};
+    components: {}
+  };
 </script>

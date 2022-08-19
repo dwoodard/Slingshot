@@ -7,7 +7,7 @@
             Site Settings
           </v-card-title>
 
-          <v-row class="pa-4">
+          <v-row class="pa-3">
             <v-col sm="12" md="6">
               <SettingsSchema :schema="schema"/>
             </v-col>

@@ -13,21 +13,24 @@ use Illuminate\Validation\Rule;
 use Inertia\Controller;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    public function index(Request $request):Response
+    public function index(Request $request): Response
     {
         $data = [
-            'users' => UserResource::collection(User::all())
+            'users' => $this->getUsers()
         ];
 
         return Inertia::render('Admin/Users/index', $data);
     }
 
-    public function edit(User $user):Response
+    public function edit(User $user): Response
     {
+
         $data = [
+            'roles' => $this->showAllRolesUserCanAssign(),
             'user' => UserResource::make($user)
         ];
 
@@ -37,7 +40,7 @@ class UserController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'email' => ['required','email', Rule::unique('users')->ignore($request->id)],
+            'email' => ['required', 'email', Rule::unique('users')->ignore($request->id)],
             'username' => 'required|min:3',
             'password' => 'required|min:8',
             'role' => 'required|exists:roles,name'
@@ -75,6 +78,38 @@ class UserController extends Controller
     {
         $user->delete();
         return Redirect::back();
+    }
+
+    private function showAllRolesUserCanAssign()
+    {
+        // Get all roles that the user can assign
+        // if the user is a superadmin, they can assign all roles
+        // if the user is a normal admin, they can assign all roles except superadmin
+
+        if (Auth::user()->hasRole('superadmin')) {
+            return Role::all();
+        }
+        return Role::where('name', '!=', 'superadmin')->get();
+
+    }
+
+    /**
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    private function getUsers(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        // get all users except the current user
+        // if not superadmin, filter out the superadmin
+
+        $users = User::all();
+
+        if (!Auth::user()->hasRole('superadmin')) {
+            $users = $users->reject(function ($user) {
+                return $user->hasRole('superadmin');
+            });
+        }
+
+        return UserResource::collection($users);
     }
 
 }

@@ -4,7 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['as'=>'admin.','middleware' => ['web','role:admin']], function(){
+Route::group(['as'=>'admin.','middleware' => ['web','role:admin|superadmin']], function(){
 
     //Default route for admin
     Route::get('/', function (){return Redirect::route('admin.pages');})->name('index');
@@ -25,13 +25,19 @@ Route::group(['as'=>'admin.','middleware' => ['web','role:admin']], function(){
     Route::post('/menus', [AdminController::class, 'menusCreate'])->name('menu.create');
     Route::put('/menus/{id}', [AdminController::class, 'menusSave'])->name('menu.save');
 
+    //schemas
+    Route::resource('schemas', 'Admin\SchemaController');
+    // alias route for schema.index
+    Route::get('/forms', [\App\Http\Controllers\Admin\SchemaController::class, 'index']);
+
+
     //seo
     Route::get('/seo', [AdminController::class, 'seo'])->name('seo');
 
     //settings
     Route::resource('site-settings', 'Admin\SiteSettingController');
 
-    Route::resource('schema', 'Admin\SchemaController');
+
 
 
 });

@@ -5,17 +5,24 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Schema;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class SchemaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
+
+        $data = [
+            'schemas' => $this->getSchemas()->values()
+        ];
+
+        return Inertia::render('Admin/Forms', $data);
     }
 
     /**
@@ -31,26 +38,33 @@ class SchemaController extends Controller
 
     public function store(Request $request)
     {
-        // create the schema
-        $schema = Schema::create($request->validated());
-        return redirect()->back()->with('success', 'Schema created');
+        $data = [
+            'schema' => Schema::create(
+                $request->validate([
+                    'name' => 'required|string|unique:schemas,name',
+                    'system' => 'boolean',
+                ])
+            )
+        ];
+
+        return Redirect::back()->with($data);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Schema  $schema
+     * @param \App\Models\Schema $schema
      * @return \Illuminate\Http\Response
      */
     public function show(Schema $schema)
     {
-        //
+        return $schema;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Schema  $schema
+     * @param \App\Models\Schema $schema
      * @return \Illuminate\Http\Response
      */
     public function edit(Schema $schema)
@@ -76,11 +90,32 @@ class SchemaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Schema  $schema
+     * @param \App\Models\Schema $schema
      * @return \Illuminate\Http\Response
      */
     public function destroy(Schema $schema)
     {
         //
+    }
+    /**
+     * Get all schemas.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function getSchemas()
+    {
+        // if the user is a superadmin, show all schemas
+        // if the user is an admin show only the schemas that are not system
+        // if the user is a normal user they cant see any schemas
+
+        $data = Schema::orderBy('system', 'desc')->exclude(['model'])
+            ->when(auth()->user()->hasRole('superadmin'), function ($schemas) {
+                return $schemas;
+            })
+            ->when(auth()->user()->hasRole('admin'), function ($schemas) {
+                return $schemas->where('system', false);
+            })->get();
+
+        return $data;
     }
 }
