@@ -10,112 +10,120 @@ use Inertia\Inertia;
 
 class SchemaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Inertia\Response
-     */
-    public function index()
-    {
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Inertia\Response
+   */
+  public function index()
+  {
 
-        $data = [
-            'schemas' => $this->getSchemas()->values()
-        ];
+    $data = [
+      'schemas' => $this->getSchemas()->values()
+    ];
 
-        return Inertia::render('Admin/Forms', $data);
-    }
+    return Inertia::render('Admin/Forms', $data);
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
-    public function store(Request $request)
-    {
-        $data = [
-            'schema' => Schema::create(
-                $request->validate([
-                    'name' => 'required|string|unique:schemas,name',
-                    'system' => 'boolean',
-                ])
-            )
-        ];
-
-        return Redirect::back()->with($data);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Schema $schema
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Schema $schema)
-    {
-        return $schema;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Schema $schema
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Schema $schema)
-    {
-        //
-    }
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+    //
+  }
 
 
-    public function update(Request $request, Schema $schema)
-    {
-        $data = $request->validate([
-            'id' => 'required|integer',
-            'name' => 'string',
-            'model' => 'array',
-            'options' => 'array',
-            'schema' => 'array',
-        ]);
+  public function store(Request $request)
+  {
 
-        $schema->update($data);
-        return $data;
-    }
+    $id = Schema::create(
+      $request->validate([
+        'name' => 'required|string|unique:schemas,name',
+        'system' => 'boolean',
+        'model' => '',
+        'schema' => '',
+        'options' => '',
+      ])
+    )->id;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Schema $schema
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Schema $schema)
-    {
-        //
-    }
-    /**
-     * Get all schemas.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    private function getSchemas()
-    {
-        // if the user is a superadmin, show all schemas
-        // if the user is an admin show only the schemas that are not system
-        // if the user is a normal user they cant see any schemas
 
-        $data = Schema::orderBy('system', 'desc')->exclude(['model'])
-            ->when(auth()->user()->hasRole('superadmin'), function ($schemas) {
-                return $schemas;
-            })
-            ->when(auth()->user()->hasRole('admin'), function ($schemas) {
-                return $schemas->where('system', false);
-            })->get();
+    return Redirect::back()->with([
+      'success' => 'Schema created successfully',
+      'schema' => Schema::find($id)
+    ]);
+  }
 
-        return $data;
-    }
+  /**
+   * Display the specified resource.
+   *
+   * @param \App\Models\Schema $schema
+   * @return \Illuminate\Http\Response
+   */
+  public function show(Schema $schema)
+  {
+    return $schema;
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param \App\Models\Schema $schema
+   * @return \Illuminate\Http\Response
+   */
+  public function edit(Schema $schema)
+  {
+    //
+  }
+
+
+  public function update(Request $request, Schema $schema)
+  {
+
+    $data = $request->validate([
+      'id' => 'required|integer',
+      'name' => 'string',
+      'model' => 'nullable|array',
+      'options' => 'array',
+      'schema' => 'array',
+    ]);
+
+    $schema->update($data);
+    return $data;
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param \App\Models\Schema $schema
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(Schema $schema)
+  {
+    //
+  }
+
+  /**
+   * Get all schemas.
+   *
+   * @return \Illuminate\Database\Eloquent\Collection
+   */
+  private function getSchemas()
+  {
+    // if the user is a superadmin, show all schemas
+    // if the user is an admin show only the schemas that are not system
+    // if the user is a normal user they cant see any schemas
+
+    $data = Schema::orderBy('system', 'desc')->exclude(['model'])
+      ->when(auth()->user()->hasRole('superadmin'), function ($schemas) {
+        return $schemas;
+      })
+      ->when(auth()->user()->hasRole('admin'), function ($schemas) {
+        return $schemas->where('system', false);
+      })->get();
+
+    return $data;
+  }
 }

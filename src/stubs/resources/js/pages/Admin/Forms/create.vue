@@ -15,7 +15,6 @@
             label="Name"
             required/>
         </v-card-text>
-
         <v-card-actions>
           <v-btn color="primary" text @click.stop="show=false">Close</v-btn>
           <v-spacer/>
@@ -35,7 +34,10 @@
       return {
         form: this.$inertia.form({
           name: '',
-          system: false
+          system: false,
+          model: {},
+          options: {},
+          schema: {}
         })
       };
     },
@@ -57,16 +59,16 @@
     },
     methods: {
       submit() {
-        this.form.post(`/admin/schemas`, {
-          onSuccess: (response) => {
-            this.$emit('submit', response.data);
-
-            console.log('data should update ', response.data);
-            this.form.reset();
-            this.show = false;
-          },
-          onFinish: () => {}
-        });
+        this.form
+          .post(`/admin/schemas`, {
+            onSuccess: (response) => {
+              console.log('forms create', response);
+              this.$emit('submit', response.data);
+              this.form.reset();
+              this.show = false;
+            },
+            onFinish: () => {}
+          });
       }
     }
 

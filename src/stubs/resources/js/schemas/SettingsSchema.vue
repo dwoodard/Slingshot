@@ -5,20 +5,6 @@
     </v-toolbar>
 
     <v-jsf v-model="modelLocal" :schema="schemaLocal" :options="optionsLocal"/>
-
-    <!--    <v-card class="pa-3">-->
-    <!--      <v-card-title>Props</v-card-title>-->
-    <!--      <v-card-text>-->
-    <!--        <pre>{{ $props }}</pre>-->
-    <!--      </v-card-text>-->
-    <!--    </v-card>-->
-
-    <!--    <v-card class="pa-3">-->
-    <!--      <v-card-title>Data</v-card-title>-->
-    <!--      <v-card-text>-->
-    <!--        <pre>{{ $data }}</pre>-->
-    <!--      </v-card-text>-->
-    <!--    </v-card>-->
     <v-snackbar v-model="snackbar" :timeout="1000" bottom>
       {{ snackbarMessage }}
     </v-snackbar>

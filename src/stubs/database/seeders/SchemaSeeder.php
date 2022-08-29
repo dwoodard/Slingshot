@@ -21,6 +21,7 @@ class SchemaSeeder extends Seeder
         foreach($data as $item){
             \App\Models\Schema::create([
                 'name' => $item['name'],
+                'system' => $item['system'],
                 'options' => json_decode($item['options']),
                 'schema' => json_decode($item['schema']),
                 'model' => json_decode($item['model']),

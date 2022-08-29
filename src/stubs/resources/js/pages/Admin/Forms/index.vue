@@ -14,19 +14,16 @@
         <span>Add Form</span>
       </v-tooltip>
 
-      <ShowCreateForm v-model="showCreateForm" @submit="addSchema"/>
+      <ShowCreateForm v-model="showCreateForm" @submit="updateForms"/>
     </v-toolbar>
     <v-sheet>
-      <v-row>
-        <v-col sm="12" md="3">
+      <v-row no-gutters>
+        <v-col sm="12" md="2">
           <v-text-field v-model="search"
                         clearable
                         label="Search Forms"
                         append-icon="mdi-magnify"
-                        class="mx-4"
-                        @click="search=''"
-                        @keyup.enter="searchForms"/>
-
+                        class="mx-4"/>
 
           <v-list dense>
             <v-list-item-group v-model="selectedForm">
@@ -39,10 +36,8 @@
         </v-col>
         <v-divider vertical/>
 
-        <v-col sm="8">
-          <div>
-            {{ formsLocal[selectedForm] }}
-          </div>
+        <v-col sm="12" md="10">
+          <VjsfEditor :schema="formsLocalFilter[selectedForm]"/>
         </v-col>
       </v-row>
     </v-sheet>
@@ -54,6 +49,7 @@
   import {toTitleCase} from '@/helper';
   import Admin from '@/layouts/Admin/Layout';
   import ShowCreateForm from '@/pages/Admin/Forms/create';
+  import VjsfEditor from '@/components/VjsfEditor/VjsfEditor';
 
   export default {
     props: {
@@ -67,28 +63,30 @@
         showCreateForm: false,
         formsLocal: this.schemas,
         search: '',
-        selectedForm: null
+        selectedForm: 0
       };
     },
     computed: {
       formsLocalFilter() {
+        if (this.search === '' || this.search === null) {
+          return this.formsLocal;
+        }
+
         return this.formsLocal.filter((form) => {
-          return form.name?.toLowerCase().includes(this.search?.toLowerCase());
+          return form.name.toLowerCase().includes(this.search.toLowerCase());
         });
       }
     },
     methods: {
       toTitleCase,
-      addSchema(schema) {
-        this.formsLocal.push(schema);
-        this.showCreateForm = false;
+      updateForms() {
+        this.formsLocal = this.schemas;
       }
     },
     layout: Admin,
-    components: {ShowCreateForm}
+    components: {
+      VjsfEditor,
+      ShowCreateForm
+    }
   };
 </script>
-
-<style scoped>
-
-</style>

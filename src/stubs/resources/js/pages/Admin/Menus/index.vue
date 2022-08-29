@@ -23,7 +23,7 @@
           <v-card-title>Menu <span v-if="selectedMenu"> ({{ selectedMenu?.title }})</span></v-card-title>
 
           <v-card-text>
-            <v-toolbar class="mb-2" color="primary" dark>
+            <v-toolbar class="mb-2" color="primary">
               <v-toolbar-title>Items</v-toolbar-title>
               <v-spacer/>
               <v-tooltip v-if="!editing" bottom>
