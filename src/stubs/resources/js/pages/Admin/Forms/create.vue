@@ -36,8 +36,8 @@
           name: '',
           system: false,
           model: {},
-          options: {},
-          schema: {}
+          options: null,
+          schema: null
         })
       };
     },

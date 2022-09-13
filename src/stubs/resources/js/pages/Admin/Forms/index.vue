@@ -37,7 +37,7 @@
         <v-divider vertical/>
 
         <v-col sm="12" md="10">
-          <VjsfEditor :schema="formsLocalFilter[selectedForm]"/>
+          <VjsfEditor v-if="formsLocalFilter[selectedForm]" :schema="formsLocalFilter[selectedForm]"/>
         </v-col>
       </v-row>
     </v-sheet>

@@ -34,7 +34,7 @@ new Vue({
   vuetify,
   metaInfo: {
     titleTemplate: function (title) {
-      return JSON.parse(app.dataset.page).props.siteSettings.general.siteTitle
+      return JSON.parse(app.dataset.page).props?.siteSettings?.general?.siteTitle
     }
   },
   render: (h) => h(InertiaApp, {

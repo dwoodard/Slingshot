@@ -12,6 +12,15 @@ export const pascalToTitleCase = (str) => {
   return str.replace(/([A-Z])/g, ' $1').replace(/^\s/, '');
 };
 
+export const isValidJson = (str) => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
+
 // eslint-disable-next-line no-extend-native
 String.prototype.toTitleCase = function () {
   return this.split(' ')
