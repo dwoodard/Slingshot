@@ -108,29 +108,29 @@ fi
 
 #check composer packages are installed
 if [ ! -d "vendor" ]; then
-  docker exec -it laradock_workspace_1 sh -c 'composer -n install;'
+  docker exec -it laradock-workspace-1 sh -c 'composer -n install;'
 else
   echo 'composer was installed'
 fi
 
 # check if .env set
 if [ ! -f ".env" ]; then
-  docker exec -it laradock_workspace_1 sh -c "php artisan key:generate"
+  docker exec -it laradock-workspace-1 sh -c "php artisan key:generate"
 fi
 
 #check npm packages are installed
 if [ ! -d "node_modules" ]; then
   echo 'No dependencies installed. Trying to run npm install.'
-  docker exec -it laradock_workspace_1 sh -c "npm install"
+  docker exec -it laradock-workspace-1 sh -c "npm install"
 else
   echo 'npm was installed'
 fi
 
 #run migrations
 if [ ${1:-1} == 'fresh' ]; then
-  docker exec -it laradock_workspace_1 sh -c "php artisan migrate:fresh"
+  docker exec -it laradock-workspace-1 sh -c "php artisan migrate:fresh"
 else
-  docker exec -it laradock_workspace_1 sh -c "php artisan migrate"
+  docker exec -it laradock-workspace-1 sh -c "php artisan migrate"
 fi
 
 $SHELL
