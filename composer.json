@@ -16,7 +16,7 @@
     ],
     "require": {
         "laravel/ui": "^3.3",
-        "inertiajs/inertia-laravel": "^0.4.2",
+        "inertiajs/inertia-laravel": "^0.4.5",
         "wulfheart/pretty_routes": "^0.3.0",
         "silviolleite/laravelpwa": "~2.0.3",
         "spatie/laravel-schemaless-attributes": "^1.8",
