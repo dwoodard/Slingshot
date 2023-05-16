@@ -17,10 +17,10 @@
     "require": {
         "inertiajs/inertia-laravel": "dev-master",
         "wulfheart/pretty_routes": "dev-master",
-        "silviolleite/laravelpwa": "dev-master",
-        "spatie/laravel-schemaless-attributes": "dev-master",
-        "spatie/laravel-permission": "dev-master",
-        "tightenco/ziggy": "dev-master"
+        "silviolleite/laravelpwa": "~2.0.3",
+        "spatie/laravel-schemaless-attributes": "^1.8",
+        "spatie/laravel-permission": "^4.2",
+        "tightenco/ziggy": "^1.2"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",
